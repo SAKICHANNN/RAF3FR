@@ -11,6 +11,7 @@ dependencies = ["numpy>=2.0", "scipy>=1.13,<2"]
 
 [project.optional-dependencies]
 lens = ["opencv-python-headless>=4.10"]
+test = ["pytest>=8,<9"]
 
 [project.scripts]
 raf2hncs = "raf2hncs.cli:main"

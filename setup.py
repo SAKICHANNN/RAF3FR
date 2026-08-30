@@ -11,7 +11,10 @@ setup(
     packages=find_packages("src"),
     python_requires=">=3.9",
     install_requires=["numpy>=2.0", "scipy>=1.13,<2"],
-    extras_require={"lens": ["opencv-python-headless>=4.10"]},
+    extras_require={
+        "lens": ["opencv-python-headless>=4.10"],
+        "test": ["pytest>=8,<9"],
+    },
     entry_points={
         "console_scripts": [
             "raf2hncs=raf2hncs.cli:main",
