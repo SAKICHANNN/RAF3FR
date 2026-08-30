@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "scope": "Mechanical active-lattice regression across the admitted normal-scene set",
+  "method": {
+    "donor_sha256": "dcc5a4abe3498e6f25e89bb491995fd12c3b669d9277c71b45b49210d3e56280",
+    "mapping": "active_lattice_1_to_1",
+    "source_area": [0, 0, 11664, 8750],
+    "target_area": [124, 92, 11664, 8750],
+    "white_balance": "auto",
+    "inverse_x2d_calibration": true,
+    "output_black": 4096,
+    "output_white": 65535,
+    "temporary_outputs_retained": false
+  },
+  "results": [
+    {"alias": "gfx100rf-structure-002", "file": "DSCF1945.RAF", "iso": 1250, "output_sha256": "37dbd4f9ab187df90f6216268982322af0f9b242a823ea345fb620d7b5345fc2", "min": 4096, "max": 65535, "at_black": 1030, "at_white": 14},
+    {"alias": "gfx100rf-structure-003", "file": "DSCF1995.RAF", "iso": 8000, "output_sha256": "77babc554514c03da1c16cb48aad04f7a1d701f339ceb5c78a157b7e9561b7f0", "min": 4096, "max": 65533, "at_black": 281737, "at_white": 0},
+    {"alias": "gfx100rf-structure-004", "file": "DSCF2009.RAF", "iso": 1000, "output_sha256": "8116fdeda0c9ff740e415cf20b1b86427685239fd7f6c2c634e1adf5f932dab5", "min": 4096, "max": 65535, "at_black": 4007, "at_white": 36},
+    {"alias": "gfx100rf-structure-005", "file": "DSCF2041.RAF", "iso": 640, "output_sha256": "09711d7eeafc7a09f628a9ff5d08d0cac0b77693948fd711630f9e78aa9e7af8", "min": 4096, "max": 65407, "at_black": 6409, "at_white": 0},
+    {"alias": "gfx100rf-structure-006", "file": "DSCF2048.RAF", "iso": 2500, "output_sha256": "9376ae2ecbbfc8972cd77fe067ab8b8147dc4231e2259aeebedaeb88d215f0cc", "min": 4096, "max": 65535, "at_black": 5834, "at_white": 51},
+    {"alias": "gfx100rf-structure-007", "file": "DSCF2098.RAF", "iso": 320, "output_sha256": "c413e4f142464eeb41b232d67345256b8cfd0b0f2fe60444bc01cb4ed45627a6", "min": 4096, "max": 24679, "at_black": 220491, "at_white": 0},
+    {"alias": "gfx100rf-structure-001", "file": "DSCF2166.RAF", "iso": 10000, "output_sha256": "762adb5c7522a82af6b89ac78c6fe8c40d6367091121240b2fe54961a1d97161", "min": 4096, "max": 65531, "at_black": 14432428, "at_white": 0}
+  ],
+  "summary": {
+    "files_attempted": 7,
+    "files_passed": 7,
+    "iso_range": [320, 10000],
+    "geometry_mismatches": 0,
+    "decoder_failures": 0,
+    "out_of_range_samples": 0,
+    "scenes_with_white_samples": 3,
+    "maximum_white_sample_count": 51
+  },
+  "claim_boundary": "Normal scenes test mechanical range and compatibility only; they do not replace dark, flat, ramp, chart, or paired-camera calibration captures."
+}

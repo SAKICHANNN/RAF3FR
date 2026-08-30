@@ -1,0 +1,14 @@
+.DS_Store
+.tools/
+samples/local/
+artifacts/local/
+build/
+dist/
+.build/
+.swiftpm/
+/native/target/
+*.egg-info/
+*.jks
+*.keystore
+*.p12
+*.pfx

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "scope": "Observed GFX100RF 11664x8750 RGGB active lattice into observed X2D 100C donor layout",
+  "producer": "tests/test_transplant.py",
+  "status": "PASS_SOFTWARE_INVARIANTS_REAL_CALIBRATION_CAPTURES_UNAVAILABLE",
+  "invariants": [
+    {
+      "name": "sub_black_and_per_cfa_black",
+      "expected": "every source code at or below its CFA black level maps to target black without unsigned wrap",
+      "test": "test_active_lattice_maps_per_channel_black_to_target_black"
+    },
+    {
+      "name": "white_endpoint",
+      "expected": "each CFA source white endpoint maps exactly to target white without overflow",
+      "test": "test_active_lattice_maps_source_white_exactly_without_overflow"
+    },
+    {
+      "name": "monotonic_ramp",
+      "expected": "mapped codes are monotonic and preserve exact black/white endpoints",
+      "test": "test_active_lattice_ramp_is_monotonic_with_exact_endpoints"
+    },
+    {
+      "name": "one_to_one_geometry",
+      "expected": "complete active lattice maps 1:1 with RGGB phase and donor margins unchanged",
+      "test": "test_active_lattice_maps_one_to_one_and_preserves_target_margins"
+    },
+    {
+      "name": "determinism",
+      "expected": "DSCF2098 full conversion repeats byte-identically",
+      "sha256": "8d7ac1af1260796d24fd9ff65270d7fcfabe87fa3d47482b248e3e2ea21dee18"
+    }
+  ],
+  "unavailable_real_targets": [
+    "lens-capped dark frames across ISO",
+    "uniform flat fields across aperture",
+    "controlled linear ramp target",
+    "matched ColorChecker captures"
+  ],
+  "claim_boundary": "Passes deterministic software/range invariants and seven natural-scene regressions; does not substitute synthetic tests for sensor dark/flat/chart characterization."
+}

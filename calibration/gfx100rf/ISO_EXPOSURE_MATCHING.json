@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-29",
+  "question": "Does Phocus darkness come from Fujifilm SOS to X2D ISO-number mapping, or from a per-capture rendering bias?",
+  "source_metadata": {
+    "fujifilm": {
+      "camera": "GFX100RF firmware 1.12",
+      "files_checked": 15,
+      "sensitivity_type": "Standard Output Sensitivity",
+      "standard_output_sensitivity_matches_iso": true,
+      "groups": [
+        {
+          "auto_dynamic_range_percent": 100,
+          "raw_exposure_bias_ev": -0.72,
+          "files": ["DSCF2009.RAF", "DSCF1583.RAF", "DSCF2048.RAF", "DSCF1995.RAF", "DSCF2256.RAF"]
+        },
+        {
+          "auto_dynamic_range_percent": 200,
+          "raw_exposure_bias_ev": -1.72,
+          "files": ["DSCF2098.RAF", "DSCF2041.RAF", "DSCF1584.RAF", "DSCF1945.RAF", "DSCF2434.RAF", "DSCF2253.RAF", "DSCF2252.RAF", "DSCF2166.RAF", "DSCF2254.RAF", "DSCF2255.RAF"]
+        }
+      ],
+      "same_iso_controls": [
+        {"iso": 1000, "dr100": "DSCF1583.RAF", "dr200": "DSCF1584.RAF", "bias_delta_ev": 1.0},
+        {"iso": 12800, "dr100": "DSCF2256.RAF", "dr200": "DSCF2254.RAF", "bias_delta_ev": 1.0}
+      ]
+    },
+    "x2d_100c": {
+      "files_checked": 4,
+      "observed_iso_values": [64, 100, 400],
+      "sensitivity_type_tag_present": false,
+      "standard_output_sensitivity_tag_present": false,
+      "claim": "The observed files do not declare whether Hasselblad catalog ISO is SOS, REI, or another ISO 12232 parameter."
+    }
+  },
+  "phocus_ab_control": {
+    "source": "DSCF2252.RAF",
+    "source_sha256": "b6a6ff9c703e5c147c37773aeded2e114e14a2906468e44b1d9d945032b3cd98",
+    "raw_payload_sha256_all_variants": "ccbda1700154247b105aa74b72aff37906a76b8247b1e3eed31daa9edad3bca7",
+    "raw_payload_bytes": 210510336,
+    "variants": [
+      {"name": "base", "iso": 6400, "baseline_exposure_ev": null, "phocus_brightness": "control"},
+      {"name": "iso12800", "iso": 12800, "baseline_exposure_ev": null, "phocus_brightness": "same as control"},
+      {"name": "iso25600", "iso": 25600, "baseline_exposure_ev": null, "phocus_brightness": "same as control"},
+      {"name": "baseline-plus1.72", "iso": 6400, "baseline_exposure_ev": 1.72, "phocus_brightness": "same as control"}
+    ],
+    "native_phocus_adjustment": {
+      "slider_ev": 1.72,
+      "sidecar_ev_multiplier": 3.2943640690702924,
+      "result": "Phocus rendered the expected brighter image without changing the 3FR RAW payload."
+    }
+  },
+  "decision": {
+    "iso_policy": "Keep X2D model ISO selection independent; never raise ISO to compensate rendering brightness.",
+    "default_exposure_policy": "Apply -RAF:RawExposureBias as a native Phocus sidecar exposure adjustment.",
+    "raw_policy": "Do not multiply, tone-map, or clip the linear RAW payload.",
+    "fallback": "If RawExposureBias is absent, use 0 EV and record the missing source.",
+    "user_override": "Preserve linear RAW writes a zero-EV clean Phocus sidecar."
+  },
+  "claim_boundary": "The metadata relationship is exact for the 15 admitted GFX100RF files and the Phocus 4.2.2 A/B control. It does not prove that the Fujifilm out-of-camera JPEG tone curve and Phocus HNCS rendering are otherwise identical."
+}

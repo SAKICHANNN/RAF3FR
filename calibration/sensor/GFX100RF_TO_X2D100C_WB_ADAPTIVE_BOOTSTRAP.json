@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "gfx100rf_to_x2d100c_wb_adaptive_bootstrap_v1",
+  "status": "experimental_bootstrap_not_paired_camera_calibrated",
+  "matrix_direction": "GFX100RF camera-native linear RGB to X2D 100C camera-native linear RGB",
+  "method": "Estimate CCT from the selected Fuji neutral while interpolating the GFX100RF Illuminant-A and D65 ColorMatrix values in reciprocal-temperature space; reconstruct the XYZ white, predict the X2D neutral with C_X2D_D65, and apply only the positive per-channel diagonal that maps the Fuji neutral to that target neutral.",
+  "illuminant_temperature_kelvin": {
+    "standard_light_a": 2856.0,
+    "d65": 6504.0
+  },
+  "gfx100rf_a_xyz_to_camera": [
+    [1.5656, -1.0088, 0.1263],
+    [-0.2871, 1.0498, 0.2752],
+    [0.0065, 0.0436, 0.6714]
+  ],
+  "gfx100rf_d65_xyz_to_camera": [
+    [1.2806, -0.5779, -0.1110],
+    [-0.3546, 1.1507, 0.2318],
+    [-0.0177, 0.0996, 0.5715]
+  ],
+  "x2d100c_d65_xyz_to_camera": [
+    [0.6468, -0.1899, -0.0545],
+    [-0.4526, 1.2267, 0.2542],
+    [-0.0388, 0.1276, 0.6096]
+  ],
+  "sources": {
+    "gfx100rf_a_d65": "Installed Adobe Lightroom Classic Adobe Standard DCP, independently read from ColorMatrix1/2 and CalibrationIlluminant1/2",
+    "gfx100rf_public_cross_check": "https://github.com/dnglab/dnglab/pull/548/files",
+    "x2d100c_d65": "https://github.com/dnglab/dnglab/pull/303/files"
+  },
+  "limitations": [
+    "X2D public characterization supplies D65 only, so the target matrix is not dual-illuminant",
+    "CCT estimation is bounded to Standard Light A through D65 and uses McCamy only as an interpolation selector",
+    "No matched GFX100RF/X2D chart captures are available",
+    "The positive diagonal intentionally repairs white-point alignment only; it does not perform a full cross-channel color correction",
+    "This repairs the known WB-domain mismatch but does not establish final HNCS color equivalence"
+  ]
+}

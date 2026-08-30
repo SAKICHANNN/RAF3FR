@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-29",
+  "trigger": "A DR200 ISO 10000 night scene converted with -161 percent physical extra vignetting showed dark rings around point lights.",
+  "root_cause": {
+    "producer": "fullplane_physical_negative_vignette v1 frequency split",
+    "derivation": "The old output was gain*blur(signal) + noise_scale*(signal-blur(signal)). Immediately outside a positive point impulse the residual is negative. Because noise_scale is greater than gain for 0<gain<1, the added term is (gain-noise_scale)*blur(signal), a deterministic negative halo.",
+    "not_leading_causes": [
+      "lateral CA profile offsets are below 0.00031 in the admitted RAF",
+      "the current sidecar USM amount is zero",
+      "the black ring exists in the RAW-domain physical-vignette construction before Phocus highlight recovery"
+    ]
+  },
+  "replacement": {
+    "mode": "fullplane_physical_negative_vignette_v2",
+    "photometry": "attenuate each CFA signal sample pointwise by radial gain",
+    "noise_variance_target": "gain*scene + read",
+    "added_variance": "gain*(1-gain)*scene + (1-gain^2)*read",
+    "noise_source": "deterministic independent PCG64 stream per full CFA plane, seeded from source SHA-256",
+    "frequency_split": false,
+    "periodic_tiling": false
+  },
+  "synthetic_point_light_gate": {
+    "geometry": [128, 128],
+    "black_level": 1000,
+    "background_signal": 200,
+    "point_signal_code": 60000,
+    "point_position": [20, 20],
+    "vignetting_strength": -1.0,
+    "annulus_mean_signal": 99.98737373737374,
+    "local_background_mean_signal": 99.92901234567901,
+    "annulus_to_background_ratio": 1.0005840285050835,
+    "minimum_annulus_signal": 70,
+    "result": "PASS_NO_NEGATIVE_HALO"
+  },
+  "real_input_gate": {
+    "source": "DSCF2834.RAF",
+    "source_sha256": "37b12068f31e53de860161175e4e093a003f0585d54d9af180b32761abca6cae",
+    "strength": -1.61,
+    "model_iso": 6400,
+    "core_image_full_resolution_render": "PASS_NO_V1_STYLE_DARK_ANNULUS_OBSERVED",
+    "floor_limited_samples": 0,
+    "clipped_below_code_zero": 0,
+    "clipped_above_white": 0,
+    "temporary_3fr_auto_deleted": true
+  },
+  "claim_boundary": "The v2 construction removes the deterministic frequency-split halo and matches the first two moments of a shot-plus-read approximation. It is not a calibrated GFX100RF per-ISO photon-transfer model. A full-quality Phocus render and first-attempt HNNR remain release gates."
+}

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "raf2hncs"
+version = "0.8.0"
+description = "Transplant a GFX100RF Bayer mosaic into an X2D 100C 3FR donor"
+requires-python = ">=3.9"
+dependencies = ["numpy>=2.0", "scipy>=1.13,<2"]
+
+[project.optional-dependencies]
+lens = ["opencv-python-headless>=4.10"]
+
+[project.scripts]
+raf2hncs = "raf2hncs.cli:main"
+raf2hncs-web = "raf2hncs.web:main"
+
+[tool.setuptools.package-data]
+raf2hncs = ["web_static/*.html", "web_static/*.css", "web_static/*.js", "web_static/fonts/*.ttf"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

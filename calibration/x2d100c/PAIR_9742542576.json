@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "pair": {
+    "camera": "Hasselblad X2D 100C", "firmware": "1.0.0",
+    "raw_data_unique_id": "0140784A000021A7",
+    "capture": {"iso": 100, "exposure": "1/90", "f_number": 13.0, "lens": "XCD 38V"},
+    "three_fr": {"name": "9742542576.3fr", "sha256": "70a83f6c417177ac03624274d7a635dc733bd75deb8871d1d29184fb12aa3a5c", "decoded_pgm_sha256": "2b3a1fd0ace1814e61b2bb7f5b36158a5a8413aaddcc8a5b8185961cbe86eadf"},
+    "fff": {"name": "Q16X9742542576_0001.fff", "sha256": "09ddc8d47ade3b32eb5ef530cbeed27c64adb525adcfa5a7d758a85efff9c416", "decoded_pgm_sha256": "d484689205473b56714121921da3a89ba030dfee3fe555af0ebd410218845159"}
+  },
+  "geometry": {"full_size": [11904, 8842], "default_crop_origin": [128, 96], "default_crop_size": [11656, 8742], "cfa": "RGGB", "black_level": 4096},
+  "observed_transform": {
+    "formula": "input == 65535 ? 65535 : clip(4096 + (((input - 4096) * q16_gain) >> 16), 0, 65534)",
+    "q16_gains": {"R": 65536, "G1": 65708, "G2": 65708, "B": 67192},
+    "default_crop_validation": {"pixel_count": 101896752, "mismatch_count": 0, "mismatch_fraction": 0.0, "maximum_absolute_error_dn": 0}
+  }
+}

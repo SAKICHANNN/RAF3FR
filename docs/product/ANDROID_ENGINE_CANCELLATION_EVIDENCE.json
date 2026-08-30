@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-28",
+  "node": "PDX3D-cancellation-boundary",
+  "status": "PASS_HOST_BOUNDARY",
+  "scope": "Cooperative cancellation from Android JNI through native row processing and pre-publication cleanup",
+  "contract": {
+    "jni_job_id_required": true,
+    "duplicate_active_job_rejected": true,
+    "cancel_unknown_job_returns_false": true,
+    "row_boundary_polling": true,
+    "hash_loop_polling": true,
+    "partial_output_removed_on_cancel": true,
+    "published_pair_not_overwritten": true
+  },
+  "regression": {
+    "default_output_sha256": "5ec46d4141159e88dada0a4813e01930f5716c6b07a2bc8bef31b9b9dbc94aee",
+    "native_verify_status": "PASS",
+    "rust_tests": 16,
+    "rustfmt": "PASS",
+    "clippy_warnings_denied": "PASS"
+  },
+  "claim_boundary": "Host tests prove the cooperative native/JNI contract and unchanged conversion bytes. Android WorkManager stop propagation and a real mid-conversion cancellation remain runtime gates."
+}

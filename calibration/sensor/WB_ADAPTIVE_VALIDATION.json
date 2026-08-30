@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "mode": "wb-adaptive-bootstrap",
+  "operator": "positive_white_point_diagonal",
+  "source_files": [
+    {
+      "source": "DSCF2166.RAF",
+      "source_sha256": "d76271dcb9aad11fe36f80347538a133555e490752f211e81c211fd9eff73e1a",
+      "estimated_cct_kelvin": 3226.7686360411262,
+      "source_neutral": [0.727710843373494, 1.0, 0.28734538534728826],
+      "target_neutral": [0.5251268588327629, 1.0, 0.31109344215820467],
+      "diagonal": [0.7216147232304523, 1.0, 1.0826463831399773],
+      "clipping": {"below_black": 0, "above_white": 35379, "total": 102060000},
+      "output": "DSCF2166-HNCS-color-v3.3FR",
+      "output_sha256": "5a23839f1971b840691e1dae4eab1f2b1c4374fffdc8273be907fd82abe32b70",
+      "repeat_sha256": "5a23839f1971b840691e1dae4eab1f2b1c4374fffdc8273be907fd82abe32b70"
+    },
+    {
+      "source": "DSCF2098.RAF",
+      "source_sha256": "9f09fb98a0a56ce53ab75e1c336ca8456cf2e77e7443c311ecd7318eadfd0ad6",
+      "estimated_cct_kelvin": 5638.5282395433,
+      "source_neutral": [0.5050167224080268, 1.0, 0.5852713178294573],
+      "target_neutral": [0.35116244003057456, 1.0, 0.6171660422315156],
+      "diagonal": [0.6953481428419986, 1.0, 1.0544956218260335],
+      "clipping": {"below_black": 0, "above_white": 0, "total": 102060000},
+      "output": "DSCF2098-HNCS-color-v3.3FR",
+      "output_sha256": "9f63d259e0835794a1d5997515857616b6ad44e24fed8a3bccacef9d5b2bb574"
+    }
+  ],
+  "rejected_control": {
+    "mode": "full_cross_channel_matrix",
+    "artifact": ".tools/probes/color-rejected/DSCF2166-HNCS-color-v2-full-matrix-rejected.3FR",
+    "clipping": {"below_black": 6637933, "above_white": 1017, "total": 102060000},
+    "reason": "The uncalibrated cross-channel residual put 6.50 percent of the active lattice below black and is unsafe as a default."
+  },
+  "verification": {
+    "tests": "49 passed",
+    "donor_preservation": "pass",
+    "source_hash": "pass",
+    "browser_default": "wb-adaptive-bootstrap",
+    "browser_console_errors": 0,
+    "browser_body_width_px": 350,
+    "browser_viewport_width_px": 350,
+    "phocus_discovery": "pass",
+    "phocus_render_comparison": "not completed: current Phocus naming presets reject import before processing"
+  },
+  "claim_boundary": "Repairs the selected Fuji white point into the X2D response domain with a positive per-channel operator. It is not a paired-camera spectral or HNCS color calibration."
+}

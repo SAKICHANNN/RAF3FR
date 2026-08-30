@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-28",
+  "node": "PDX3C-preview",
+  "status": "PASS_BOUNDED",
+  "scope": "Deterministic cross-platform replacement of the donor preview with the RAF embedded JPEG",
+  "source": {
+    "filename": "DSCF2166.RAF",
+    "preview_range": [148, 3058335],
+    "preview_bytes": 3058187,
+    "preview_sha256": "0354d2f5f34667c1e68bfa97489a02e2659c9b8766a9f09b79422b84b6da6d16"
+  },
+  "embedded": {
+    "dimensions": [4000, 3000],
+    "jpeg_quality": 85,
+    "encoded_bytes": 2713226,
+    "encoded_sha256": "bd198ccd6af47e74f0a18d706ad1648434481927295a05cf686699ac572acc62",
+    "destination_range": [210522112, 213311488],
+    "destination_capacity": 2789376,
+    "preview_byte_count_patch_range": [162, 166],
+    "jpeg_edges_valid": true,
+    "unused_slot_zero_filled": true
+  },
+  "preserved_invariants": {
+    "raw_payload_md5": "facdc5c13b6268fa3ead81b474d2eea5",
+    "metadata_patch_count": 19,
+    "output_size_bytes": 213311488
+  },
+  "automated_checks": {
+    "rustfmt": "PASS",
+    "clippy_warnings_denied": "PASS",
+    "rust_tests": 8,
+    "real_release_conversion_seconds": 4.53,
+    "real_release_max_rss_bytes": 504791040,
+    "real_release_peak_footprint_bytes": 448938776
+  },
+  "claim_boundary": "The native engine now embeds a deterministic JPEG derived from the RAF preview without macOS tooling. JPEG bytes need not match the historical sips encoder. Lens opcodes, manifest, native verification and Android ABI execution remain open gates."
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-30",
+  "scope": "GFX100RF fixed 35mm F4 vendor-corrected RAF geometry to DNG WarpRectilinear calibration",
+  "decoder_control": {
+    "api": "Apple Core Image CIRAWFilter",
+    "native_size": [11648, 8736],
+    "render_size": [2400, 1800],
+    "lens_correction_supported": true,
+    "method": "render each RAF with the same decoder and lens correction off/on; mutual SIFT feature matches; robust radial least-squares with a held-out split"
+  },
+  "profile_signature": {
+    "observed_files": 19,
+    "unique_geometric_profiles": 1,
+    "outer_distortion_percent": -10.09809875
+  },
+  "training": [
+    {"file": "DSCF2834.RAF", "sha256": "37b12068f31e53de860161175e4e093a003f0585d54d9af180b32761abca6cae"},
+    {"file": "DSCF2949.RAF", "sha256": "0eacc10089f8bc8c1bb61bda4410d204f15f353e043cfb44f29cc672300a3834"},
+    {"file": "DSCF2961.RAF", "sha256": "9dbfeb6c4629575f08f5fd12671b9d8134ae6194485f0afda5c52a4a939244b3"}
+  ],
+  "holdout": [
+    {"file": "DSCF2009.RAF", "sha256": "8346a1270f6de52ac8877eed8731673fab388a4f3542a6a719fed0408d25e407"},
+    {"file": "DSCF2434.RAF", "sha256": "f25585ed1a14f6442f73c2ec4085201dc067ef56dc40191c4772ac6f4b750174"}
+  ],
+  "admitted_full_strength_green_model": {
+    "coefficients": [
+      1.029268747742375,
+      -0.04267719544928282,
+      -0.13848667506081908,
+      0.10394817611116454
+    ],
+    "center": [0.500092050670, 0.499039419533],
+    "minimum_radial_derivative": 0.8497056929283442,
+    "strength_policy": "linearly blend the vendor-calibration delta from the metadata-derived fit; preserve per-plane Fuji CA deltas"
+  },
+  "render_scale_metrics_pixels": {
+    "training": {
+      "current_0_9_3": {"median": 1.2089176563, "p90": 1.8372292920, "p99": 5.5570989644},
+      "candidate_0_9_4": {"median": 0.5803540947, "p90": 1.0377768025, "p99": 2.0494311141}
+    },
+    "holdout": {
+      "metadata_fit_without_0_9_3_scale": {"median": 25.3239082660, "p90": 32.1061095882, "p99": 32.9060076428},
+      "current_0_9_3": {"median": 1.1987812871, "p90": 2.3719954007, "p99": 9.0908069984},
+      "candidate_0_9_4": {"median": 0.5395058281, "p90": 0.9333704249, "p99": 2.4713225388}
+    }
+  },
+  "decision": {
+    "h1_remove_common_scale": "rejected; it worsens holdout median error by more than 21x versus 0.9.3",
+    "h2_refit_vendor_radial_curve": "accepted; holdout median and p90 improve by about 55% and 61% at the measurement scale",
+    "h3_center": "accepted as a small jointly fitted offset; requires final Phocus visual confirmation"
+  },
+  "claim_boundary": "This is a five-scene calibration against Apple vendor RAW correction for the single geometric profile observed in 19 local GFX100RF RAFs. It does not reveal Fujifilm's proprietary algorithm, prove all firmware versions, or replace final Phocus full-resolution validation."
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-28",
+  "node": "PDX3D-semantic",
+  "status": "PASS_BOUNDED",
+  "scope": "Cross-implementation output parity for all conversion policy families before Android ABI execution",
+  "exact_full_file_controls": [
+    {
+      "white_balance": "as-shot",
+      "sensor_mapping": "identity",
+      "preview": "donor",
+      "donor_lens_correction": "preserve",
+      "inverse_x2d_calibration": false,
+      "lens_strengths": [0.0, 0.0, 0.0],
+      "python_sha256": "f4d0ce4981340cc4de8d9e614a87232cba345db9cdcb44793df0c027dc95af7d",
+      "native_sha256": "f4d0ce4981340cc4de8d9e614a87232cba345db9cdcb44793df0c027dc95af7d"
+    },
+    {
+      "white_balance": "auto",
+      "sensor_mapping": "d65-dnglab-bootstrap",
+      "preview": "donor",
+      "donor_lens_correction": "preserve",
+      "inverse_x2d_calibration": false,
+      "lens_strengths": [0.0, 0.0, 0.0],
+      "clipped_below": 7446740,
+      "clipped_above": 35177,
+      "python_sha256": "b608445f2786c451cbda3e02f8bb2e607a09cdc5b62319fe41c7730db474bd55",
+      "native_sha256": "b608445f2786c451cbda3e02f8bb2e607a09cdc5b62319fe41c7730db474bd55"
+    },
+    {
+      "white_balance": "as-shot",
+      "sensor_mapping": "wb-adaptive-bootstrap",
+      "preview": "donor",
+      "donor_lens_correction": "preserve",
+      "inverse_x2d_calibration": true,
+      "calibration_cohort": "01409AB1",
+      "lens_strengths": [0.0, 0.0, 0.0],
+      "clipped_below": 0,
+      "clipped_above": 34896,
+      "python_sha256": "8725e301900180f4b5fadf869115cf680b63a4f87d196bbe8d4898b6202964c3",
+      "native_sha256": "8725e301900180f4b5fadf869115cf680b63a4f87d196bbe8d4898b6202964c3"
+    },
+    {
+      "white_balance": "donor",
+      "sensor_mapping": "identity",
+      "preview": "donor",
+      "donor_lens_correction": "preserve",
+      "inverse_x2d_calibration": false,
+      "lens_strengths": [0.0, 0.0, 0.0],
+      "metadata_patch_count": 17,
+      "python_sha256": "f86469cc75ba72ced2a7b9f3d0112fd4722c20ba94eae02b46772bd1fd953af3",
+      "native_sha256": "f86469cc75ba72ced2a7b9f3d0112fd4722c20ba94eae02b46772bd1fd953af3"
+    }
+  ],
+  "source_preview": {
+    "dimensions": [4000, 3000],
+    "native_quality": 85,
+    "decoded_psnr_vs_raf_preview_db": 43.60997456415815,
+    "decoded_mean_absolute_error": 1.11288583278656,
+    "policy": "JPEG encoder bytes may differ; decoded content must derive from the RAF preview and fit the donor slot."
+  },
+  "lens_opcode_semantics": {
+    "default_warp_payload_bytes": 184,
+    "default_maximum_parameter_delta": 5.642249688297962e-11,
+    "warp_plus_vignetting_payload_bytes": 256,
+    "opcode_ids": [1, 3],
+    "maximum_parameter_delta_with_vignetting": 1.9843906962080382e-8,
+    "policy": "Portable normal-equation and NumPy SVD fits are accepted only within recorded numerical tolerance and equivalent DNG structure."
+  },
+  "coverage": {
+    "white_balance_modes": ["auto", "as-shot", "donor"],
+    "sensor_mapping_modes": ["identity", "d65-dnglab-bootstrap", "wb-adaptive-bootstrap"],
+    "preview_modes": ["source", "donor"],
+    "donor_lens_modes": ["neutralize", "preserve"],
+    "inverse_calibration": [false, true],
+    "lens_components": ["distortion", "lateral_chromatic_aberration", "vignetting"]
+  },
+  "claim_boundary": "All policy families now have cross-engine evidence on DSCF2166/B0000079. Android target compilation and real emulator/device runtime-memory verification remain open before PDX3D can close."
+}

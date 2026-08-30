@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "pair": {
+    "camera": "Hasselblad X2D 100C",
+    "firmware": "1.1.0",
+    "raw_data_unique_id": "01409AB1000000E6",
+    "three_fr": {
+      "name": "B0000079.3FR",
+      "sha256": "dcc5a4abe3498e6f25e89bb491995fd12c3b669d9277c71b45b49210d3e56280",
+      "decoded_pgm_sha256": "713012a4ade4cb299723a4d0906e56ccd9440c56bc70c94dd42b811b4e29eb1b"
+    },
+    "fff": {
+      "name": "Job_0079.fff",
+      "sha256": "44c38665694e07baf47f1fc34fb9ea0f1bf70eb71b7390183d3c0ef23d164e0f",
+      "decoded_pgm_sha256": "eb6fd322d1e8f740aa7f6429d813ed8f2207f40de5c5e41e49fccfc49ef44ada"
+    }
+  },
+  "geometry": {
+    "full_size": [11904, 8842],
+    "default_crop_origin": [128, 96],
+    "default_crop_size": [11656, 8742],
+    "cfa": "RGGB",
+    "black_level": 4096
+  },
+  "observed_transform": {
+    "formula": "input == 65535 ? 65535 : clip(4096 + (((input - 4096) * q16_gain) >> 16), 0, 65534)",
+    "q16_gains": {"R": 67376, "G1": 65536, "G2": 65536, "B": 66448},
+    "default_crop_validation": {
+      "pixel_count": 101896752,
+      "mismatch_count": 0,
+      "mismatch_fraction": 0.0,
+      "maximum_absolute_error_dn": 0,
+      "per_plane": {
+        "R": {"pixel_count": 25474188, "mismatch_count": 0},
+        "G1": {"pixel_count": 25474188, "mismatch_count": 0},
+        "G2": {"pixel_count": 25474188, "mismatch_count": 0},
+        "B": {"pixel_count": 25474188, "mismatch_count": 0}
+      }
+    }
+  },
+  "interpretation": [
+    "The paired active crop shows a channel-domain Q16 calibration, not a geometric resampling.",
+    "Pair 0080 independently reproduces the same gains; the 65534 ceiling and preserved 65535 sentinel make the model exact.",
+    "Inverse precompensation is applied only to transplanted active pixels; genuine donor margins remain unchanged."
+  ]
+}

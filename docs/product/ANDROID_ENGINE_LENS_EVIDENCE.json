@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-28",
+  "node": "PDX3C-lens",
+  "status": "PASS_BOUNDED",
+  "scope": "Portable encoding and installation of per-image Fuji distortion, lateral chromatic-aberration, and optional vignetting corrections",
+  "defaults": {
+    "distortion_strength": 1.0,
+    "lateral_chromatic_aberration_strength": 1.0,
+    "vignetting_strength": 0.0
+  },
+  "real_source": {
+    "filename": "DSCF2166.RAF",
+    "fuji_vector_lengths": [19, 29, 19]
+  },
+  "opcode": {
+    "directory": "RawIFD",
+    "tag": 51022,
+    "list_count": 1,
+    "opcode_id": 1,
+    "dng_version": "1.3.0.0",
+    "planes": 3,
+    "center": [0.5, 0.5],
+    "payload_bytes": 184,
+    "native_payload_sha256": "ded7d6653fd9f767fdb0fd4d6c2c304e068635c152e612acb15bb44b6cc23625",
+    "python_reference_payload_sha256": "4d9866fca628758edb8b6f238757c769b96f241565afae3f2cd4290879eee68d",
+    "maximum_coefficient_delta_vs_numpy_lstsq": 5.642249688297962e-11,
+    "maximum_normalized_coordinate_residual": 0.0005117789184083056
+  },
+  "container": {
+    "old_raw_ifd_offset": 798,
+    "new_raw_ifd_offset": 213311672,
+    "payload_range": [213311488, 213311672],
+    "append_range": [213311488, 213311894],
+    "output_bytes": 213311894,
+    "output_sha256": "5ec46d4141159e88dada0a4813e01930f5716c6b07a2bc8bef31b9b9dbc94aee",
+    "raw_payload_md5": "facdc5c13b6268fa3ead81b474d2eea5"
+  },
+  "independent_decode": {
+    "dnglab_classification": "Hasselblad X2D 100C-100c",
+    "libraw_raw_decode": "PASS",
+    "installed_payload_parse": "PASS"
+  },
+  "automated_checks": {
+    "rustfmt": "PASS",
+    "clippy_warnings_denied": "PASS",
+    "rust_tests": 11,
+    "python_regression_tests": 52
+  },
+  "claim_boundary": "The portable normal-equation fit is semantically equivalent to the NumPy least-squares reference within 5.65e-11 coefficient delta but not byte-identical. Phocus execution was previously established for the same OpcodeList3 design; measured optical accuracy still requires held-out grid, flat-field, and frame-edge CA captures."
+}

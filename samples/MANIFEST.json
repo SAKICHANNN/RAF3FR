@@ -1,0 +1,405 @@
+{
+  "schema_version": 2,
+  "source_policy": {
+    "raw_files_tracked": false,
+    "resolution": "Resolve local source files by SHA-256; aliases and evidence are tracked, source RAWs are not modified."
+  },
+  "fixture_sets": {
+    "gfx100rf-2026-08-27": {
+      "member_count": 7,
+      "shared_camera": {
+        "make": "FUJIFILM",
+        "model": "GFX100RF",
+        "firmware": "0112",
+        "focal_length_mm": 35.0,
+        "aperture": 4.0
+      },
+      "shared_raw": {
+        "compression": "Lossless",
+        "bits_per_sample": 16,
+        "full_size": "11808x8754",
+        "dnglab_active_area": {"x": 0, "y": 0, "width": 11664, "height": 8750},
+        "exiftool_raw_crop_top_left": [7, 8],
+        "exiftool_cropped_size": "11648x8736",
+        "dnglab_crop": {"x": 8, "y": 7, "width": 11648, "height": 8736},
+        "libraw_inset": {"left": 8, "top": 8, "width": 11648, "height": 8735}
+      },
+      "shared_findings": [
+        "ExifTool, DNGLab 0.7.2, and LibRaw 0.22.2 identify every member as a 16-bit lossless GFX100RF RAF.",
+        "DNGLab and LibRaw retain a one-row/origin default-crop disagreement; transplant geometry uses DNGLab's complete active area instead.",
+        "Every member contains geometric-distortion, chromatic-aberration, and vignetting parameter arrays.",
+        "The geometric-distortion array is identical across all seven files; chromatic-aberration and vignetting arrays differ per file.",
+        "All seven captures are at f/4, so this set cannot validate aperture-dependent vignetting by itself."
+      ]
+    }
+  },
+  "samples": [
+    {
+      "alias": "gfx100rf-structure-001",
+      "fixture_set": "gfx100rf-2026-08-27",
+      "tracked_raw": false,
+      "sha256": "d76271dcb9aad11fe36f80347538a133555e490752f211e81c211fd9eff73e1a",
+      "size_bytes": 127867712,
+      "roles": ["structure_probe", "high_iso_scene", "night_scene"],
+      "scene_summary": "Night storefront with mixed artificial lighting and deep shadows.",
+      "capture": {"iso": 10000, "exposure_seconds": 0.01666666667},
+      "black_level_as_reported": [4092, 4092, 4092, 4092],
+      "dnglab_raw_checksum": "793b9fc44a90207c296f48fd461daeb8",
+      "lens_parameter_sha256": {
+        "geometric_distortion": "56a939bda5b035e4eea7626b396b25a62840406368122a9325d0ce65853becf5",
+        "chromatic_aberration": "ef0f958fbf4232890e233925f2d8bb89385f199ee1e27a65b672256cdf3b052e",
+        "vignetting": "b2ea4b4285eaf469b89c3381c903f196921b25752ad3afb748e455a93fa692e7"
+      },
+      "decoder_evidence": {
+        "dnglab": "RAW_CHECKSUM_PASS_STRUCTURE_DUMP_NOT_IMPLEMENTED",
+        "libraw": "DECOMPRESSION_PASS",
+        "libraw_unpacked_pgm_sha256": "a71e8457be4359c2ae6a30ee3b5bc7c6a4c4dd15836380e17fcf0255e31e505e"
+      },
+      "admission": {"structure": "PROVISIONAL", "radiometry": "NOT_ADMITTED", "color": "NOT_ADMITTED", "lens_profile": "NOT_ADMITTED"}
+    },
+    {
+      "alias": "gfx100rf-structure-002",
+      "fixture_set": "gfx100rf-2026-08-27",
+      "tracked_raw": false,
+      "sha256": "8f4cfbebffadf1e77a77229261776fdc93e8dc294abe43ac9b5435b42fc7071f",
+      "size_bytes": 129869600,
+      "roles": ["structure_probe", "natural_scene", "highlight_stress", "lens_edge_candidate"],
+      "scene_summary": "Backlit trees, stone walls, buildings, and strong frame-edge detail.",
+      "capture": {"iso": 1250, "exposure_seconds": 0.003125},
+      "black_level_as_reported": [4095, 4095, 4095, 4095],
+      "dnglab_raw_checksum": "704ba7232581d9559469edd0a84a0678",
+      "lens_parameter_sha256": {
+        "geometric_distortion": "56a939bda5b035e4eea7626b396b25a62840406368122a9325d0ce65853becf5",
+        "chromatic_aberration": "1a2b981b93c9755ed814c30830577fac1139f5b1c6c4489154abdec424facbc0",
+        "vignetting": "e4fb5d1000208b6317ebfe8dbfdcc86da1190915f1e40e8701ba137eedb15dbd"
+      },
+      "decoder_evidence": {"dnglab": "RAW_CHECKSUM_PASS", "libraw": "IDENTIFY_PASS"},
+      "admission": {"structure": "PROVISIONAL", "radiometry": "NOT_ADMITTED", "color": "NOT_ADMITTED", "lens_profile": "CANDIDATE_ONLY"}
+    },
+    {
+      "alias": "gfx100rf-structure-003",
+      "fixture_set": "gfx100rf-2026-08-27",
+      "tracked_raw": false,
+      "sha256": "1f03ed6330c17eea44d0cd26dc559f5748eaa481edcab52b8411bab318080c5d",
+      "size_bytes": 151291536,
+      "roles": ["structure_probe", "high_iso_scene", "fine_texture_scene"],
+      "scene_summary": "Cat and dense foliage with fine grass texture.",
+      "capture": {"iso": 8000, "exposure_seconds": 0.003125},
+      "black_level_as_reported": [4091, 4091, 4091, 4091],
+      "dnglab_raw_checksum": "3af2494dbd5a7a1554b3dea6a5af8e83",
+      "lens_parameter_sha256": {
+        "geometric_distortion": "56a939bda5b035e4eea7626b396b25a62840406368122a9325d0ce65853becf5",
+        "chromatic_aberration": "24169a2db1b5247f570859924864306064f43c937658548c585ab2008622500b",
+        "vignetting": "64c47d5385ccec908e6917bef339fcc590ceed375a941a864197f1cc37b11b69"
+      },
+      "decoder_evidence": {"dnglab": "RAW_CHECKSUM_PASS", "libraw": "IDENTIFY_PASS"},
+      "admission": {"structure": "PROVISIONAL", "radiometry": "NOT_ADMITTED", "color": "NOT_ADMITTED", "lens_profile": "NOT_ADMITTED"}
+    },
+    {
+      "alias": "gfx100rf-structure-004",
+      "fixture_set": "gfx100rf-2026-08-27",
+      "tracked_raw": false,
+      "sha256": "8346a1270f6de52ac8877eed8731673fab388a4f3542a6a719fed0408d25e407",
+      "size_bytes": 136373424,
+      "roles": ["structure_probe", "lens_geometry_candidate", "capture_crop_tag_control"],
+      "scene_summary": "Wooded path with railings, lamps, stairs, and repeated straight edges.",
+      "capture": {"iso": 1000, "exposure_seconds": 0.008, "capture_crop_top_left": [448, 336]},
+      "black_level_as_reported": [4095, 4095, 4095, 4095],
+      "dnglab_raw_checksum": "39d0e02b86bc17fda5538a6cd52026c8",
+      "lens_parameter_sha256": {
+        "geometric_distortion": "56a939bda5b035e4eea7626b396b25a62840406368122a9325d0ce65853becf5",
+        "chromatic_aberration": "315af2c50794423b442947d15b03bcd6b724cb673a85166384f57b54e18f75bc",
+        "vignetting": "8852aaa02ab0c74a642a26413eb496ccd9118e07d97a2394a2fd1ff8ca842aab"
+      },
+      "decoder_evidence": {"dnglab": "RAW_CHECKSUM_PASS", "libraw": "IDENTIFY_PASS"},
+      "admission": {"structure": "PROVISIONAL", "radiometry": "NOT_ADMITTED", "color": "NOT_ADMITTED", "lens_profile": "CANDIDATE_ONLY"}
+    },
+    {
+      "alias": "gfx100rf-structure-005",
+      "fixture_set": "gfx100rf-2026-08-27",
+      "tracked_raw": false,
+      "sha256": "c2e0c0e501f7d0d68eb142d7284478b9cb9c3315d164ab4593e51b386ecfb438",
+      "size_bytes": 115963760,
+      "roles": ["structure_probe", "mid_iso_scene", "highlight_shadow_stress"],
+      "scene_summary": "Near cat subject crossing hard sunlight and deep shade.",
+      "capture": {"iso": 640, "exposure_seconds": 0.003125},
+      "black_level_as_reported": [4094, 4094, 4094, 4094],
+      "dnglab_raw_checksum": "5a0a0e30bfa229fd1a82d9f5df9c86a2",
+      "lens_parameter_sha256": {
+        "geometric_distortion": "56a939bda5b035e4eea7626b396b25a62840406368122a9325d0ce65853becf5",
+        "chromatic_aberration": "618068d505027fbd979e0e61d20d4ffb8b21d0312b4dd1492e0a9b71a5981c06",
+        "vignetting": "11c228f4072a384f1abb3f7f0ab07d69897342a18a48a7d6ee10714bfb1ecaa4"
+      },
+      "decoder_evidence": {"dnglab": "RAW_CHECKSUM_PASS", "libraw": "IDENTIFY_PASS"},
+      "admission": {"structure": "PROVISIONAL", "radiometry": "NOT_ADMITTED", "color": "NOT_ADMITTED", "lens_profile": "CANDIDATE_ONLY"}
+    },
+    {
+      "alias": "gfx100rf-structure-006",
+      "fixture_set": "gfx100rf-2026-08-27",
+      "tracked_raw": false,
+      "sha256": "496ac1d420ee4c7321e086144ca2885b5689a212035a16ad0287be4a7ee8d632",
+      "size_bytes": 139779872,
+      "roles": ["structure_probe", "mid_high_iso_scene", "near_subject"],
+      "scene_summary": "Cat, stone pavement, and foliage with moderate edge coverage.",
+      "capture": {"iso": 2500, "exposure_seconds": 0.003125},
+      "black_level_as_reported": [4095, 4095, 4095, 4095],
+      "dnglab_raw_checksum": "69d0e9fe1c656f0f7555f529a287446b",
+      "lens_parameter_sha256": {
+        "geometric_distortion": "56a939bda5b035e4eea7626b396b25a62840406368122a9325d0ce65853becf5",
+        "chromatic_aberration": "34688b277718b60f9d0ff88041a8cdc574412e44bce60708aae7283a0b421617",
+        "vignetting": "2d80dea0a47c3e41a96ba622dabe779ac1969d402de289700c9ab6597ce97f42"
+      },
+      "decoder_evidence": {"dnglab": "RAW_CHECKSUM_PASS", "libraw": "IDENTIFY_PASS"},
+      "admission": {"structure": "PROVISIONAL", "radiometry": "NOT_ADMITTED", "color": "NOT_ADMITTED", "lens_profile": "CANDIDATE_ONLY"}
+    },
+    {
+      "alias": "gfx100rf-structure-007",
+      "fixture_set": "gfx100rf-2026-08-27",
+      "tracked_raw": false,
+      "sha256": "9f09fb98a0a56ce53ab75e1c336ca8456cf2e77e7443c311ecd7318eadfd0ad6",
+      "size_bytes": 106607936,
+      "roles": ["structure_probe", "lowest_iso_scene", "lens_geometry_candidate", "natural_color_regression_candidate"],
+      "scene_summary": "Building facade, brickwork, sky, and foliage with strong straight-line coverage.",
+      "capture": {"iso": 320, "exposure_seconds": 0.004},
+      "black_level_as_reported": [4095, 4095, 4095, 4095],
+      "dnglab_raw_checksum": "d95f58366a542e7a946068c7bfaeaa4a",
+      "lens_parameter_sha256": {
+        "geometric_distortion": "56a939bda5b035e4eea7626b396b25a62840406368122a9325d0ce65853becf5",
+        "chromatic_aberration": "56f6705f74e5ae1f45903914fbd15681bb601573de32e2deb5f78f55404d804d",
+        "vignetting": "fbba4881121ce593c912a3c0f4b3a6d735b02943f6498d254512885b9222ccf7"
+      },
+      "decoder_evidence": {
+        "dnglab": "RAW_CHECKSUM_PASS",
+        "libraw": "DECOMPRESSION_PASS",
+        "active_area_probe": "SIGNAL_PRESENT_IN_11664x8750; RIGHT_144_AND_BOTTOM_4_EXACT_ZERO"
+      },
+      "admission": {"structure": "PROVISIONAL", "radiometry": "NOT_ADMITTED", "color": "NOT_ADMITTED", "lens_profile": "CANDIDATE_ONLY"}
+    },
+    {
+      "alias": "x2d100c-camera-original-001",
+      "tracked_raw": false,
+      "sha256": "dcc5a4abe3498e6f25e89bb491995fd12c3b669d9277c71b45b49210d3e56280",
+      "size_bytes": 213311488,
+      "container_extension": "3FR",
+      "provenance": {
+        "source": "raw.pixls.us",
+        "license": "CC0",
+        "camera_copied_unmodified_policy": true,
+        "url": "https://raw.pixls.us/data/Hasselblad/X2D%20100C/B0000079.3FR"
+      },
+      "make": "Hasselblad",
+      "model": "X2D 100C",
+      "lens_model": "XCD 38V",
+      "capture": {"iso": 64, "exposure_seconds": 0.01666666667, "aperture": 13.0, "focal_length_mm": 38.0},
+      "raw": {
+        "bits_per_sample": 16,
+        "full_size": "11904x8842",
+        "default_crop_origin": [128, 96],
+        "default_crop_size": "11656x8742",
+        "black_level": 4096,
+        "white_level": 65535,
+        "cfa": "RGGB",
+        "storage": "single-strip uncompressed",
+        "strip_offset": 8192,
+        "strip_byte_count": 210510336,
+        "preview_offset": 210522112,
+        "preview_byte_count": 2789376
+      },
+      "decoder_evidence": {
+        "dnglab_raw_checksum": "712e145f1c78fc77f4013adc08054180",
+        "libraw_unpacked_pgm_sha256": "713012a4ade4cb299723a4d0906e56ccd9440c56bc70c94dd42b811b4e29eb1b"
+      },
+      "phocus_evidence": {
+        "runtime": "Phocus 4.2.2 macOS",
+        "genuine_control": "RAW_RENDER_PASS",
+        "byte_identical_copy": "RAW_RENDER_PASS",
+        "gfx_transplant": "RAW_RENDER_PASS_3FR_CONTROLS",
+        "source_wb_patch": "VISIBLE_CAST_CORRECTION_PASS"
+      },
+      "admission": {
+        "x2d_identity": "CONFIRMED",
+        "camera_original_provenance": "ADMITTED_CC0_SOURCE_POLICY",
+        "structure": "ADMITTED_FOR_DONOR",
+        "donor_suitability": "ADMITTED_OBSERVED_LAYOUT_ONLY",
+        "phocus_baseline": "PARTIAL_PASS"
+      }
+    },
+    {
+      "alias": "x2d100c-processed-pair-0079",
+      "tracked_raw": false,
+      "sha256": "44c38665694e07baf47f1fc34fb9ea0f1bf70eb71b7390183d3c0ef23d164e0f",
+      "size_bytes": 160894518,
+      "container_extension": "FFF",
+      "provenance": {
+        "source": "raw.pixls.us",
+        "license": "CC0",
+        "url": "https://raw.pixls.us/data/Hasselblad/X2D%20100C/Job_0079.fff"
+      },
+      "make": "Hasselblad",
+      "model": "X2D 100C",
+      "lens_model": "XCD 38V",
+      "roles": ["paired_3fr_to_fff_calibration", "processed_reference"],
+      "pair": {
+        "camera_original_alias": "x2d100c-camera-original-001",
+        "raw_data_unique_id": "01409AB1000000E6",
+        "evidence": "calibration/x2d100c/PAIR_0079.json"
+      },
+      "capture": {"iso": 64, "exposure_seconds": 0.01666666667, "aperture": 13.0, "focal_length_mm": 38.0},
+      "raw": {
+        "bits_per_sample": 16,
+        "full_size": "11904x8842",
+        "default_crop_origin": [128, 96],
+        "default_crop_size": "11656x8742",
+        "black_level": 4096,
+        "white_level": 65535,
+        "cfa": "RGGB",
+        "storage": "lossless JPEG"
+      },
+      "decoder_evidence": {
+        "libraw": "DECOMPRESSION_PASS",
+        "libraw_unpacked_pgm_sha256": "eb6fd322d1e8f740aa7f6429d813ed8f2207f40de5c5e41e49fccfc49ef44ada"
+      },
+      "admission": {
+        "x2d_identity": "CONFIRMED",
+        "camera_original_provenance": "NOT_APPLICABLE_FFF_WORKING_FILE",
+        "pair_calibration": "ADMITTED_TWO_PAIR_REPRODUCTION",
+        "donor_suitability": "NOT_ADMITTED_PRIMARY_3FR_REQUIRED"
+      }
+    },
+    {
+      "alias": "x2d100c-camera-original-002",
+      "tracked_raw": false,
+      "sha256": "e19d90bab052b75e2bd04f77d9b9f758a9958ae942ee3e2a8991329a981a0e23",
+      "size_bytes": 213311488,
+      "container_extension": "3FR",
+      "provenance": {
+        "source": "raw.pixls.us",
+        "license": "CC0",
+        "camera_copied_unmodified_policy": true,
+        "url": "https://raw.pixls.us/data/Hasselblad/X2D%20100C/B0000080.3FR"
+      },
+      "make": "Hasselblad",
+      "model": "X2D 100C",
+      "lens_model": "XCD 38V",
+      "roles": ["second_donor_control", "paired_3fr_to_fff_calibration"],
+      "pair": {
+        "processed_alias": "x2d100c-processed-pair-0080",
+        "raw_data_unique_id": "01409AB1000000E7",
+        "evidence": "calibration/x2d100c/PAIR_0080.json"
+      },
+      "capture": {"iso": 64, "exposure_seconds": 0.01666666667, "aperture": 13.0, "focal_length_mm": 38.0},
+      "raw": {
+        "bits_per_sample": 16,
+        "full_size": "11904x8842",
+        "default_crop_origin": [128, 96],
+        "default_crop_size": "11656x8742",
+        "black_level": 4096,
+        "white_level": 65535,
+        "cfa": "RGGB",
+        "storage": "single-strip uncompressed",
+        "strip_offset": 8192,
+        "strip_byte_count": 210510336,
+        "preview_offset": 210522112,
+        "preview_byte_count": 2789376
+      },
+      "decoder_evidence": {
+        "libraw": "DECOMPRESSION_PASS",
+        "libraw_unpacked_pgm_sha256": "c68c6a41396c2de8477de49a7bb06b987a2ad9f9961bd02d6783b3488b8a8dd2"
+      },
+      "admission": {
+        "x2d_identity": "CONFIRMED",
+        "camera_original_provenance": "ADMITTED_CC0_SOURCE_POLICY",
+        "structure": "ADMITTED_SECOND_CONTROL",
+        "pair_calibration": "ADMITTED_TWO_PAIR_REPRODUCTION"
+      }
+    },
+    {
+      "alias": "x2d100c-processed-pair-0080",
+      "tracked_raw": false,
+      "sha256": "44977fdaa3063eacbb2ac416dfb531bb4e3b96f3745d073dc49fb1ebcd78bedc",
+      "size_bytes": 160885346,
+      "container_extension": "FFF",
+      "provenance": {
+        "source": "raw.pixls.us",
+        "license": "CC0",
+        "url": "https://raw.pixls.us/data/Hasselblad/X2D%20100C/Job_0080.fff"
+      },
+      "make": "Hasselblad",
+      "model": "X2D 100C",
+      "lens_model": "XCD 38V",
+      "roles": ["paired_3fr_to_fff_calibration", "processed_reference"],
+      "pair": {
+        "camera_original_alias": "x2d100c-camera-original-002",
+        "raw_data_unique_id": "01409AB1000000E7",
+        "evidence": "calibration/x2d100c/PAIR_0080.json"
+      },
+      "capture": {"iso": 64, "exposure_seconds": 0.01666666667, "aperture": 13.0, "focal_length_mm": 38.0},
+      "raw": {
+        "bits_per_sample": 16,
+        "full_size": "11904x8842",
+        "default_crop_origin": [128, 96],
+        "default_crop_size": "11656x8742",
+        "black_level": 4096,
+        "white_level": 65535,
+        "cfa": "RGGB",
+        "storage": "lossless JPEG"
+      },
+      "decoder_evidence": {
+        "libraw": "DECOMPRESSION_PASS",
+        "libraw_unpacked_pgm_sha256": "a7a50ad5b394090c108784944c54ad493b0f47b5ea792688f428efc9d35d7ae8"
+      },
+      "admission": {
+        "x2d_identity": "CONFIRMED",
+        "camera_original_provenance": "NOT_APPLICABLE_FFF_WORKING_FILE",
+        "pair_calibration": "ADMITTED_TWO_PAIR_REPRODUCTION",
+        "donor_suitability": "NOT_ADMITTED_PRIMARY_3FR_REQUIRED"
+      }
+    },
+    {
+      "alias": "x2d100c-processed-001",
+      "tracked_raw": false,
+      "sha256": "02ecaa521f4f2d5d35d4f83111be9e89082c7fe67abbf58ae3884a711c6dd756",
+      "size_bytes": 129593438,
+      "container_extension": "FFF",
+      "make": "Hasselblad",
+      "model": "X2D 100C",
+      "lens_model": "XCD 55",
+      "roles": ["x2d_fff_processed_reference", "3fr_to_fff_structure_comparison_candidate", "low_iso_reference_scene"],
+      "capture": {"iso": 64, "exposure_seconds": 23.0, "aperture": 5.6, "focal_length_mm": 55.0},
+      "raw": {
+        "bits_per_sample": 16,
+        "full_size": "11904x8842",
+        "default_crop_origin": [128, 96],
+        "default_crop_size": "11656x8742",
+        "black_level": 4096,
+        "white_level": 65535,
+        "cfa": "RGGB",
+        "storage": "single-strip lossless JPEG SOF3",
+        "strip_offset": 14946824,
+        "strip_byte_count": 114646614,
+        "strip_ends_at_eof": true
+      },
+      "decoder_evidence": {
+        "exiftool": "STRUCTURE_PASS",
+        "libraw": "DECOMPRESSION_PASS",
+        "libraw_unpacked_pgm_sha256": "cb1f9793d51059b26d4772cbf4689cea38df5143adeb42021f874cf683590a16",
+        "dnglab_metadata": "PASS",
+        "dnglab_structure": "PASS",
+        "dnglab_raw_checksum": "BOUNDS_PANIC"
+      },
+      "admission": {
+        "x2d_identity": "CONFIRMED",
+        "camera_original_provenance": "NOT_APPLICABLE_FFF_WORKING_FILE",
+        "structure": "PROVISIONAL",
+        "donor_suitability": "NOT_ADMITTED_PRIMARY_3FR_REQUIRED",
+        "phocus_baseline": "NOT_RUN"
+      },
+      "notes": [
+        "Official Hasselblad workflow documentation classifies FFF as a 3F working file produced by tethered capture or by importing/processing 3FR in Phocus; it is not interchangeable with the camera-original 3FR required as the primary donor.",
+        "The compressed RAW strip is the final file payload, so this file remains useful for 3FR-to-FFF structural comparison and codec research after a paired or provenance-compatible 3FR is admitted.",
+        "Its SOF3 tail layout must not be projected onto an unseen 3FR.",
+        "DNGLab reports crop origin 128,96 and size 11656x8742; LibRaw reports margins 124,92 and image 11664x8750, requiring direct-tag resolution before mapping."
+      ]
+    }
+  ]
+}

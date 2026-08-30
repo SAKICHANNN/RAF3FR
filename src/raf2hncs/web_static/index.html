@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#111210">
+    <title>RAF / 3FR</title>
+    <link rel="stylesheet" href="/app.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-bar">
+        <a class="brand" href="/" aria-label="RAF / 3FR" data-i18n-aria="home">
+          <span class="brand-aperture" aria-hidden="true"></span>
+          <span>RAF <i>/</i> 3FR</span>
+        </a>
+        <div class="app-actions">
+          <span id="container-status" class="container-status"><i></i><span data-i18n="checkingContainer">检查容器</span></span>
+          <button id="language-toggle" class="language-button" type="button" aria-label="Switch to Chinese">En / 中</button>
+          <button id="settings-open" class="icon-button" type="button" aria-label="打开设置" data-i18n-aria="openSettings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="product-grid">
+        <section class="work-panel" aria-labelledby="convert-title">
+          <div class="section-heading">
+            <div><p>GFX 100RF</p><h1 id="convert-title" data-i18n="convertRaw">转换 RAW</h1></div>
+            <span class="format-badge">16 BIT</span>
+          </div>
+
+          <div id="alert" class="alert" role="alert" hidden></div>
+
+          <label id="drop-zone" class="drop-zone" for="raf-input" tabindex="0">
+            <input id="raf-input" class="visually-hidden" type="file" accept=".raf,.RAF">
+            <span class="raw-icon" aria-hidden="true"><b>R</b><i>RAF</i></span>
+            <span class="drop-copy">
+              <strong id="file-title" data-i18n="selectRaf">选择 RAF</strong>
+              <small id="file-meta" data-i18n="dropRaf">拖放文件，或点按选择</small>
+            </span>
+            <span class="drop-action" data-i18n="choose">选择</span>
+          </label>
+          <div id="raf-progress" class="upload-progress" hidden><span></span></div>
+
+          <div class="control-section">
+            <div class="control-label"><span data-i18n="whiteBalance">白平衡</span></div>
+            <fieldset class="segmented" aria-label="白平衡" data-i18n-aria="whiteBalance">
+              <label><input type="radio" name="white-balance" value="auto" checked><span data-i18n="auto">自动</span></label>
+              <label><input type="radio" name="white-balance" value="as-shot"><span data-i18n="asShot">拍摄值</span></label>
+              <label><input type="radio" name="white-balance" value="donor"><span data-i18n="donor">供体</span></label>
+            </fieldset>
+          </div>
+
+          <fieldset class="lens-controls">
+            <legend data-i18n="lensCorrection">镜头校正</legend>
+            <div class="control-section lens-model-section">
+              <div class="control-label"><span data-i18n="distortionModel">畸变模型</span></div>
+              <div class="segmented lens-model-options" role="radiogroup" aria-label="畸变模型" data-i18n-aria="distortionModel">
+                <label><input type="radio" name="distortion-model" value="native-match" checked><span data-i18n="nativeMatch">原生匹配</span></label>
+                <label><input type="radio" name="distortion-model" value="legacy-in-bounds"><span data-i18n="legacyInBounds">旧版无空边</span></label>
+              </div>
+            </div>
+            <div class="lens-row" data-component="distortion">
+              <label class="check-label"><input id="correct-distortion" type="checkbox" checked><span data-i18n="distortion">畸变</span></label>
+              <input id="distortion-strength" type="range" min="-200" max="200" value="100" aria-label="畸变校正强度" data-i18n-aria="distortionStrength">
+              <output id="distortion-value" for="distortion-strength">100</output>
+            </div>
+            <div class="lens-row" data-component="ca">
+              <label class="check-label"><input id="correct-ca" type="checkbox" checked><span data-i18n="ca">色差</span></label>
+              <input id="ca-strength" type="range" min="-200" max="200" value="100" aria-label="横向色差校正强度" data-i18n-aria="caStrength">
+              <output id="ca-value" for="ca-strength">100</output>
+            </div>
+            <div class="lens-row" data-component="vignetting">
+              <label class="check-label"><input id="correct-vignetting" type="checkbox"><span data-i18n="vignetting">暗角</span></label>
+              <input id="vignetting-strength" type="range" min="-200" max="200" value="100" aria-label="暗角校正强度" data-i18n-aria="vignettingStrength" disabled>
+              <output id="vignetting-value" for="vignetting-strength">—</output>
+            </div>
+          </fieldset>
+
+          <button id="convert-button" class="primary-button" type="button" disabled>
+            <span data-i18n="convert3fr">转换为 3FR</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
+          </button>
+        </section>
+
+        <aside class="side-panel" aria-label="转换状态与最近结果" data-i18n-aria="statusAside">
+          <section class="activity" aria-labelledby="activity-title">
+            <div class="side-heading"><h2 id="activity-title" data-i18n="currentJob">当前任务</h2></div>
+            <div id="current-job" class="empty-state" aria-live="polite">
+              <span class="empty-mark" aria-hidden="true"></span>
+              <strong data-i18n="ready">准备就绪</strong>
+              <p data-i18n="selectToStart">选择 RAF 开始转换</p>
+            </div>
+          </section>
+
+          <section class="history" aria-labelledby="history-title">
+            <div class="side-heading"><h2 id="history-title" data-i18n="recent">最近结果</h2><button id="refresh-button" class="text-button" type="button" data-i18n="refresh">刷新</button></div>
+            <div id="job-list" class="job-list"><p class="history-empty" data-i18n="noHistory">暂无记录</p></div>
+          </section>
+        </aside>
+      </main>
+
+    </div>
+
+    <dialog id="settings-dialog" class="settings-dialog" aria-labelledby="settings-title">
+      <form method="dialog" class="dialog-surface">
+        <div class="dialog-header">
+          <div><p>RAF / 3FR</p><h2 id="settings-title" data-i18n="settings">设置</h2></div>
+          <button id="settings-close" class="icon-button" type="submit" aria-label="关闭设置" data-i18n-aria="closeSettings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+
+        <section class="settings-section">
+          <div class="settings-title"><h3 data-i18n="x2dContainer">X2D 容器</h3><span data-i18n="required">必需</span></div>
+          <div class="donor-row">
+            <div class="donor-copy"><strong id="donor-name">正在检查</strong><small id="donor-meta">—</small></div>
+            <label class="secondary-button" for="donor-input"><span id="donor-action">选择</span></label>
+            <input id="donor-input" class="visually-hidden" type="file" accept=".3fr,.3FR">
+          </div>
+          <div id="donor-progress" class="upload-progress" hidden><span></span></div>
+        </section>
+
+        <section class="settings-section">
+          <div class="settings-title"><h3 data-i18n="processing">处理方式</h3><span data-i18n="advanced">高级</span></div>
+          <label class="select-row" for="sensor-mapping"><span data-i18n="sensorMapping">传感器映射</span><select id="sensor-mapping">
+            <option value="wb-adaptive-bootstrap" selected data-i18n="illuminantAdaptive">光源自适应</option>
+            <option value="identity">Identity</option>
+            <option value="d65-dnglab-bootstrap">D65 bootstrap</option>
+          </select></label>
+          <label class="select-row" for="donor-lens-correction"><span data-i18n="donorLens">供体镜头数据</span><select id="donor-lens-correction">
+            <option value="neutralize" data-i18n="neutralize">中和</option>
+            <option value="preserve" data-i18n="preserve">保留</option>
+          </select></label>
+          <label class="toggle-row" for="inverse-calibration"><span><strong data-i18n="inverseGain">FFF 增益反向补偿</strong><small data-i18n="recognizedOnly">仅对已识别的校准组可用</small></span><span class="switch"><input id="inverse-calibration" type="checkbox"><i></i></span></label>
+          <label class="select-row" for="iso-policy"><span data-i18n="isoPolicy">ISO 映射</span><select id="iso-policy">
+            <option value="nearest-x2d" data-i18n="isoNearest">邻近 X2D 档位</option>
+            <option value="hnnr-stable" selected data-i18n="isoHnnrStable">HNNR 稳定（最高 6400）</option>
+            <option value="capture" data-i18n="isoCapture">保留富士拍摄值</option>
+          </select></label>
+        </section>
+
+      </form>
+    </dialog>
+  </body>
+</html>

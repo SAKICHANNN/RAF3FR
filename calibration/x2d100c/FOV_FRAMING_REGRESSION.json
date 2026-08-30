@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-29",
+  "source": {
+    "file": "DSCF2834.RAF",
+    "sha256": "37b12068f31e53de860161175e4e093a003f0585d54d9af180b32761abca6cae",
+    "active_lattice": [11664, 8750],
+    "lens": "FUJINON 35mm F4 fixed lens",
+    "outer_distortion_percent": -10.09809875
+  },
+  "finding": {
+    "default_crop_is_root_cause": false,
+    "root_cause": "The centre-scale WarpRectilinear fit fixes kr0 at 1.0. In a fixed-size output this maps the corrected corners to approximately 92.1 percent of the source radius, so the loss is geometric correction magnification rather than a TIFF crop.",
+    "unsafe_candidate_rejected": "Scaling a radial warp until the output corner reaches the source corner samples beyond the source rectangle at the top and bottom edge centres.",
+    "accepted_policy": "Uniformly scale all RGB plane polynomials by the exact largest common factor whose complete rectangular boundary remains in-bounds. This preserves relative lateral-CA geometry and keeps the radial derivative positive."
+  },
+  "centre_scale_control": {
+    "rgb_corner_source_radius_fraction": [
+      0.9210711302368934,
+      0.9210608858041652,
+      0.9212450735820442
+    ],
+    "minimum_radial_derivative": 0.7939992371205091
+  },
+  "maximum_in_bounds_candidate": {
+    "uniform_scale": 1.0330628933869705,
+    "rgb_corner_source_radius_fraction": [
+      0.9515244068177322,
+      0.951513823674417,
+      0.9517041012331592
+    ],
+    "maximum_normalized_coordinate_residual": 0.0005286998103327654,
+    "boundary_maximum_scale": 1.0,
+    "blank_edge_risk_by_model": false,
+    "linear_field_gain_over_centre_scale_percent": 3.30628933869705
+  },
+  "claim_boundary": "The accepted policy maximizes an in-bounds centred radial correction for the fixed 4:3 RAW lattice. It cannot retain every uncorrected corner while also removing barrel distortion; complete uncorrected framing remains available by disabling distortion correction. Phocus visual confirmation is still required before release sealing."
+}

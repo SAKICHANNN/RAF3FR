@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-28",
+  "node": "PDX3D-jni-host",
+  "status": "PASS_BOUNDED",
+  "scope": "Panic-contained JNI bridge and JSON option/result contract before Android target compilation",
+  "boundary": {
+    "java_class": "com.raf3fr.app.engine.NativeEngine",
+    "exports": ["convert", "verify"],
+    "crate_type": ["cdylib", "rlib"],
+    "jni_crate": "0.22.4",
+    "error_contract": {"ok": false, "error": "localized by the Kotlin caller"},
+    "success_contract": {"ok": true, "result": "native manifest or verification report"}
+  },
+  "toolchain_bootstrap": {
+    "android_cli_launcher_sha256": "0fa343fda9433b7c74e4eb91d3a18cec60477a29c015a018dd189222a3d0d020",
+    "android_cli_sha256": "5a3230e4d05d72014d4859f0cc7e7081de60c35ade6d2f425d5a238d52d86596",
+    "android_cli_version": "1.0.15985488",
+    "signature_authority": "Developer ID Application: Google LLC (EQHXZ8M8AV)",
+    "metrics_disabled_for_project_commands": true
+  },
+  "host_checks": {
+    "rustfmt": "PASS",
+    "clippy_warnings_denied": "PASS",
+    "core_tests": 12,
+    "jni_tests": 2,
+    "structured_failure_test": "PASS",
+    "partial_options_default_test": "PASS"
+  },
+  "claim_boundary": "The JNI contract is verified on the host only. aarch64-linux-android linking, symbol inspection, Kotlin integration, and emulator/device execution remain open gates."
+}

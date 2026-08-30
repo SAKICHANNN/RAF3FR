@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "camera": "Hasselblad X2D 100C",
+  "formula": "input == 65535 ? 65535 : clip(4096 + (((input - 4096) * q16_gain) >> 16), 0, 65534)",
+  "profiles": {
+    "01409AB1": {
+      "software": "1.1.0",
+      "q16_gains": {"R": 67376, "G1": 65536, "G2": 65536, "B": 66448},
+      "evidence": ["PAIR_0079.json", "PAIR_0080.json"],
+      "pixel_count": 203793504,
+      "mismatch_count": 0
+    },
+    "0140784A": {
+      "software": "1.0.0",
+      "q16_gains": {"R": 65536, "G1": 65708, "G2": 65708, "B": 67192},
+      "evidence": ["PAIR_0461605618.json", "PAIR_9742542576.json", "PAIR_8925806215.json"],
+      "pixel_count": 305690256,
+      "mismatch_count": 0
+    }
+  },
+  "aggregate": {
+    "pair_count": 5,
+    "cohort_count": 2,
+    "pixel_count": 509483760,
+    "mismatch_count": 0,
+    "mismatch_fraction": 0.0,
+    "maximum_absolute_error_dn": 0
+  },
+  "scope": "The transform is exact within each observed RawDataUniqueID body cohort. Firmware and body identity are confounded by the available samples, so no universal or firmware-only gain claim is made. Unknown cohorts must fail closed."
+}

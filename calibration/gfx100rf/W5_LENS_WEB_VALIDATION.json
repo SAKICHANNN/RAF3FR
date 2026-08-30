@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "runtime": {
+    "app": "raf2hncs Web App 0.1.0",
+    "host": "127.0.0.1:8765",
+    "worker_count": 1
+  },
+  "profile_conversion_job": {
+    "id": "09658e451d6443d89ff4a4c6aaf7563c",
+    "source": "DSCF2098.RAF",
+    "profile_id": "fujiifd-04338f49c465cf7589548b80",
+    "profile_sha256": "3283ced7fd48bbb4ec1ca70f823229abd82e2c60a3f90b27abce0bc2907c325d"
+  },
+  "lens_correction_job": {
+    "id": "dcbbe3eb743b4d71a8030f9ac005dc29",
+    "source": "artifacts/local/phocus-exports/DSCF2098-X2D-active-auto-metadata_.tif",
+    "source_sha256": "50048c52eb50c76ca266cef7348f3257b5a78d17977f89f51b3c9220fd21d3cb",
+    "source_description": "Phocus 4.2.2 full-resolution 16-bit Adobe RGB TIFF",
+    "parameters": {
+      "distortion_strength": 1.0,
+      "vignetting_strength": 1.0,
+      "lateral_chromatic_aberration_strength": 1.0,
+      "defringe_strength": 0.0,
+      "input_gamma": 2.19921875
+    },
+    "result": {
+      "stage": "complete",
+      "observed_processing_seconds": 5,
+      "width": 11656,
+      "height": 8742,
+      "channels": "RGB",
+      "bit_depth": 16,
+      "icc_profile": "Adobe RGB (1998)",
+      "output_bytes": 611456362,
+      "output_sha256": "e1e7868f341b5106836d30e229fbb859e309df3db2907839b160bd3b10d0ea6d",
+      "metadata": {
+        "make": "FUJIFILM",
+        "model": "GFX100RF",
+        "lens_make": "FUJIFILM",
+        "lens_model": "35mm F4 embedded profile",
+        "focal_length_mm": 35
+      },
+      "download_status": {
+        "corrected_tiff": 200,
+        "lens_manifest": 200
+      },
+      "temporary_upload_removed": true
+    }
+  },
+  "additional_evidence": {
+    "latest_real_profile_focal_length_35mm": 28,
+    "all_components_disabled_16_bit_pixel_identity_test": "PASS",
+    "browser_console_errors": 0,
+    "responsive_horizontal_overflow": false,
+    "test_suite": "41 passed"
+  },
+  "claim_boundary": "Execution, geometry, bit depth, ICC, metadata, parameter provenance, and download behavior pass. Optical correction accuracy remains unmeasured without held-out grid, flat-field, and frame-edge CA targets. Defringe is image-analysis heuristic evidence only."
+}

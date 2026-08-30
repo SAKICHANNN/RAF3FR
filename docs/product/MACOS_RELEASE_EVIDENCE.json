@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "node": "PDX2",
+  "artifact": {
+    "app": "build/macos/RAF3FR.app",
+    "archive": "build/macos/RAF3FR-macOS-arm64.zip",
+    "archive_size": 22187148,
+    "archive_sha256": "e0517a06c9fcb846f306571fe4a4c58bb9caa9deda17a38a26013c7650c8245a",
+    "architecture": "arm64",
+    "minimum_macos": "14.0",
+    "signature": "ad-hoc; codesign --verify --deep --strict passed",
+    "developer_identities_available": 0,
+    "notarized": false
+  },
+  "native_application": {
+    "framework": "SwiftUI with AppKit file, save, Finder, and Phocus integration",
+    "swift": "Apple Swift 6.3.3",
+    "single_window_id": "main",
+    "persistent_donor_bookmark": true,
+    "external_raf_open": true,
+    "drag_and_drop": true,
+    "cancellable_process": true,
+    "completion_notification_option": true,
+    "languages": ["zh", "en"],
+    "localized_history_date": true,
+    "accessibility_tree_checked": true,
+    "menus_and_keyboard_shortcuts_checked": true
+  },
+  "visual_system": {
+    "direction": "deep graphite native workspace, fine separators, sparse orange delivery action",
+    "typeface": "Outfit headings with native system controls and CJK fallback",
+    "icon_master": "assets/icons/app-icon-master-v2.png",
+    "icon_sha256": "e1c0ec63b8f82055b38e979e4e0762edd36f64db7f24bd83a639cd136b6d9791",
+    "icon_concept": "original split Fujifilm-inspired silver rangefinder and Hasselblad-inspired graphite medium-format body joined by an aperture conversion ring; no logos or brand text"
+  },
+  "bundled_engine": {
+    "python": "3.9.6",
+    "numpy": "2.0.2",
+    "dnglab": "0.7.2",
+    "exiftool": "13.59",
+    "raw_identify": "bundled arm64",
+    "unprocessed_raw": "bundled arm64",
+    "doctor_ready": true,
+    "homebrew_required_at_runtime": false,
+    "user_python_required_at_runtime": false,
+    "opencv_excluded_as_retired_tiff_path": true
+  },
+  "verification": {
+    "swift_debug_build": "pass",
+    "swift_release_build": "pass",
+    "model_checks": "pass",
+    "plist_lint": "pass",
+    "shell_syntax": "pass",
+    "codesign_deep_strict": "pass",
+    "clean_path_archive_extract_and_engine_run": "pass with PATH=/usr/bin:/bin and no repository Python",
+    "gui_real_conversion": {
+      "source": "DSCF2166.RAF",
+      "donor": "B0000079.3FR",
+      "output": "DSCF2166-MAC-GUI-RC1.3FR",
+      "output_size": 213311894,
+      "output_sha256": "2c1285f8881a49d2c2985feaa5dd65f9f6bfa3a3ecbd83a6fa0659026b18b857",
+      "independent_verify": "pass",
+      "source_matches_manifest": true,
+      "lens_defaults": {"distortion": 1.0, "lateral_chromatic_aberration": 1.0, "vignetting": 0.0}
+    }
+  },
+  "release_boundary": {
+    "ready_for_local_arm64_use": true,
+    "developer_id_signing_and_notarization": "human credential gate",
+    "universal_binary": false,
+    "app_store_submission": false
+  }
+}

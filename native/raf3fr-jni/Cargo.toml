@@ -1,0 +1,14 @@
+[package]
+name = "raf3fr-jni"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+jni.workspace = true
+raf3fr-core = { path = "../raf3fr-core" }
+serde_json.workspace = true

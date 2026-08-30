@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "gfx100rf_to_x2d100c_d65_dnglab_bootstrap_v1",
+  "status": "experimental_bootstrap_not_camera_calibrated",
+  "illuminant": "D65",
+  "matrix_direction": "GFX100RF camera-native linear RGB to X2D 100C camera-native linear RGB",
+  "formula": "C_X2D_D65 @ inverse(C_GFX100RF_D65)",
+  "gfx100rf_xyz_to_camera": [
+    [1.2806, -0.5779, -0.1110],
+    [-0.3546, 1.1507, 0.2318],
+    [-0.0177, 0.0996, 0.5715]
+  ],
+  "x2d100c_xyz_to_camera": [
+    [0.6468, -0.1899, -0.0545],
+    [-0.4526, 1.2267, 0.2542],
+    [-0.0388, 0.1276, 0.6096]
+  ],
+  "gfx100rf_to_x2d100c": [
+    [0.533989739451, 0.106152048579, -0.034703733651],
+    [-0.067804597151, 1.030823644074, 0.013523655328],
+    [-0.012006963016, 0.013197711313, 1.058981623137]
+  ],
+  "determinant": 0.590026743114,
+  "condition_number_2": 1.982989795135,
+  "sources": {
+    "gfx100rf": "https://github.com/dnglab/dnglab/pull/548/files",
+    "x2d100c": "https://github.com/dnglab/dnglab/pull/303/files"
+  },
+  "limitations": [
+    "DNGLab database characterization, not a paired-camera measurement",
+    "X2D public database supplies D65 only, so no dual-illuminant interpolation is available",
+    "Not validated against matched GFX100RF/X2D chart captures",
+    "Identity remains the default mapping"
+  ]
+}

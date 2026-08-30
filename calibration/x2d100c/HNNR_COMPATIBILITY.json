@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "runtime": {
+    "application": "Phocus by Hasselblad",
+    "version": "4.2.2",
+    "platform": "macOS",
+    "mode": "HNNR Prioritise Purity",
+    "invocation": "right-click exact thumbnail, HNNR, Apply"
+  },
+  "protocol": {
+    "rule": "Each input was processed exactly once. A second attempt was not used as evidence.",
+    "success": "The first progress run completed, a new _denoised_p.3FR thumbnail appeared, the output was exactly 213311488 bytes, and LibRaw independently identified it as an X2D 100C RGGB RAW with 11904x8842 full and 11664x8750 image geometry.",
+    "reason": "Phocus can reject a second attempt because an output already exists or a denoised file cannot be denoised again; that generic second-run error cannot classify the first-run failure."
+  },
+  "cases": [
+    {
+      "id": "H0",
+      "role": "camera-original X2D 100C genuine control",
+      "input": "H0-genuine-B0000079.3FR",
+      "input_sha256": "dcc5a4abe3498e6f25e89bb491995fd12c3b669d9277c71b45b49210d3e56280",
+      "output": "H0-genuine-B0000079_denoised_p.3FR",
+      "output_sha256": "a2310d0fb0e61c4e7fb2aaa94cda9ddd33ec4320a1b023e5a561ae80840b779b",
+      "result": "PASS"
+    },
+    {
+      "id": "H1",
+      "role": "byte-identical copy control",
+      "input": "H1-identity-copy.3FR",
+      "input_sha256": "dcc5a4abe3498e6f25e89bb491995fd12c3b669d9277c71b45b49210d3e56280",
+      "output": "H1-identity-copy_denoised_p.3FR",
+      "output_sha256": "a2310d0fb0e61c4e7fb2aaa94cda9ddd33ec4320a1b023e5a561ae80840b779b",
+      "result": "PASS",
+      "note": "The H0 and H1 denoised outputs are byte-identical."
+    },
+    {
+      "id": "H2",
+      "role": "GFX100RF Bayer transplant without inverse X2D calibration",
+      "input": "H2-transplant-no-inverse.3FR",
+      "input_sha256": "ee470294ebaf12320f90a9d72b2cb3fe3fb06e599f38d3fec0f9fc518ee5bb0d",
+      "output": "H2-transplant-no-inverse_denoised_p.3FR",
+      "output_sha256": "abe31ce25d07adb977485f665c5ad64e6d8c6f0c73f73b4540fc712c3853e375",
+      "result": "PASS"
+    },
+    {
+      "id": "H3",
+      "role": "recommended GFX100RF transplant with inverse X2D calibration",
+      "input": "H3-transplant-inverse.3FR",
+      "input_sha256": "9b4ae2fb3fbbc0cf840f6fe552799510a080eca54864e6b8d4a9365e42184510",
+      "output": "H3-transplant-inverse_denoised_p.3FR",
+      "output_sha256": "8137e5c21c65a72433cda0ee6bf25bb555d9684d5f68fc8f657b884744d0b59e",
+      "result": "PASS",
+      "note": "Observed at 94.3% and then completed normally."
+    },
+    {
+      "id": "H4",
+      "role": "experimental D65 sensor-domain transplant",
+      "input": "H4-transplant-d65.3FR",
+      "input_sha256": "8d7ac1af1260796d24fd9ff65270d7fcfabe87fa3d47482b248e3e2ea21dee18",
+      "output": "H4-transplant-d65_denoised_p.3FR",
+      "output_sha256": "319b41c6f88df9f5fbe48d6b6812d45a46d607f0884a21c46a4b0e47bc555715",
+      "result": "PASS"
+    },
+    {
+      "id": "H6",
+      "role": "recommended inverse-calibrated transplant with synchronized Fuji embedded preview",
+      "input": "H6-preview-count-fixed-inverse.3FR",
+      "input_sha256": "4690b9271e13b455d3df2afc8505de1fe9ce8e4228759eb80dc2ed4bd2fb539e",
+      "output": "H6-preview-count-fixed-inverse_denoised_p.3FR",
+      "output_sha256": "3f44102425322f4e37167cca438de2d66eba6b697cd28ab2ff622a87890a8b7f",
+      "result": "PASS",
+      "note": "The Fuji JPEG replaces the stale donor preview, IFD0 PreviewByteCount is synchronized to 2777958 bytes, and HNNR remains eligible."
+    },
+    {
+      "id": "H7",
+      "role": "current default GFX100RF transplant with donor XCD vignetting dispatch neutralized",
+      "input": "L18-final-default-neutralized.3FR",
+      "input_sha256": "eeb5e47cda8573c3026925133b399b960f23d3159669c7c70cfbb6b1768e7722",
+      "output": "L18-final-default-neutralized_denoised_p.3FR",
+      "output_sha256": "f4693e69cd646fe20a9d86429c9c18183d06c77229b20b11baeb1e38d4d082fc",
+      "result": "PASS",
+      "note": "The first Purity-mode attempt completed and produced a 213311488-byte output after only MakerNote tag 0x0018 was retagged to 0xff18."
+    }
+  ],
+  "raw_content_verification": {
+    "method": "Sample the independently addressed 11664x8750 RGGB content lattice every 32 sites and compare HNNR output with its input and the genuine Hasselblad H0 RAW.",
+    "H2": {
+      "correlation_output_to_input": 0.999648452591116,
+      "correlation_output_to_genuine_hasselblad": 0.16395130483002815
+    },
+    "H3": {
+      "correlation_output_to_input": 0.999646079843351,
+      "correlation_output_to_genuine_hasselblad": 0.163951731223823
+    },
+    "H4": {
+      "correlation_output_to_input": 0.9997604998198728,
+      "correlation_output_to_genuine_hasselblad": 0.17458494854048995
+    },
+    "H6": {
+      "correlation_output_to_input": 0.999646079843351,
+      "correlation_output_to_genuine_hasselblad": 0.163951731223823,
+      "mean_absolute_output_to_input_dn": 25.271432856714327,
+      "independent_scene_identity": "Fuji building/trees before and after HNNR; genuine Hasselblad is yard/dog"
+    },
+    "decision": "HNNR modifies the transplanted Fuji Bayer; it does not substitute the genuine Hasselblad donor RAW."
+  },
+  "decision": {
+    "status": "PASS_IN_TESTED_SCOPE",
+    "supported_claim": "Phocus 4.2.2 HNNR accepts the tested camera-original donor, byte-identical copy, ordinary GFX100RF transplant, inverse-calibrated transplant, experimental D65 transplant, preview-corrected transplant, and current default donor-lens-neutralized transplant.",
+    "diagnostic_boundary": "A prior near-completion exit is not reproduced and is not evidence of structural format incompatibility. Preserve and inspect the first attempt's partial or completed output before retrying; the second generic error is a different state. Stale embedded previews and Phocus cache state can display the donor scene even when the RAW lattice is Fuji, so independent RAW identity is authoritative.",
+    "generalization_boundary": "One donor, one GFX scene, one Phocus version, and Purity mode were tested. This does not promise every file, firmware, Phocus version, or Detail mode."
+  }
+}

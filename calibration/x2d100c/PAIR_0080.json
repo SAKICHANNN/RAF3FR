@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "pair": {
+    "camera": "Hasselblad X2D 100C",
+    "firmware": "1.1.0",
+    "raw_data_unique_id": "01409AB1000000E7",
+    "three_fr": {
+      "name": "B0000080.3FR",
+      "sha256": "e19d90bab052b75e2bd04f77d9b9f758a9958ae942ee3e2a8991329a981a0e23",
+      "decoded_pgm_sha256": "c68c6a41396c2de8477de49a7bb06b987a2ad9f9961bd02d6783b3488b8a8dd2"
+    },
+    "fff": {
+      "name": "Job_0080.fff",
+      "sha256": "44977fdaa3063eacbb2ac416dfb531bb4e3b96f3745d073dc49fb1ebcd78bedc",
+      "decoded_pgm_sha256": "a7a50ad5b394090c108784944c54ad493b0f47b5ea792688f428efc9d35d7ae8"
+    }
+  },
+  "geometry": {
+    "full_size": [11904, 8842],
+    "default_crop_origin": [128, 96],
+    "default_crop_size": [11656, 8742],
+    "cfa": "RGGB",
+    "black_level": 4096
+  },
+  "observed_transform": {
+    "formula": "input == 65535 ? 65535 : clip(4096 + (((input - 4096) * q16_gain) >> 16), 0, 65534)",
+    "q16_gains": {"R": 67376, "G1": 65536, "G2": 65536, "B": 66448},
+    "default_crop_validation": {
+      "pixel_count": 101896752,
+      "mismatch_count": 0,
+      "mismatch_fraction": 0.0,
+      "maximum_absolute_error_dn": 0,
+      "per_plane": {
+        "R": {"pixel_count": 25474188, "mismatch_count": 0},
+        "G1": {"pixel_count": 25474188, "mismatch_count": 0},
+        "G2": {"pixel_count": 25474188, "mismatch_count": 0},
+        "B": {"pixel_count": 25474188, "mismatch_count": 0}
+      }
+    }
+  },
+  "interpretation": [
+    "Pair 0080 independently reproduces the exact Q16 gains first fitted on pair 0079.",
+    "The 65534 ceiling and preserved 65535 sentinel make every plane exact.",
+    "Together the two firmware-1.1.0 pairs support a repeatable X2D 3FR-to-FFF channel calibration, not geometric resampling."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-28",
+  "node": "PDX3B",
+  "status": "PASS_BOUNDED",
+  "scope": "X2D donor inspection, active Bayer mapping, WB/capture metadata patching, and donor preservation",
+  "source": {
+    "filename": "DSCF2166.RAF",
+    "sha256": "d76271dcb9aad11fe36f80347538a133555e490752f211e81c211fd9eff73e1a"
+  },
+  "donor": {
+    "filename": "B0000079.3FR",
+    "sha256": "dcc5a4abe3498e6f25e89bb491995fd12c3b669d9277c71b45b49210d3e56280",
+    "software": "1.1.0",
+    "raw_data_unique_id": "01409AB1000000E6",
+    "dimensions": [11904, 8842],
+    "raw_strip": {"offset": 8192, "bytes": 210510336},
+    "preview": {"offset": 210522112, "bytes": 2789376},
+    "default_crop": {"origin": [128, 96], "size": [11656, 8742]},
+    "black_level": 4096,
+    "white_level": 65535
+  },
+  "mapping": {
+    "mode": "active_lattice_1_to_1",
+    "source_origin": [0, 0],
+    "source_size": [11664, 8750],
+    "target_origin": [124, 92],
+    "target_size": [11664, 8750],
+    "raw_payload_md5": "facdc5c13b6268fa3ead81b474d2eea5",
+    "python_reference_raw_payload_md5": "facdc5c13b6268fa3ead81b474d2eea5",
+    "exact_match": true,
+    "clipped_above_white": 35379,
+    "clipped_below_black": 0
+  },
+  "metadata_parity": {
+    "patches_compared": 19,
+    "byte_exact_against_python_reference": true,
+    "includes": [
+      "Fuji camera-auto WB mapped into X2D AsShotNeutral",
+      "exposure time, aperture, ISO, dates, compensation, metering, flash, focal length, and color space",
+      "35mm-equivalent focal length and FUJIFILM 35mm F4 lens identity",
+      "ImageUniqueID and binary RawDataUniqueID derived from the transplanted payload",
+      "neutralized Hasselblad MakerNote lens-dispatch tag"
+    ]
+  },
+  "preservation": {
+    "candidate_size_equals_donor": true,
+    "declared_changed_regions": "RAW strip plus 19 fixed metadata ranges",
+    "complement_ranges": 15,
+    "complement_hash_exact": true
+  },
+  "automated_checks": {
+    "rustfmt": "PASS",
+    "clippy_warnings_denied": "PASS",
+    "rust_tests": 7,
+    "python_regression_tests": 52
+  },
+  "claim_boundary": "This proves donor, payload, WB and fixed-slot capture metadata parity. Source-preview replacement, DNG lens opcodes, audit manifest, native verification and Android ABI execution remain PDX3C-PDX3D gates."
+}

@@ -1,0 +1,12 @@
+[package]
+name = "raf3fr-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+raf3fr-core = { path = "../raf3fr-core" }
+serde_json.workspace = true
+sha2.workspace = true

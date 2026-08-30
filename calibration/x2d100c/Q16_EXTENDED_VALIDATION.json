@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "application": {"name": "Phocus", "version": "4.2.2", "platform": "macOS"},
+  "pairing_protocol": {
+    "raw_import_format": "convert 3FR to FFF",
+    "adjustment": "Standard",
+    "use_embedded_3fr_configuration": true,
+    "decoder": "LibRaw unprocessed_raw 0.22.2",
+    "comparison_region": {"origin": [128, 96], "size": [11656, 8742], "cfa": "RGGB"}
+  },
+  "transform": {
+    "black_level": 4096,
+    "normal_white_ceiling": 65534,
+    "preserved_saturation_sentinel": 65535,
+    "formula": "input == 65535 ? 65535 : clip(4096 + (((input - 4096) * q16_gain) >> 16), 0, 65534)"
+  },
+  "profiles": [
+    {
+      "raw_data_unique_id_prefix": "01409AB1",
+      "software": "1.1.0",
+      "q16_gains": {"R": 67376, "G1": 65536, "G2": 65536, "B": 66448},
+      "pairs": ["0079", "0080"],
+      "pixel_count": 203793504,
+      "mismatch_count": 0,
+      "maximum_absolute_error_dn": 0
+    },
+    {
+      "raw_data_unique_id_prefix": "0140784A",
+      "software": "1.0.0",
+      "q16_gains": {"R": 65536, "G1": 65708, "G2": 65708, "B": 67192},
+      "pairs": ["0461605618", "9742542576", "8925806215"],
+      "capture_span": {"iso": [64, 100, 400], "lenses": ["XCD 38V", "XCD 55V"], "exposures": ["1/2000", "1/90", "1/575"], "f_numbers": [2.5, 13.0]},
+      "pixel_count": 305690256,
+      "mismatch_count": 0,
+      "maximum_absolute_error_dn": 0
+    }
+  ],
+  "cross_profile_negative_controls": [
+    {
+      "applied_profile": "01409AB1",
+      "target_cohort": "0140784A",
+      "pixel_count": 305690256,
+      "mismatch_count": 292324404,
+      "mismatch_fraction": 0.9562764866146077,
+      "maximum_absolute_error_dn": 1677
+    },
+    {
+      "applied_profile": "0140784A",
+      "target_cohort": "01409AB1",
+      "pixel_count": 203793504,
+      "mismatch_count": 200415693,
+      "mismatch_fraction": 0.9834253254706293,
+      "maximum_absolute_error_dn": 1673
+    }
+  ],
+  "aggregate_exact_validation": {"pair_count": 5, "cohort_count": 2, "pixel_count": 509483760, "mismatch_count": 0, "maximum_absolute_error_dn": 0},
+  "conclusion": "The 3FR-to-FFF transform is a cohort-specific channel calibration, not one universal X2D gain. The available body cohorts and firmware versions are perfectly confounded, so RawDataUniqueID cohort plus Software is used as a fail-closed selector and no causal firmware-only claim is made."
+}

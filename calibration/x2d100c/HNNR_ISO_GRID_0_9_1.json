@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-29",
+  "runtime": {
+    "application": "Phocus",
+    "version": "4.2.2",
+    "mode": "Purity",
+    "scene": "DSCF2834 ISO 10000 DR200 night scene with deep shadows"
+  },
+  "control": {
+    "raw_strip_sha256": "c9bfee96179f18f40e63b1baadf31817c80c1acf1901722768bfbb42bd7b9535",
+    "statement": "The ISO 6400 and ISO 12800 inputs have byte-identical 210510336-byte RAW strips. ISO metadata is the intended model-selector difference."
+  },
+  "method": {
+    "content_lattice": [11664, 8750],
+    "dark_mask": "input code <= 4083, the sampled 20th percentile",
+    "dark_sample_count": 20446473,
+    "metric": "Compute output-minus-input RAW residual, aggregate its 32x32 sensor-coordinate phase means, then measure the first spatial harmonic at one cycle per 32 pixels."
+  },
+  "purity_results": [
+    {
+      "model_iso": 6400,
+      "input_sha256": "f3b427456a410642d530a67116b34c4242b36f6041845d0252734c74f9765f31",
+      "output_sha256": "9868eea2428a885820c4ec40b5651915c500d4523455ea37beb6984a2b90cfa3",
+      "dark_residual_mad_dn": 95.8428,
+      "phase_mean_range_dn": 42.7357,
+      "period_32_fundamental_dn": 0.111,
+      "classification": "NO_COMPARABLE_32_PIXEL_GRID"
+    },
+    {
+      "model_iso": 12800,
+      "input_sha256": "e2c8d5d0c512b219cbece6933cfd39795efcf8e4fe5e3b0e0b4b0e5b50d65601",
+      "output_sha256": "c99f425feed3627e719d5b430baac443b1ac0902f0b8120d4a5572d227572dad",
+      "dark_residual_mad_dn": 121.6564,
+      "phase_mean_range_dn": 112.9326,
+      "period_32_fundamental_dn": 3.1945,
+      "classification": "REGULAR_GRID_REPRODUCED"
+    }
+  ],
+  "decision": {
+    "periodic_energy_ratio_12800_to_6400": 28.77927927927928,
+    "software_bug": false,
+    "policy": "Keep hnnr-stable as the default and cap capture ISO above 6400 to model ISO 6400. Do not silently rewrite nearest-X2D or capture-ISO modes because they are explicit non-HNNR semantic choices.",
+    "ui_boundary": "State that HNNR safety applies to the HNNR-safe ISO mode; other ISO policies can reproduce model-grid artifacts."
+  },
+  "claim_boundary": "ISO 6400 is an empirically bounded compatibility selector, not a calibrated noise-equivalent conversion and not a guarantee for every Phocus/HNNR version or scene."
+}

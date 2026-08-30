@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-28",
+  "node": "PDX3C-manifest",
+  "status": "PASS_BOUNDED",
+  "scope": "Atomic native conversion, durable audit manifest, standalone verification, preservation proof, and deterministic repetition",
+  "real_conversion": {
+    "source": "DSCF2166.RAF",
+    "donor": "B0000079.3FR",
+    "output_bytes": 213311894,
+    "output_sha256": "5ec46d4141159e88dada0a4813e01930f5716c6b07a2bc8bef31b9b9dbc94aee",
+    "repeat_output_sha256": "5ec46d4141159e88dada0a4813e01930f5716c6b07a2bc8bef31b9b9dbc94aee",
+    "deterministic_exact": true,
+    "conversion_seconds": 4.89,
+    "max_rss_bytes": 504250368,
+    "peak_footprint_bytes": 448463640
+  },
+  "native_verification": {
+    "status": "PASS",
+    "source_hash_checked": true,
+    "donor_hash_checked": true,
+    "output_hash_checked": true,
+    "raw_payload_md5": "facdc5c13b6268fa3ead81b474d2eea5",
+    "preview_sha256": "bd198ccd6af47e74f0a18d706ad1648434481927295a05cf686699ac572acc62",
+    "lens_opcode_sha256": "ded7d6653fd9f767fdb0fd4d6c2c304e068635c152e612acb15bb44b6cc23625",
+    "preserved_range_count": 17,
+    "allowed_changed_range_count": 17
+  },
+  "publication": {
+    "same_directory_partial_files": true,
+    "no_overwrite_hard_link_publish": true,
+    "second_conversion_refused": true,
+    "existing_output_hash_preserved": true,
+    "stale_partial_after_success": false
+  },
+  "automated_checks": {
+    "rustfmt": "PASS",
+    "clippy_warnings_denied": "PASS",
+    "rust_tests": 13,
+    "python_regression_tests": 52
+  },
+  "claim_boundary": "PDX3C proves deterministic native construction and structural self-verification on the admitted Apple Silicon host. Cross-implementation semantic comparison across all declared fields, Android ABI builds, and real Android memory/runtime execution remain PDX3D gates."
+}

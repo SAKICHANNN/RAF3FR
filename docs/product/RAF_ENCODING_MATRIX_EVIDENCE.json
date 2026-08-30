@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-29",
+  "camera": "Fujifilm GFX100RF",
+  "design": {
+    "compression": ["Lossless", "Lossy", "Uncompressed"],
+    "recording_bits": [14, 16],
+    "iso": [3200, 4000],
+    "expected_count": 12
+  },
+  "engine": "build/macos/RAF3FR.app/Contents/MacOS/raf2hncs-engine",
+  "donor_sha256": "dcc5a4abe3498e6f25e89bb491995fd12c3b669d9277c71b45b49210d3e56280",
+  "defaults": {
+    "white_balance": "auto",
+    "sensor_mapping": "wb-adaptive-bootstrap",
+    "donor_lens_correction": "neutralize",
+    "distortion_strength": 1.0,
+    "chromatic_aberration_strength": 1.0,
+    "vignetting_strength": 0.0,
+    "hnnr_compatibility": true
+  },
+  "summary": {
+    "rawler_decode_pass": 12,
+    "packaged_macos_convert_pass": 12,
+    "donor_preservation_verify_pass": 12,
+    "source_manifest_match_pass": 12,
+    "iso_transfer_pass": 12,
+    "zero_final_below_code_clip_pass": 12,
+    "phocus_hnnr_tested": 0
+  },
+  "known_issue": "For 14-bit RAFs, decoder metadata reports the 16-bit carrier width while white_level correctly reports 16383. Camera recording depth must be sourced separately for admission and display.",
+  "cases": [
+    {"file":"DSCF2632.RAF","compression":"Lossless","recording_bits":16,"iso":3200,"white_level":65535,"black_level":4094,"clipped_above_white":147,"preserved_below_black":681052,"clipped_below_code_zero":0,"source_sha256":"272548579ca0fa94ee0198e912d9aceef91ab5372d085b85b7ce5781c011bbb5","output_sha256":"f22b60574132ac54060aecebccddda89937a7595ebaa4a1949d88ccf91316028"},
+    {"file":"DSCF2633.RAF","compression":"Lossless","recording_bits":16,"iso":4000,"white_level":65535,"black_level":4093,"clipped_above_white":202,"preserved_below_black":956711,"clipped_below_code_zero":0,"source_sha256":"af37d4c3d071d9443158aa0432e7cdc3ecab6c4dd73f65ca43e6fc3a0311799e","output_sha256":"22f2df00ee949cc814cace519efe9e0ee5bbf7468b141f289ab7a76cdf94a144"},
+    {"file":"DSCF2634.RAF","compression":"Lossless","recording_bits":14,"iso":4000,"white_level":16383,"black_level":1023,"clipped_above_white":385,"preserved_below_black":944741,"clipped_below_code_zero":0,"source_sha256":"c282096cd4838106dfda571e5887fd8eae30abe2d4f42151c64be7c025faea75","output_sha256":"57156341a9b968f94d2dfb93bd45801888fadc74823ab374fc4ecabbee933e8d"},
+    {"file":"DSCF2635.RAF","compression":"Lossless","recording_bits":14,"iso":3200,"white_level":16383,"black_level":1024,"clipped_above_white":316,"preserved_below_black":818935,"clipped_below_code_zero":0,"source_sha256":"51dedaa57f2ce0ce54705052311821fcde56704846847757f3fea99b0a81d18f","output_sha256":"06c7b48c5216c46f5222cd0890918f769154dd34668524fc640f9636492bc864"},
+    {"file":"DSCF2636.RAF","compression":"Lossy","recording_bits":16,"iso":3200,"white_level":65535,"black_level":4092,"clipped_above_white":308,"preserved_below_black":664783,"clipped_below_code_zero":0,"source_sha256":"13d3a6a427486572442ed83598f0611b71e04967bcbdd36f68e754cf5dc5f231","output_sha256":"d118be319e2cbecec18388f0e860ddcaf084552d8abb66759a4a4de2eabeffcc"},
+    {"file":"DSCF2637.RAF","compression":"Lossy","recording_bits":16,"iso":4000,"white_level":65535,"black_level":4092,"clipped_above_white":306,"preserved_below_black":1017570,"clipped_below_code_zero":0,"source_sha256":"9a6f28c094e7ebdf28472ac5c158309159afb6573f8227f73966f873f1d0ab6e","output_sha256":"1d8a0be48bb69be456b054a157e0c0b8d7611e579a6a66dd9cc34f62cadf61cb"},
+    {"file":"DSCF2638.RAF","compression":"Lossy","recording_bits":14,"iso":4000,"white_level":16383,"black_level":1023,"clipped_above_white":185,"preserved_below_black":1018684,"clipped_below_code_zero":0,"source_sha256":"07bd2a77cb11438c2aca1a332be77fe3e70af56a8a1e83ce36db471ccd6e5f0f","output_sha256":"30cb5d963b55fbeaf4f27fe87221a85e067bc6aadf88b33ece7014f00a5d5fca"},
+    {"file":"DSCF2639.RAF","compression":"Lossy","recording_bits":14,"iso":3200,"white_level":16383,"black_level":1024,"clipped_above_white":116,"preserved_below_black":797994,"clipped_below_code_zero":0,"source_sha256":"121aafa188c7151dc6961db6ab244546d04aaa21f5e80963a2a099a9c36749cc","output_sha256":"93e0f689e127d78d75492d4de44fc2e7ca12813500879a6e5b933fff18cb7091"},
+    {"file":"DSCF2640.RAF","compression":"Uncompressed","recording_bits":14,"iso":3200,"white_level":16383,"black_level":1024,"clipped_above_white":189,"preserved_below_black":757090,"clipped_below_code_zero":0,"source_sha256":"f8b2c5d9ed8ead1275829ec396067317df5e7bba76d819eff436b3c18762e58d","output_sha256":"56b7cc527d5e192926c7ab1fbca316690eec35b95d30334b6e9ed0ca398e5ee8"},
+    {"file":"DSCF2641.RAF","compression":"Uncompressed","recording_bits":14,"iso":4000,"white_level":16383,"black_level":1023,"clipped_above_white":168,"preserved_below_black":1028010,"clipped_below_code_zero":0,"source_sha256":"0258b77638e884c53c11cd70383cb57fee318c92af78207e2d38c5bcb45a160c","output_sha256":"c0879ec7636ce081e3530fd85ad0ae945d3ddcca2a29934e745d922dcdd4686b"},
+    {"file":"DSCF2642.RAF","compression":"Uncompressed","recording_bits":16,"iso":3200,"white_level":65535,"black_level":4093,"clipped_above_white":171,"preserved_below_black":647899,"clipped_below_code_zero":0,"source_sha256":"d333b60b45e627ea904b0a8bbb57f2ac7d17ba905a4bc297e7d6932215a4f2fa","output_sha256":"90d50fc9c6d0fc6160b6c475e89944f30f64ab7e99c0c610ec823a5150d6f5fb"},
+    {"file":"DSCF2643.RAF","compression":"Uncompressed","recording_bits":16,"iso":4000,"white_level":65535,"black_level":4092,"clipped_above_white":198,"preserved_below_black":926172,"clipped_below_code_zero":0,"source_sha256":"d4a2f0a2190c21f35ff632bbc0bea31cd93805ee928a2e8aaa703ec816de1966","output_sha256":"50ec72ed44d3857163e57d9dff74874efba721995ab5f8d13e5e6dd8f36e3b49"}
+  ],
+  "claim_boundary": "Structural converter compatibility only. Lossy RAF cannot recover discarded source information, and no matrix case is promoted to Phocus/HNNR compatibility until first-attempt external validation passes."
+}

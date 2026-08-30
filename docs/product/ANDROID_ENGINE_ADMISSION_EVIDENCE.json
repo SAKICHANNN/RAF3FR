@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-28",
+  "node": "PDX3A",
+  "status": "PASS_BOUNDED",
+  "scope": "Portable GFX100RF decode, Fuji private metadata, and WB sensor-mapping admission",
+  "toolchain": {
+    "rustc": "1.98.0 (88d9e12ae 2026-08-18)",
+    "cargo": "1.98.0 (797e8a9bc 2026-08-05)",
+    "rawler": "0.7.2",
+    "dependency_lock": "native/Cargo.lock"
+  },
+  "supply_chain": {
+    "rust_distribution": "https://static.rust-lang.org/dist/2026-08-20/",
+    "component_sha256_verified_against_official_channel_manifest": true,
+    "cargo_lock_contains_registry_checksums": true
+  },
+  "automated_checks": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "result": "PASS"
+    },
+    {
+      "command": "cargo clippy --workspace --all-targets -- -D warnings",
+      "result": "PASS"
+    },
+    {
+      "command": "cargo test --workspace",
+      "result": "PASS",
+      "tests": 4
+    }
+  ],
+  "real_raf": {
+    "filename": "DSCF2166.RAF",
+    "source_sha256": "d76271dcb9aad11fe36f80347538a133555e490752f211e81c211fd9eff73e1a",
+    "dimensions": [11808, 8754],
+    "pixel_count": 103367232,
+    "active_area": {"x": 0, "y": 0, "width": 11664, "height": 8750},
+    "default_crop": {"x": 8, "y": 7, "width": 11648, "height": 8736},
+    "black_levels": [4092, 4092, 4092, 4092],
+    "white_level": 65535,
+    "camera_auto_grb_levels": [302, 415, 1051],
+    "as_shot_grb_levels": [302, 359, 851],
+    "lens_vector_lengths": {
+      "geometric_distortion": 19,
+      "chromatic_aberration": 29,
+      "vignetting": 19
+    },
+    "preview": {"offset": 148, "length": 3058187}
+  },
+  "cross_decoder_parity": {
+    "canonical_encoding": "full-canvas little-endian unsigned 16-bit samples",
+    "native_rawler_sha256": "a6f913535e93cb45b2c62474753e0d4d8f5c6888bbcf075107af8d46c11eeee0",
+    "libraw_sha256": "a6f913535e93cb45b2c62474753e0d4d8f5c6888bbcf075107af8d46c11eeee0",
+    "exact_match": true
+  },
+  "release_profile_probe": {
+    "operation": "decode, validate, serialize metadata, and hash all pixels",
+    "wall_seconds": 2.9,
+    "maximum_resident_set_bytes": 503595008,
+    "peak_memory_footprint_bytes": 370000712,
+    "host": "Apple Silicon macOS 26.5.2"
+  },
+  "claim_boundary": "This admits source decode and source-side calibration data only. It does not yet prove donor patching, 3FR output parity, Android ABI execution, or release readiness."
+}

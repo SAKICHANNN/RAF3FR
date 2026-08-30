@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "node": "PDX1",
+  "surface": "localhost Web single page",
+  "design": {
+    "direction": "restrained graphite photographic instrument with sparse orange focus colour",
+    "main_flow": ["select RAF", "choose white balance and lens strengths", "convert", "download verified 3FR"],
+    "settings_only": ["X2D donor", "sensor mapping", "donor lens dispatch", "inverse FFF gain"],
+    "removed_copy_patterns": ["marketing hero", "step numbers", "scientific option explanations", "decorative local-only claims"],
+    "typeface": "Outfit variable font under SIL OFL 1.1, with PingFang SC and system fallbacks",
+    "languages": ["zh-CN", "en"],
+    "primary_delivery_action": "full-width 62 px Download 3FR button"
+  },
+  "automated": {
+    "pytest": "52 passed",
+    "javascript_syntax": "pass",
+    "diff_check": "pass"
+  },
+  "browser": {
+    "runtime": "Codex in-app browser",
+    "desktop_viewport": [1280, 720],
+    "compact_viewport": [390, 844],
+    "minimum_viewport": [320, 700],
+    "horizontal_overflow_at_320": false,
+    "undersized_visible_targets_at_320": 0,
+    "settings_keyboard_open": true,
+    "vignetting_switch_enables_slider": true,
+    "vignetting_switch_disables_slider": true,
+    "console_errors_or_warnings": 0
+    ,"language_switch_updates_static_dynamic_and_accessibility_copy": true
+    ,"download_3fr_button_at_350_css_px": [312.34, 62]
+  },
+  "real_round_trip": {
+    "source": "DSCF2166.RAF",
+    "source_size": 127867712,
+    "donor": "B0000079.3FR",
+    "job_id": "da99ba6a17704f6f9525be7f7fc2b4d1",
+    "result_stage": "complete",
+    "output_size": 213311894,
+    "output_sha256": "2c1285f8881a49d2c2985feaa5dd65f9f6bfa3a3ecbd83a6fa0659026b18b857",
+    "download_sha256_matches_job": true,
+    "independent_verify": "pass",
+    "lens_defaults": {
+      "distortion": 1.0,
+      "lateral_chromatic_aberration": 1.0,
+      "vignetting": 0.0
+    }
+  },
+  "sources": {
+    "hasselblad_x2d": "https://www.hasselblad.com/x-system/x2d-100c/",
+    "apple_macos_hig": "https://developer.apple.com/design/human-interface-guidelines/designing-for-macos",
+    "android_adaptive": "https://developer.android.com/develop/ui/compose/layouts/adaptive/get-started-with-adaptive-apps"
+  }
+}

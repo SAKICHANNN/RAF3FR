@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "release": {
+    "version": "0.2.0",
+    "build": "2",
+    "bundle_id": "app.raf3fr.converter",
+    "architecture": "arm64",
+    "archive": "build/macos/RAF3FR-macOS-arm64.zip",
+    "archive_bytes": 22444360,
+    "archive_sha256": "e14b1f65b6e22ffbe4bad796ac0f055a4960e550730a5c1313fdb69b3b846427",
+    "signature": "ad_hoc_deep_codesign_valid"
+  },
+  "package": {
+    "app_executable_sha256": "d905da5191ae9ad16dd24929196885d200122c52e01a97ca5a4406ffb7f2005a",
+    "engine_sha256": "91df7c1b6e6d43582e8b1ac579c4c227fdc123e7e4aa6d1c8755d2554a4261db",
+    "bundled_donor_sha256": "1e7373384843a803eb986b42bf75e044142f029805db86018fa2f68b47643fd6",
+    "bundled_donor_bytes": 213311488,
+    "forbidden_donor_identity_hits": 0
+  },
+  "clean_install": {
+    "unpacked_archive_only": true,
+    "isolated_preferences": true,
+    "initial_history_empty": true,
+    "built_in_sanitized_template_visible": true,
+    "external_donor_required": false,
+    "raf_selection_enables_conversion": true,
+    "packaged_engine_doctor_ready": true,
+    "source": "DSCF2632.RAF",
+    "source_sha256": "272548579ca0fa94ee0198e912d9aceef91ab5372d085b85b7ce5781c011bbb5",
+    "output_sha256": "71b45c9b73adc977a4c3aba3b3726d100b3a30f4747b727445a55a0893a20846",
+    "verify_source_matches_manifest": true,
+    "capture_iso": 3200
+  },
+  "donor_states": {
+    "clean_install_defaults_to_bundled": true,
+    "legacy_bookmark_without_explicit_override_defaults_to_bundled": true,
+    "external_override_observed": true,
+    "restore_bundled_observed": true,
+    "restore_preserves_external_file": true,
+    "missing_resource_fails_closed": true,
+    "truncated_resource_fails_closed": true,
+    "hash_mismatch_fails_closed": true
+  },
+  "ui": {
+    "chinese_first_run_observed": true,
+    "english_switch_observed": true,
+    "lens_numeric_entry_observed": true,
+    "lens_numeric_input_percent": 125,
+    "synchronized_slider_strength": 1.25,
+    "disabled_vignetting_field_observed": true,
+    "upgrade_history_preserved_with_same_bundle_id": true
+  },
+  "claim_boundary": "The archive is a locally ad-hoc-signed arm64 release. Developer ID signing and Apple notarisation are not claimed. Structural conversion and verification pass; no new claim of calibrated Fuji-to-X2D color equivalence is made."
+}

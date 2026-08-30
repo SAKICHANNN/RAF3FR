@@ -1,0 +1,68 @@
+{
+  "release": {
+    "version": "0.9.5",
+    "macos_build": 16,
+    "android_version_code": 905,
+    "date": "2026-08-30"
+  },
+  "distortion_models": {
+    "default": "native-match",
+    "compatibility": "legacy-in-bounds",
+    "native_policy": "gfx100rf_native_vendor_render_match_v1",
+    "native_center": [0.50009205067, 0.499039419533],
+    "legacy_policy": "maximum_in_bounds_rectilinear_frame",
+    "legacy_center": [0.5, 0.5],
+    "legacy_uniform_scale": 1.0330723395301635
+  },
+  "real_conversion": {
+    "source_model": "GFX 100RF",
+    "source_sha256": "9dbfeb6c4629575f08f5fd12671b9d8134ae6194485f0afda5c52a4a939244b3",
+    "source_unchanged": true,
+    "native_output_sha256": "4099e8cbcdbb1fb007c443d023aab92ff76b3f0d9749e395446335e144a01e81",
+    "legacy_output_sha256": "a008acfa437344686f902e7e8e50161e17100233f44e94588db53be86a702447",
+    "output_bytes_each": 213315804,
+    "donor_preservation_verified": true,
+    "source_manifest_match": true
+  },
+  "automated_checks": {
+    "python": "107 passed",
+    "rust_core": "20 passed",
+    "rust_jni": "3 passed",
+    "macos": "debug build, release build and model checks passed",
+    "android": "5 unit tests, debug build, release build and release lint passed",
+    "android_runtime": "not claimed: local API 36 arm64 emulator exited in the host QEMU runtime before app launch"
+  },
+  "artifacts": {
+    "macos_archive": {
+      "name": "RAF3FR-0.9.5-macOS-arm64.zip",
+      "bytes": 43811042,
+      "sha256": "3f6993e4df5e36e7f532f75f87f22ddf407677cf9639afb5c912307aa2e54267",
+      "signing": "ad-hoc codesign; deep strict verification passed",
+      "notarized": false
+    },
+    "android_apk": {
+      "name": "RAF3FR-0.9.5-android-arm64.apk",
+      "bytes": 16192354,
+      "sha256": "27ca2f4e066d15ee354ebce58d0a07ff2639b6d89ac03bea98e2eb0b8abf6374",
+      "package": "com.raf3fr.app",
+      "minimum_api": 26,
+      "target_api": 36,
+      "certificate_sha256": "e191b275629127e7815137019bebfc338adabca675c217dce065e1869ef04e64",
+      "signature_schemes": ["v2", "v3"],
+      "bundled_template_sha256": "1e7373384843a803eb986b42bf75e044142f029805db86018fa2f68b47643fd6"
+    },
+    "english_manual": {
+      "name": "RAF3FR-0.9.5-Quick-Guide-EN.pdf",
+      "pages": 5,
+      "bytes": 17645,
+      "sha256": "5dc119a5632f911502caf1bf1126647db19ce2aed524fe85ca92a7aa28f39900"
+    },
+    "chinese_manual": {
+      "name": "RAF3FR-0.9.5-Quick-Guide-ZH.pdf",
+      "pages": 5,
+      "bytes": 169525,
+      "sha256": "ed585aa144110451c4163d43c6e133eb6b925d2bb4f67252e6c861892bd43ca3"
+    }
+  },
+  "claim_boundary": "Container compatibility and a successful Phocus path do not prove spectral or colorimetric identity with a native X2D capture."
+}

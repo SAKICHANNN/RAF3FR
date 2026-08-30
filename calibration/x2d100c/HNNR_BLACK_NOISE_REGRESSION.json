@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "date": "2026-08-29",
+  "runtime": {
+    "application": "Phocus",
+    "version": "4.2.2",
+    "hnnr_mode": "Purity",
+    "session_policy": "fresh application session; one first attempt per uniquely identified input"
+  },
+  "finding": {
+    "symptom": "HNNR can turn deep shadows into a regular 32 by 32 mosaic; downstream lens warping makes the grid appear curved.",
+    "root_cause": "The ISO exposed to Phocus selects an HNNR noise model. High Fuji capture ISO values are not a reliable model selector for transplanted Bayer data; ISO 8000 and 12800 reproduced the failure, while the same Bayer payload at ISO 6400 did not.",
+    "white_balance_is_root_cause": false,
+    "rotation_is_root_cause": false,
+    "lens_opcode_is_root_cause": false,
+    "signed_black_residual_status": "Preserving signed sub-black residuals fixes an independent low-end information loss but is not sufficient by itself to prevent the high-ISO HNNR mosaic."
+  },
+  "iso_ab_tests": [
+    {"source": "DSCF2541.RAF", "capture_iso": 8000, "result_at_capture_iso": "regular mosaic after HNNR", "clean_model_iso_values": [64, 3200, 6400]},
+    {"source": "DSCF2610.RAF", "capture_iso": 12800, "result_at_capture_iso": "regular mosaic after HNNR", "clean_model_iso_values": [6400]},
+    {"source": "DSCF2614.RAF", "capture_iso": 102400, "legacy_iso_field": 65535, "model_iso": 6400, "result": "first-attempt HNNR clean at +4 EV visual inspection", "hnnr_payload_md5": "fd07dda96619cbdf6437f3fa138cc69c"},
+    {"source": "DSCF2616.RAF", "capture_iso": 51200, "model_iso": 6400, "result": "first-attempt HNNR clean", "hnnr_payload_md5": "015954f2de1f936bfacde02e2c65ab3c"},
+    {"source": "DSCF2619.RAF", "capture_iso": 40, "compared_model_iso_values": [40, 64], "result": "HNNR raw payloads are identical; no low-ISO remapping is justified", "hnnr_payload_md5": "71cc548bdd173959168ea81d5eb66b22"}
+  ],
+  "extreme_iso_packaged_engine_matrix": [
+    {"source": "DSCF2614.RAF", "capture_iso": 102400, "model_iso": 6400, "preserved_below_black": 7468298, "final_low_clips": 3342, "final_high_clips": 48},
+    {"source": "DSCF2615.RAF", "capture_iso": 25600, "model_iso": 6400, "preserved_below_black": 7677460, "final_low_clips": 513, "final_high_clips": 279},
+    {"source": "DSCF2616.RAF", "capture_iso": 51200, "model_iso": 6400, "preserved_below_black": 8450482, "final_low_clips": 3519, "final_high_clips": 391},
+    {"source": "DSCF2617.RAF", "capture_iso": 102400, "model_iso": 6400, "preserved_below_black": 8247317, "final_low_clips": 3600, "final_high_clips": 177},
+    {"source": "DSCF2618.RAF", "capture_iso": 80, "model_iso": 80, "preserved_below_black": 1, "final_low_clips": 0, "final_high_clips": 0},
+    {"source": "DSCF2619.RAF", "capture_iso": 40, "model_iso": 40, "preserved_below_black": 0, "final_low_clips": 0, "final_high_clips": 0}
+  ],
+  "policy": {
+    "default": "hnnr_compatibility_enabled",
+    "phocus_model_iso": "min(capture_iso, 6400)",
+    "capture_iso_preservation": "Exact capture ISO and the complete source sensitivity fields remain in the JSON conversion record.",
+    "disable_behavior": "The exact capture ISO is written where the donor SHORT slot permits; values above 65535 use the EXIF 65535 sentinel while the exact value remains in the record."
+  },
+  "claim": "The high-ISO cap is a bounded compatibility policy supported by exact same-Bayer A/B tests and additional ISO 51200/102400 packaged-engine samples. It does not claim that ISO 6400 is a calibrated noise-equivalent transform or that every Phocus version will behave identically."
+}

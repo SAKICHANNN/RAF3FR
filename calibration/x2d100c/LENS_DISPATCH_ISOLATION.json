@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "runtime": {
+    "application": "Phocus by Hasselblad",
+    "version": "4.2.2",
+    "platform": "macOS",
+    "export": "JPEG full size, factory Standard adjustment"
+  },
+  "question": "Which donor-private field causes automatic XCD lens correction on a transplanted Fuji mosaic, and what is the smallest branch-preserving neutralization?",
+  "source": {
+    "raf": "DSCF2166.RAF",
+    "camera": "FUJIFILM GFX100RF",
+    "lens": "35mm F4",
+    "iso": 10000,
+    "exposure": "1/60",
+    "aperture": 4.0
+  },
+  "donor_controls": [
+    {
+      "id": "L3",
+      "lens": "XCD 38V",
+      "input_sha256": "0e97729aea73fed63c9a4fdd6b1a9cf6522d4dbf04d64244944c75516778fa65",
+      "export_sha256": "1d91e0f0c1fd2af65586f04773a7daf7c9ba374b60cd8bb6dbc1611fb75ead7f"
+    },
+    {
+      "id": "L4",
+      "lens": "XCD 55V",
+      "input_sha256": "5e4aea8ef630ee97d72e6998bf65e90d35f7b04d39b0ae371f678446f7d290c7",
+      "export_sha256": "32eb1f634a74d59724b1e46a56b2090d6f1dbf368ab65c414414b4251b5d64af"
+    }
+  ],
+  "discrimination": {
+    "same_fuji_raw_geometry": "ORB/homography median residual 0.0555 px at 1/8 scale; p95 1.418 px",
+    "relative_xcd55_over_xcd38_radial_brightness": [
+      1.0,
+      1.0557,
+      1.1084,
+      1.1881,
+      1.2444,
+      1.3099
+    ],
+    "conclusion": "The donor-dependent effect is automatic radial vignetting correction, not geometric distortion."
+  },
+  "binary_isolation": {
+    "maker_note_groups": {
+      "0x0005_to_0x001e": "reproduces donor-lens change",
+      "0x0030_to_0x004b": "no effect",
+      "0x0059_to_0x0061": "no effect"
+    },
+    "tag_pair": {
+      "0x0017_plus_0x0018": "reproduces donor-lens change",
+      "0x0019_GAIN": "no effect",
+      "0x0017_alone": "invalid mismatched correction",
+      "0x0018_alone": "invalid mismatched correction"
+    },
+    "dispatch_test": {
+      "hide_0x0018": "neutralizes donor correction",
+      "hide_0x0017_plus_0x0018": "byte-identical full-size JPEG to hiding 0x0018 alone",
+      "neutralized_xcd38_radial": [1.0, 0.9545, 0.8939, 0.8, 0.7222, 0.625],
+      "neutralized_xcd55_radial": [1.0, 0.9642, 0.9004, 0.8066, 0.7294, 0.6331]
+    }
+  },
+  "implementation": {
+    "default": "neutralize",
+    "edit": "Retag Hasselblad MakerNote directory tag 0x0018 as reserved 0xff18.",
+    "changed_range_for_B0000079": [1538, 1540],
+    "payload_range_for_B0000079": [1882, 1899],
+    "payload_sha256": "f18a210d0bc13d835ee798e15b74e364274e18c26fd8a905cb056641b7d8c84a",
+    "preserved": "17-byte payload, tag 0x0017, RAW mosaic, camera calibration, all other MakerNote and container bytes",
+    "fallback": "Fail closed on an unknown MakerNote type/count or a replacement-tag collision.",
+    "diagnostic_option": "preserve"
+  },
+  "final_validation": {
+    "input": "L18-final-default-neutralized.3FR",
+    "input_sha256": "eeb5e47cda8573c3026925133b399b960f23d3159669c7c70cfbb6b1768e7722",
+    "full_size_export_sha256": "842a0f3b565e29b0cf17f041b3398bff84e621f91d21233241a3cf6731bac28f",
+    "golden_export_sha256": "842a0f3b565e29b0cf17f041b3398bff84e621f91d21233241a3cf6731bac28f",
+    "pixel_comparison": {
+      "equal": true,
+      "max_absolute_difference": 0,
+      "mean_absolute_difference": 0.0,
+      "dimensions": [11656, 8742, 3]
+    },
+    "hnnr": {
+      "mode": "Prioritise Purity",
+      "result": "PASS_FIRST_ATTEMPT",
+      "output": "L18-final-default-neutralized_denoised_p.3FR",
+      "output_sha256": "f4693e69cd646fe20a9d86429c9c18183d06c77229b20b11baeb1e38d4d082fc",
+      "file_size": 213311488
+    }
+  },
+  "claim_boundary": "This proves the private dispatch and neutralization behavior for the observed uncompressed X2D 100C donors in Phocus 4.2.2. It does not calibrate the Fuji optical profile or promise other donor layouts or Phocus versions."
+}

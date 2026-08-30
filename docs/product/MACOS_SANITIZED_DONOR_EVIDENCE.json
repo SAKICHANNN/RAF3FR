@@ -1,0 +1,49 @@
+{
+  "file_size": 213311488,
+  "gzip_sha256": "1c3e927848b00f0c65cff07ec4c413f6c8c9f2ac35ebdd32e95c07bf20ae6055",
+  "gzip_size": 216997,
+  "identity": {
+    "capture_tags_neutralized": true,
+    "makernote_identity_slots_cleared": 3,
+    "raw_data_unique_id": "01409AB100000000"
+  },
+  "layout": {
+    "bits_per_sample": 16,
+    "black_level": 4096,
+    "compression": 1,
+    "crop_origin": [
+      128,
+      96
+    ],
+    "crop_size": [
+      11656,
+      8742
+    ],
+    "height": 8842,
+    "make": "Hasselblad",
+    "model": "X2D 100C",
+    "white_level": 65535,
+    "width": 11904
+  },
+  "preview_region": {
+    "capacity": 2789376,
+    "jpeg_bytes": 674,
+    "jpeg_sha256": "b82b4cb76afe6149a13cb44a1b3ae29489b793658a1a51ad6427c2fd00e4de73",
+    "offset": 210522112,
+    "region_sha256": "86d568b4bb0c2998f0b38f2e469d3170df9c1f47268cdab1f84d8a21414ced40",
+    "remaining_bytes_zero": true,
+    "source_preview_absent": true,
+    "source_region_sha256": "e94d184b2cbf7aff544483caaad7adb4857f2a86f551c137cf4f9f299deb81f6"
+  },
+  "raw_region": {
+    "byte_count": 210510336,
+    "fill_value": 4096,
+    "offset": 8192,
+    "sha256": "9fdbe199ad70354431ff0f4d91befcc38e71d9a64f571577a0235783f70ae0bd",
+    "source_pixels_absent": true,
+    "source_sha256": "1162dd43aab3f433fae7d525b9c6c7879a4846f68007e3276fdf10b0d0f1b5fa"
+  },
+  "sanitized_sha256": "1e7373384843a803eb986b42bf75e044142f029805db86018fa2f68b47643fd6",
+  "schema": 1,
+  "source_sha256": "dcc5a4abe3498e6f25e89bb491995fd12c3b669d9277c71b45b49210d3e56280"
+}

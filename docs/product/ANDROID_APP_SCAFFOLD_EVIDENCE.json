@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "node": "PDX4",
+  "status": "PASS_BOUNDED",
+  "product": {
+    "application_id": "com.raf3fr.app",
+    "min_sdk": 26,
+    "compile_sdk": 36,
+    "target_sdk": 36,
+    "languages": ["zh", "en"],
+    "storage": "Android Storage Access Framework",
+    "durable_work": "WorkManager foreground dataSync",
+    "network_permission": false,
+    "broad_storage_permission": false,
+    "cloud_backup": false,
+    "device_transfer": false
+  },
+  "toolchain": {
+    "java": "Temurin 17.0.20.1+1",
+    "java_archive_sha256": "196d13ba5f10414bef7f6a05a9b3f00edacb18ebacef2b99485db9e2ee18f0e8",
+    "gradle": "9.1.0",
+    "gradle_archive_sha256": "a17ddd85a26b6a7f5ddb71ff8b05fc5104c0202c6e64782429790c933686c806",
+    "android_gradle_plugin": "9.0.1",
+    "kotlin": "2.3.20",
+    "sdk_platform": 36,
+    "build_tools": "36.0.0",
+    "build_tools_archive_sha1": "199ae0047ee61e842f8ee0c6d3918e44fb9a1f83",
+    "platform_tools": "37.0.1",
+    "platform_tools_archive_sha1": "6ae73f4de6452dc57e62ec02b68eed92a4c21661"
+  },
+  "verification": {
+    "command": "./gradlew --no-daemon testDebugUnitTest lintDebug",
+    "result": "BUILD SUCCESSFUL",
+    "unit_tests": 3,
+    "unit_test_failures": 0,
+    "lint_result": "PASS",
+    "lint_non_version_findings": 0,
+    "lint_version_update_notices": 11,
+    "configuration_cache": "reused"
+  },
+  "open_gates": [
+    "arm64-v8a JNI cross-link and exported-symbol inspection",
+    "debug and release APK/AAB packaging",
+    "instrumentation and adaptive visual QA",
+    "process recreation and persisted URI validation",
+    "real GFX100RF conversion and native verification on Android",
+    "runtime memory and mid-operation cancellation evidence"
+  ]
+}

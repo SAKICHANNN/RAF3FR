@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-28",
+  "nodes": ["PDX3", "PDX4"],
+  "status": "PASS_BOUNDED",
+  "toolchain": {
+    "ndk": "27.3.13750724 (r27d)",
+    "ndk_archive_sha1": "80f11292080fab4e869799f1d23caa88dcf3c709",
+    "rust_target": "aarch64-linux-android",
+    "android_api": 26,
+    "elf_machine": "AArch64",
+    "elf_page_alignment": "0x4000"
+  },
+  "native_library": {
+    "source_sha256": "6d5f52928bc915b03dad08cd981abb545818793a0355a7de9bd3110a7adc6818",
+    "release_apk_size_bytes": 6815728,
+    "needed": ["libdl.so", "libm.so", "libc.so"],
+    "exported_jni": [
+      "Java_com_raf3fr_app_engine_NativeEngine_convert",
+      "Java_com_raf3fr_app_engine_NativeEngine_cancel",
+      "Java_com_raf3fr_app_engine_NativeEngine_verify"
+    ]
+  },
+  "packaging": {
+    "debug_apk_sha256": "36a2b492b30432f07a8f92cece748e58822c6386fea7dc099f49f90a8c1aaa9e",
+    "debug_apk_signing": "Android debug certificate, APK Signature Scheme v2",
+    "release_apk_sha256": "fc2c507177dee86b332f6cfaf0df4fbadab1a1593cb065d35742296c5a662623",
+    "release_apk_signing": "unsigned release candidate",
+    "release_aab_sha256": "1be17baf4e00873cd147bdc410e94aaea6aa7f7c5bfa5a9fada6a1402fb15708",
+    "apk_zipalign_16k": "PASS",
+    "gradle_result": "BUILD SUCCESSFUL",
+    "unit_tests": 3,
+    "lint_non_version_findings": 0
+  },
+  "open_gates": [
+    "instrumentation and adaptive visual QA",
+    "process recreation and persisted URI validation",
+    "real GFX100RF conversion and native verification on Android",
+    "runtime memory and mid-operation cancellation evidence",
+    "user-owned release signing identity"
+  ]
+}
