@@ -13,7 +13,7 @@ setup(
     install_requires=["numpy>=2.0", "scipy>=1.13,<2"],
     extras_require={
         "lens": ["opencv-python-headless>=4.10"],
-        "test": ["pytest>=8,<9"],
+        "test": ["pytest>=8,<9", "opencv-python-headless>=4.10"],
     },
     entry_points={
         "console_scripts": [
