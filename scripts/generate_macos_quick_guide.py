@@ -19,7 +19,7 @@ ORANGE = HexColor("#F26A3D")
 TEXT = HexColor("#F4F1EC")
 MUTED = HexColor("#AAA39B")
 FAINT = HexColor("#746E68")
-VERSION = "0.9.6"
+VERSION = "0.9.7"
 
 
 def register_fonts(project_root: Path) -> None:
@@ -156,7 +156,7 @@ def build(output: Path, project_root: Path, language: str) -> None:
     y = section(c, language, "01", "White balance", "白平衡", y)
     y = body(c, language, "Auto uses the Fujifilm camera Auto WB measurement. As shot uses the RAF's selected shooting WB. Donor is diagnostic and preserves the X2D template neutral.", "Auto 使用富士相机测得的自动白平衡；拍摄值使用 RAF 中的拍摄白平衡；供体仅用于诊断并保留 X2D 模板中性点。", y, 9.4)
     y = section(c, language, "02", "Lens profile", "镜头配置", y)
-    y = card(c, language, y, "DISTORTION MODEL", "畸变模型", "Camera JPEG match is the 0.9.6 default. Vendor RAW preserves the 0.9.5 native-render geometry; Legacy no-blank-edge preserves 0.9.3 framing.", "“机内 JPEG 匹配”是 0.9.6 默认值；“厂商 RAW”保留 0.9.5 原生渲染几何；“旧版无空边”保留 0.9.3 构图。", 76)
+    y = card(c, language, y, "DISTORTION MODEL", "畸变模型", "Camera JPEG match remains the default. Vendor RAW preserves the 0.9.5 native-render geometry; Legacy no-blank-edge preserves 0.9.3 framing.", "“机内 JPEG 匹配”仍为默认值；“厂商 RAW”保留 0.9.5 原生渲染几何；“旧版无空边”保留 0.9.3 构图。", 76)
     y = card(c, language, y, "DISTORTION STRENGTH", "畸变强度", "+100% applies the selected model. 0% preserves the complete uncorrected framing; negative values reverse direction.", "+100% 应用所选模型；0% 保留完整未矫正视野；负值反向应用。", 66)
     y = card(c, language, y, "CHROMATIC ABERRATION", "色差", "The same signed scale applies independently to lateral chromatic aberration.", "横向色差使用相同的独立正负比例。", 70)
     y = card(c, language, y, "VIGNETTING", "暗角", "Default 0% preserves native vignetting. Positive values correct; negative values use pointwise falloff plus non-periodic noise compensation without frequency-split light halos.", "默认 0% 保留原生暗角；正值矫正；负值使用逐像素衰减与无周期噪声补偿，不再以频率拆分制造灯边暗圈。", 70)

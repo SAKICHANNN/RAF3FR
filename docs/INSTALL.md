@@ -2,8 +2,8 @@
 
 ## macOS application
 
-Download `RAF3FR-0.9.6-macOS-arm64.zip` from the GitHub Release, expand it and
-move `RAF3FR.app` to Applications. The 0.9.6 build supports Apple silicon and
+Download `RAF3FR-0.9.7-macOS-arm64.zip` from the GitHub Release, expand it and
+move `RAF3FR.app` to Applications. The 0.9.7 build supports Apple silicon and
 macOS 14 or later. It is ad-hoc signed but not Apple-notarized, so macOS may
 require an explicit first-open confirmation.
 
@@ -12,7 +12,7 @@ result should be opened or rendered there.
 
 ## Android application
 
-Download `RAF3FR-0.9.6-android-arm64.apk` from the GitHub Release and allow your
+Download `RAF3FR-0.9.7-android-arm64.apk` from the GitHub Release and allow your
 file manager or browser to install that package. It supports arm64 Android
 devices running Android 8.0 (API 26) or later. The APK is signed with the
 project's dedicated release certificate and is not a Play Store package.

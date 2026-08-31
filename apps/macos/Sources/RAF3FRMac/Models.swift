@@ -528,6 +528,13 @@ struct BatchConversionItem: Identifiable, Equatable {
     }
 }
 
+enum BatchSelectionRemovalPlan {
+    static func nextIndex(removing currentIndex: Int, fromCount count: Int) -> Int? {
+        guard count > 1, (0..<count).contains(currentIndex) else { return nil }
+        return min(currentIndex, count - 2)
+    }
+}
+
 enum BatchOutputPlanner {
     static func destinations(
         sources: [URL],

@@ -255,7 +255,7 @@ private struct CapturePresentationView: View {
                         }
                     }
                     .buttonStyle(MetadataButtonStyle())
-                    if model.sourceURLs.count > 1 { BatchCaptureNavigation(model: model) }
+                    if model.sourceURLs.count > 1 { BatchCaptureControls(model: model) }
                 }.padding(.bottom, 10)
 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], alignment: .leading, spacing: 10) {
@@ -593,6 +593,25 @@ private struct BatchCaptureNavigation: View {
         .frame(width: 124, height: 40, alignment: .center)
         .accessibilityElement(children: .contain)
         .accessibilityLabel("\(model.sourcePresentationIndex + 1)/\(model.sourceURLs.count)")
+    }
+}
+
+private struct BatchCaptureControls: View {
+    @ObservedObject var model: AppModel
+
+    var body: some View {
+        HStack(spacing: 0) {
+            BatchCaptureNavigation(model: model)
+            Rectangle().fill(ProductTheme.line).frame(width: 1, height: 40)
+            Button(action: model.removeCurrentSourceFromSelection) {
+                Image(systemName: "xmark")
+            }
+            .buttonStyle(IconButtonStyle())
+            .disabled(model.phase.isRunning)
+            .help(model.t("removeCurrentSelection"))
+            .accessibilityLabel(model.t("removeCurrentSelection"))
+        }
+        .overlay(Rectangle().stroke(ProductTheme.line, lineWidth: 1))
     }
 }
 

@@ -20,6 +20,7 @@ enum Copy {
         "files": [.zh: "个文件", .en: "files"],
         "filesSelected": [.zh: "个 RAF 已选择", .en: "RAFs selected"],
         "clearSelection": [.zh: "清空选择", .en: "Clear selection"],
+        "removeCurrentSelection": [.zh: "从选择中移除当前 RAF", .en: "Remove current RAF from selection"],
         "whiteBalance": [.zh: "白平衡", .en: "White balance"],
         "auto": [.zh: "自动", .en: "Auto"],
         "asShot": [.zh: "拍摄值", .en: "As shot"],

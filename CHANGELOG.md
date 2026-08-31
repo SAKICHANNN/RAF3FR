@@ -3,6 +3,15 @@
 All notable public changes are documented here. The project follows semantic
 versioning while it remains pre-1.0.
 
+## 0.9.7 - 2026-08-31
+
+### Added
+
+- macOS batch review now provides an explicit × action that removes the RAF
+  currently being viewed from the selection without deleting the source file.
+  The viewer keeps its position when possible and falls back to the previous
+  image after removing the last item.
+
 ## 0.9.6 - 2026-08-31
 
 ### Changed

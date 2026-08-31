@@ -181,6 +181,20 @@ final class AppModel: ObservableObject {
         loadSourcePresentation(at: min(sourceURLs.count - 1, sourcePresentationIndex + 1))
     }
 
+    func removeCurrentSourceFromSelection() {
+        guard !phase.isRunning,
+              let nextIndex = BatchSelectionRemovalPlan.nextIndex(
+                  removing: sourcePresentationIndex,
+                  fromCount: sourceURLs.count
+              ) else { return }
+        let removedSource = sourceURLs.remove(at: sourcePresentationIndex).standardizedFileURL
+        batchItems.removeAll { $0.sourceURL.standardizedFileURL == removedSource }
+        phase = .selected
+        message = selectionMessage
+        errorMessage = nil
+        loadSourcePresentation(at: nextIndex)
+    }
+
     private func loadSourcePresentation(at index: Int) {
         guard sourceURLs.indices.contains(index) else { return }
         sourcePresentationTask?.cancel()

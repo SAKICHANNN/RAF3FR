@@ -181,7 +181,7 @@ class WebApp:
             jobs = [asdict(item) for item in sorted(self._jobs.values(), key=lambda x: x.created_at, reverse=True)]
         return {
             "app": "raf2hncs",
-            "version": "0.9.6",
+            "version": "0.9.7",
             "donor": self.donor_info(),
             "defaults": {
                 "white_balance": "auto",

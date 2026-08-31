@@ -7,10 +7,10 @@ an Android app, a local web interface, and a command-line research tool.
 The converter preserves the native Bayer lattice, migrates supported capture
 metadata, embeds the source preview, and expresses the GFX100RF lens profile as
 editable DNG opcodes. The current development source offers three distortion
-models. Version 0.9.6 defaults to Camera JPEG match while preserving the two
+models. Version 0.9.7 defaults to Camera JPEG match while preserving the two
 earlier geometries:
 
-- **Camera JPEG match** is the 0.9.6 default, fitted from full-size Phocus
+- **Camera JPEG match** is the default introduced in 0.9.6, fitted from full-size Phocus
   renders and accepted against original same-capture Fujifilm camera JPEGs.
 - **Vendor RAW match** preserves 0.9.5's Native match geometry calibrated
   against Fujifilm's native RAW rendering.
@@ -31,12 +31,14 @@ Both apps default to English and provide an immediate `En / 中` language
 switch. The sanitized X2D routing template is bundled; an external compatible
 template remains optional.
 
-## What 0.9.6 does
+## What 0.9.7 does
 
 - Maps the complete 11664 x 8750 GFX100RF Bayer lattice into the matching X2D
   image-content lattice without demosaic/remosaic.
 - Uses Fujifilm Camera Auto WB by default, with As Shot and donor controls.
 - Preserves source preview and supported exposure, ISO, lens and capture data.
+- Lets macOS batch users remove the currently viewed RAF from the selection
+  without deleting or modifying the source file.
 - Embeds distortion, lateral chromatic-aberration and optional vignetting
   operations for the Phocus RAW path.
 - Defaults to HNNR-safe ISO routing and preserves the exact capture sensitivity

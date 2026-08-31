@@ -31,6 +31,12 @@ enum ModelChecks {
         precondition(constrained.maxConcurrentJobs == 2)
         precondition(constrained.threadsPerJob == 4)
         precondition(constrained.environment["RAYON_NUM_THREADS"] == "4")
+        precondition(BatchSelectionRemovalPlan.nextIndex(removing: 0, fromCount: 3) == 0)
+        precondition(BatchSelectionRemovalPlan.nextIndex(removing: 1, fromCount: 3) == 1)
+        precondition(BatchSelectionRemovalPlan.nextIndex(removing: 2, fromCount: 3) == 1)
+        precondition(BatchSelectionRemovalPlan.nextIndex(removing: 1, fromCount: 2) == 0)
+        precondition(BatchSelectionRemovalPlan.nextIndex(removing: 0, fromCount: 1) == nil)
+        precondition(BatchSelectionRemovalPlan.nextIndex(removing: 3, fromCount: 3) == nil)
         let planned = BatchOutputPlanner.destinations(
             sources: [
                 URL(fileURLWithPath: "/a/DSCF0001.RAF"),
@@ -69,6 +75,8 @@ enum ModelChecks {
         ).contains("legacy-in-bounds"))
         precondition(Copy.text("convertRaw", .zh) == "转换 RAW")
         precondition(Copy.text("convertRaw", .en) == "Convert RAW")
+        precondition(Copy.text("removeCurrentSelection", .zh) == "从选择中移除当前 RAF")
+        precondition(Copy.text("removeCurrentSelection", .en) == "Remove current RAF from selection")
         settings.isoPolicy = .hnnrStable
         let stableArguments = settings.convertArguments(
             source: URL(fileURLWithPath: "/tmp/input.RAF"),
@@ -244,8 +252,8 @@ enum ModelChecks {
         } catch {}
         if let appPath = ProcessInfo.processInfo.environment["RAF3FR_APP_BUNDLE"],
            let appBundle = Bundle(path: appPath) {
-            precondition(ProductVersion.short(in: appBundle) == "V 0.9.6")
-            precondition(ProductVersion.detailed(in: appBundle) == "V 0.9.6  ·  BUILD 17")
+            precondition(ProductVersion.short(in: appBundle) == "V 0.9.7")
+            precondition(ProductVersion.detailed(in: appBundle) == "V 0.9.7  ·  BUILD 18")
             let probeDirectory = FileManager.default.temporaryDirectory
                 .appendingPathComponent("raf3fr-sidecar-\(UUID().uuidString)", isDirectory: true)
             try! FileManager.default.createDirectory(at: probeDirectory, withIntermediateDirectories: true)

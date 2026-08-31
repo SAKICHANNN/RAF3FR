@@ -1,0 +1,88 @@
+{
+  "release": {
+    "version": "0.9.7",
+    "macos_build": 18,
+    "android_version_code": 907,
+    "date": "2026-08-31"
+  },
+  "scope": {
+    "added": "macOS batch review can remove the currently viewed RAF from the selection without deleting or modifying the source file",
+    "preserved": "conversion core, sensor mapping, white balance, geometry, HNNR, lens correction, metadata and Android conversion behavior are unchanged from 0.9.6",
+    "rollback": "v0.9.6 remains immutable and installable"
+  },
+  "remove_current_behavior": {
+    "middle_item": "keeps the same visual slot and selects the following RAF",
+    "last_item": "falls back to the previous RAF",
+    "single_item": "remove and navigation controls are hidden",
+    "running_conversion": "the control is disabled and the model action independently refuses mutation",
+    "source_files": "never deleted or modified",
+    "localization": "English and Chinese tooltip and accessibility labels are covered"
+  },
+  "real_conversion": {
+    "source_model": "GFX 100RF",
+    "source_sha256": "7ffde7114fa3b81bee9f6c532a0aceb92376a8b7a085c30ba60439447b8edb24",
+    "source_unchanged": true,
+    "output_sha256": "a4b6ee475509da817b6e2cb6716df5f8c9542add2e121f690ad8bbaecb213956",
+    "output_bytes": 213315794,
+    "default_distortion_model": "camera-jpeg",
+    "default_white_balance": "Fuji Auto WB",
+    "default_hnnr_iso_policy": "HNNR-safe",
+    "distortion_enabled": true,
+    "chromatic_aberration_enabled": true,
+    "vignetting_enabled": false,
+    "source_manifest_match": true,
+    "verification_exit_code": 0
+  },
+  "automated_checks": {
+    "python": "114 passed",
+    "rust_core": "21 passed",
+    "rust_jni": "3 passed",
+    "rust_format": "passed",
+    "macos": "debug build, release build, standalone model checks, packaged model checks, packaged doctor, archive integrity and deep strict ad-hoc codesign passed",
+    "macos_ui": "The remove-current interaction passed native three-RAF smoke verification before version freeze; the final package re-ran the same model invariants and reports 0.9.7/build 18.",
+    "android": "unit tests, release assembly and release lint passed",
+    "android_runtime": "not claimed: no physical Android-device launch was performed for this release"
+  },
+  "artifacts": {
+    "macos_archive": {
+      "name": "RAF3FR-0.9.7-macOS-arm64.zip",
+      "bytes": 44045548,
+      "sha256": "d8d2610a5b2679c2fbf6919c27e5d0d3350883f554b561a2df7ca1265c6cceb5",
+      "architecture": "arm64",
+      "signing": "ad-hoc codesign; deep strict verification passed",
+      "notarized": false,
+      "archive_integrity": "passed"
+    },
+    "android_apk": {
+      "name": "RAF3FR-0.9.7-android-arm64.apk",
+      "bytes": 16192354,
+      "sha256": "d39353dd392bb707681b11c5e02dfe4a90fb22fc62bebd888a42f65ca33770e6",
+      "package": "com.raf3fr.app",
+      "minimum_api": 26,
+      "target_api": 36,
+      "certificate_sha256": "e191b275629127e7815137019bebfc338adabca675c217dce065e1869ef04e64",
+      "signature_schemes": ["v2", "v3"],
+      "zipalign_16k": "passed",
+      "native_load_alignment": "0x4000",
+      "bundled_template_sha256": "1e7373384843a803eb986b42bf75e044142f029805db86018fa2f68b47643fd6"
+    },
+    "english_manual": {
+      "name": "RAF3FR-0.9.7-Quick-Guide-EN.pdf",
+      "pages": 5,
+      "bytes": 17713,
+      "sha256": "8aebeaadf6f9b01799cc7a69c2cc4fd00eb34a9d9dffa7d53c60b7e54b5386cc"
+    },
+    "chinese_manual": {
+      "name": "RAF3FR-0.9.7-Quick-Guide-ZH.pdf",
+      "pages": 5,
+      "bytes": 168857,
+      "sha256": "2a478253b42c5303ed32c019b8646b87747ed9ecf49028a0bdd03ce774214d64"
+    },
+    "checksums": {
+      "name": "SHA256SUMS",
+      "bytes": 388,
+      "verification": "all four named artifacts passed local shasum -a 256 -c"
+    }
+  },
+  "claim_boundary": "Opening in Phocus and release verification prove supported container and application behavior, not complete hidden HNCS identity or calibrated spectral equivalence with a native X2D capture."
+}

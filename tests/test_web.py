@@ -179,7 +179,7 @@ def test_http_state_and_post_guard(tmp_path: Path) -> None:
         with urlopen(base + "/api/state", timeout=2) as response:
             payload = json.load(response)
         assert payload["app"] == "raf2hncs"
-        assert payload["version"] == "0.9.6"
+        assert payload["version"] == "0.9.7"
         assert payload["donor"]["configured"] is False
 
         request = Request(base + "/api/jobs", data=b"fake", method="POST")

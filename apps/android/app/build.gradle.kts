@@ -12,8 +12,8 @@ android {
         applicationId = "com.raf3fr.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 906
-        versionName = "0.9.6"
+        versionCode = 907
+        versionName = "0.9.7"
     }
 
     buildTypes {
