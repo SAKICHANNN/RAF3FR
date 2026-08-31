@@ -36,12 +36,20 @@ const GFX100RF_DISTORTION: [f64; 9] = [
     -9.171325684,
     -10.098098750,
 ];
-const GFX100RF_NATIVE_GREEN: [f64; 4] = [
+const GFX100RF_VENDOR_GREEN: [f64; 4] = [
     1.029268747742375,
     -0.04267719544928282,
     -0.13848667506081908,
     0.10394817611116454,
 ];
+const GFX100RF_CAMERA_JPEG_GREEN: [f64; 4] = [
+    1.0342072867488865,
+    -0.09747928869977876,
+    -0.0009676148258258296,
+    0.007647450440475954,
+];
+const GFX100RF_CAMERA_JPEG_TANGENTIAL: [f64; 2] =
+    [-0.000006957220381847184, -0.000015691195800021954];
 const GFX100RF_NATIVE_CENTER: [f64; 2] = [0.500092050670, 0.499039419533];
 
 #[derive(Clone, Debug, PartialEq, Serialize)]
@@ -239,6 +247,44 @@ fn validate_warp(coefficients: &[f64; 4]) -> Result<()> {
     Ok(())
 }
 
+fn validate_rectilinear(
+    coefficients: &[f64; 4],
+    tangential: &[f64; 2],
+    center: &[f64; 2],
+) -> Result<()> {
+    validate_warp(coefficients)?;
+    let width = 11_663.0_f64;
+    let height = 8_749.0_f64;
+    let cx = center[0] * width;
+    let cy = center[1] * height;
+    let normalizer = cx.max(width - cx).hypot(cy.max(height - cy));
+    for yi in 0..=60 {
+        let dy = (height * yi as f64 / 60.0 - cy) / normalizer;
+        for xi in 0..=80 {
+            let dx = (width * xi as f64 / 80.0 - cx) / normalizer;
+            let r2 = dx * dx + dy * dy;
+            let r4 = r2 * r2;
+            let f = coefficients[0]
+                + coefficients[1] * r2
+                + coefficients[2] * r4
+                + coefficients[3] * r4 * r2;
+            let slope = coefficients[1] + 2.0 * coefficients[2] * r2 + 3.0 * coefficients[3] * r4;
+            let df_dx = 2.0 * dx * slope;
+            let df_dy = 2.0 * dy * slope;
+            let dfx_dx = f + dx * df_dx + 2.0 * tangential[0] * dy + 6.0 * tangential[1] * dx;
+            let dfx_dy = dx * df_dy + 2.0 * tangential[0] * dx + 2.0 * tangential[1] * dy;
+            let dfy_dx = dy * df_dx + 2.0 * tangential[1] * dy + 2.0 * tangential[0] * dx;
+            let dfy_dy = f + dy * df_dy + 2.0 * tangential[1] * dx + 6.0 * tangential[0] * dy;
+            if dfx_dx <= 0.0 || dfy_dy <= 0.0 || dfx_dx * dfy_dy - dfx_dy * dfy_dx <= 0.0 {
+                return Err(invalid(
+                    "calibrated DNG warp violates invertibility or axis monotonicity",
+                ));
+            }
+        }
+    }
+    Ok(())
+}
+
 fn maximum_in_bounds_uniform_scale(coefficients: &[[f64; 4]; 3]) -> Result<f64> {
     const IMAGE_WIDTH: f64 = 11_664.0;
     const IMAGE_HEIGHT: f64 = 8_750.0;
@@ -311,22 +357,35 @@ pub fn build_lens_opcode_list(
             fit_warp(&splines.destination_radius, &splines.green_scale)?,
             fit_warp(&splines.destination_radius, &splines.blue_scale)?,
         ];
+        let mut tangential = [0.0_f64, 0.0_f64];
         let mut center = [0.5_f64, 0.5_f64];
-        if distortion_model == DistortionModel::NativeMatch
-            && is_gfx100rf_fixed_lens_profile(source)
+        if matches!(
+            distortion_model,
+            DistortionModel::CameraJpeg | DistortionModel::NativeMatch
+        ) && is_gfx100rf_fixed_lens_profile(source)
         {
+            let target_green = match distortion_model {
+                DistortionModel::CameraJpeg => GFX100RF_CAMERA_JPEG_GREEN,
+                DistortionModel::NativeMatch => GFX100RF_VENDOR_GREEN,
+                DistortionModel::LegacyInBounds => unreachable!(),
+            };
             let reference = profile_splines(source, 1.0, 0.0, 0.0)?;
             let reference_green =
                 fit_warp(&reference.destination_radius, &reference.green_scale)?.0;
             for (coefficients, _) in &mut fits {
                 for index in 0..4 {
                     coefficients[index] +=
-                        distortion * (GFX100RF_NATIVE_GREEN[index] - reference_green[index]);
+                        distortion * (target_green[index] - reference_green[index]);
                 }
                 validate_warp(coefficients)?;
             }
             for index in 0..2 {
                 center[index] = 0.5 + distortion * (GFX100RF_NATIVE_CENTER[index] - 0.5);
+            }
+            if distortion_model == DistortionModel::CameraJpeg {
+                for index in 0..2 {
+                    tangential[index] = distortion * GFX100RF_CAMERA_JPEG_TANGENTIAL[index];
+                }
             }
         } else {
             let coefficients = fits.map(|fit| fit.0);
@@ -338,6 +397,9 @@ pub fn build_lens_opcode_list(
                 validate_warp(coefficients)?;
             }
         }
+        for (coefficients, _) in &fits {
+            validate_rectilinear(coefficients, &tangential, &center)?;
+        }
         let mut parameters = Vec::new();
         parameters.extend(3_u32.to_be_bytes());
         for (coefficients, _) in &fits {
@@ -346,8 +408,8 @@ pub fn build_lens_opcode_list(
                 coefficients[1],
                 coefficients[2],
                 coefficients[3],
-                0.0,
-                0.0,
+                tangential[0],
+                tangential[1],
             ] {
                 parameters.extend(value.to_be_bytes());
             }
@@ -358,7 +420,14 @@ pub fn build_lens_opcode_list(
         reports.push(LensOpcodeItemReport {
             opcode: "WarpRectilinear".to_owned(),
             opcode_id: WARP_RECTILINEAR,
-            coefficients: fits.iter().map(|fit| fit.0.to_vec()).collect(),
+            coefficients: fits
+                .iter()
+                .map(|fit| {
+                    let mut values = fit.0.to_vec();
+                    values.extend(tangential);
+                    values
+                })
+                .collect(),
             maximum_residual: fits.iter().map(|fit| fit.1).fold(0.0, f64::max),
         });
     }
@@ -660,20 +729,21 @@ mod tests {
     }
 
     #[test]
-    fn gfx100rf_uses_vendor_matched_geometry_and_center() {
+    fn gfx100rf_defaults_to_camera_jpeg_matched_geometry_and_center() {
         let (payload, report) = build_lens_opcode_list(
             &gfx100rf_profile(),
-            DistortionModel::NativeMatch,
+            DistortionModel::CameraJpeg,
             1.0,
             1.0,
             0.0,
         )
         .unwrap();
         let payload = payload.unwrap();
-        for (actual, expected) in report.opcodes[0].coefficients[1]
-            .iter()
-            .zip(GFX100RF_NATIVE_GREEN)
-        {
+        for (actual, expected) in report.opcodes[0].coefficients[1].iter().zip(
+            GFX100RF_CAMERA_JPEG_GREEN
+                .into_iter()
+                .chain(GFX100RF_CAMERA_JPEG_TANGENTIAL),
+        ) {
             assert!((*actual - expected).abs() <= 2e-12);
         }
         assert!(
@@ -689,6 +759,24 @@ mod tests {
     }
 
     #[test]
+    fn gfx100rf_preserves_vendor_raw_matched_geometry() {
+        let (_, report) = build_lens_opcode_list(
+            &gfx100rf_profile(),
+            DistortionModel::NativeMatch,
+            1.0,
+            1.0,
+            0.0,
+        )
+        .unwrap();
+        for (actual, expected) in report.opcodes[0].coefficients[1]
+            .iter()
+            .zip(GFX100RF_VENDOR_GREEN.into_iter().chain([0.0, 0.0]))
+        {
+            assert!((*actual - expected).abs() <= 2e-12);
+        }
+    }
+
+    #[test]
     fn gfx100rf_legacy_model_preserves_maximum_in_bounds_geometry() {
         let (_, report) = build_lens_opcode_list(
             &gfx100rf_profile(),
@@ -700,7 +788,10 @@ mod tests {
         .unwrap();
         assert_eq!(report.distortion_model, DistortionModel::LegacyInBounds);
         assert!((report.opcodes[0].coefficients[1][0] - 1.0331706566178662).abs() <= 2e-12);
-        assert_ne!(report.opcodes[0].coefficients[1], GFX100RF_NATIVE_GREEN);
+        assert_ne!(
+            report.opcodes[0].coefficients[1][..4],
+            GFX100RF_CAMERA_JPEG_GREEN
+        );
     }
 
     #[test]

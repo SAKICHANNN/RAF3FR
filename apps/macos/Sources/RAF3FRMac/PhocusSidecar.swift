@@ -9,6 +9,7 @@ struct PhocusRenderingPlan: Equatable {
 
     let exposureCompensationEV: Double?
     let highlightRecovery: Int?
+    let shadowFill: Int?
     let highlightTone: Double?
     let shadowTone: Double?
     let grain: Grain?
@@ -28,8 +29,14 @@ struct PhocusRenderingPlan: Equatable {
     ) -> PhocusRenderingPlan {
         let dynamicRange = settings.dynamicRangeEnabled ? intent?.dynamicRange?.percent : nil
         let highlightRecovery: Int? = switch dynamicRange {
-        case 200: 10
-        case 400: 20
+        case 200: 15
+        case 400: 30
+        default: nil
+        }
+        let shadowFill: Int? = switch settings.dynamicRangeEnabled
+            ? intent?.dynamicRange?.priorityLevel : nil {
+        case "weak": 10
+        case "strong", "plus": 20
         default: nil
         }
         let tone = settings.toneCurveEnabled ? intent?.toneCurve : nil
@@ -44,7 +51,7 @@ struct PhocusRenderingPlan: Equatable {
         }
         let creative = intent?.creative
         let saturation = settings.colorRenderingEnabled
-            ? creative?.color?.step.map { min(40, max(-40, Int(($0 * 10).rounded()))) }
+            ? creative?.color?.step.map { min(20, max(-20, Int(($0 * 5).rounded()))) }
             : nil
         let contrast: Int? = settings.contrastRenderingEnabled
             ? creative?.contrast?.value.flatMap(Self.contrastValue)
@@ -66,6 +73,7 @@ struct PhocusRenderingPlan: Equatable {
         return PhocusRenderingPlan(
             exposureCompensationEV: settings.exposurePolicy == .matchFujifilm ? recommendedExposureEV : nil,
             highlightRecovery: highlightRecovery,
+            shadowFill: shadowFill,
             highlightTone: tone?.highlight,
             shadowTone: tone?.shadow,
             grain: grain,
@@ -205,6 +213,7 @@ enum PhocusSidecarWriter {
         correction["ApplyLensCorrection"] = plan.lensCorrectionMask != 0
         correction["LensCorrection"] = plan.lensCorrectionMask
         correction["HighlightRecovery"] = plan.highlightRecovery ?? 0
+        correction["ShadowFill"] = plan.shadowFill ?? 0
         if let saturation = plan.saturation { correction["Saturation"] = saturation }
         if let contrast = plan.contrast { correction["Contrast"] = contrast }
         if let clarity = plan.clarity {
@@ -268,8 +277,8 @@ enum PhocusSidecarWriter {
     }
 
     private static func toneCurvePoints(highlight: Double, shadow: Double) -> [[String: Any]] {
-        let shadowY = min(255, max(0, Int((64 - shadow * 8).rounded())))
-        let highlightY = min(255, max(0, Int((192 + highlight * 8).rounded())))
+        let shadowY = min(255, max(0, Int((64 - shadow * 10).rounded())))
+        let highlightY = min(255, max(0, Int((192 + highlight * 10).rounded())))
         return [
             ["X": 0, "Y": 0, "DY": 1],
             ["X": 64, "Y": shadowY, "DY": 1],

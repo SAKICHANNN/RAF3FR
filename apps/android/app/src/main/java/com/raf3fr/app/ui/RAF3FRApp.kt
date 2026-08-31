@@ -288,6 +288,9 @@ private fun TaskPane(
                 modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
+                ChoiceChip(words.cameraJpegMatch, settings.distortionModel == DistortionModel.CAMERA_JPEG) {
+                    onUpdateSettings { it.copy(distortionModel = DistortionModel.CAMERA_JPEG) }
+                }
                 ChoiceChip(words.nativeMatch, settings.distortionModel == DistortionModel.NATIVE_MATCH) {
                     onUpdateSettings { it.copy(distortionModel = DistortionModel.NATIVE_MATCH) }
                 }

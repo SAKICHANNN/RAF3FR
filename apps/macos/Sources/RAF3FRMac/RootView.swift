@@ -568,14 +568,31 @@ private struct MetadataButtonStyle: ButtonStyle {
 private struct BatchCaptureNavigation: View {
     @ObservedObject var model: AppModel
     var body: some View {
-        HStack(spacing: 9) {
-            Button(action: model.showPreviousSourcePresentation) { Image(systemName: "chevron.left") }
+        ZStack {
+            HStack(spacing: 0) {
+                Button(action: model.showPreviousSourcePresentation) {
+                    Image(systemName: "chevron.left")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
                 .disabled(model.sourcePresentationIndex == 0)
-            Text("\(model.sourcePresentationIndex + 1) / \(model.sourceURLs.count)")
-                .font(.system(size: 9, weight: .semibold).monospacedDigit()).foregroundStyle(ProductTheme.muted)
-            Button(action: model.showNextSourcePresentation) { Image(systemName: "chevron.right") }
+                Spacer(minLength: 44)
+                Button(action: model.showNextSourcePresentation) {
+                    Image(systemName: "chevron.right")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
                 .disabled(model.sourcePresentationIndex + 1 == model.sourceURLs.count)
-        }.buttonStyle(IconButtonStyle())
+            }
+            .buttonStyle(IconButtonStyle())
+
+            Text("\(model.sourcePresentationIndex + 1)/\(model.sourceURLs.count)")
+                .font(.system(size: 9, weight: .semibold).monospacedDigit())
+                .foregroundStyle(ProductTheme.muted)
+                .frame(width: 44, height: 40, alignment: .center)
+                .allowsHitTesting(false)
+        }
+        .frame(width: 124, height: 40, alignment: .center)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(model.sourcePresentationIndex + 1)/\(model.sourceURLs.count)")
     }
 }
 

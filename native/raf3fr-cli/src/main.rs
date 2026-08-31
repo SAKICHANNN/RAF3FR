@@ -63,6 +63,7 @@ fn convert_arguments(
             }
             "--distortion-model" => {
                 options.distortion_model = match value {
+                    "camera-jpeg" => raf3fr_core::DistortionModel::CameraJpeg,
                     "native-match" => raf3fr_core::DistortionModel::NativeMatch,
                     "legacy-in-bounds" => raf3fr_core::DistortionModel::LegacyInBounds,
                     _ => bail!("unsupported distortion model: {value}"),
@@ -161,7 +162,7 @@ fn main() -> anyhow::Result<()> {
         )?;
         let (lens_payload, lens) = raf3fr_core::build_lens_opcode_list(
             &decoded.metadata.fuji_private,
-            raf3fr_core::DistortionModel::NativeMatch,
+            raf3fr_core::DistortionModel::CameraJpeg,
             1.0,
             1.0,
             0.0,

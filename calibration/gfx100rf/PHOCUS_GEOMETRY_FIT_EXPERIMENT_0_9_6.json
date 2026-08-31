@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "accepted_for_0_9_6",
+  "authority": "original in-camera JPEG versus full-size Phocus render",
+  "alignment": "centre-only translation, rotation and uniform scale",
+  "prohibited": [
+    "full-frame homography",
+    "RANSAC evaluation inlier mask"
+  ],
+  "fit": "equal-scene and equal-occupied-radius-bin Huber IRLS using DNG WarpRectilinear radial and tangential equations",
+  "standard": "Adobe Digital Negative Specification 1.7.1.0, WarpRectilinear opcode ID 1",
+  "training_stems": [
+    "DSCF1774",
+    "DSCF2277",
+    "DSCF2279",
+    "DSCF2306"
+  ],
+  "holdout_stems": [
+    "DSCF1791",
+    "DSCF2286",
+    "DSCF2290",
+    "DSCF2308"
+  ],
+  "candidate_green_coefficients": [
+    1.0342072867488865,
+    -0.09747928869977876,
+    -0.0009676148258258296,
+    0.007647450440475954,
+    -0.000006957220381847184,
+    -0.000015691195800021954
+  ],
+  "center": [
+    0.50009205067,
+    0.499039419533
+  ],
+  "invertibility_grid": {
+    "minimum_dFxdx": 0.8456264511369227,
+    "minimum_dFydy": 0.8882034540056338,
+    "minimum_jacobian_determinant": 0.7456906129136281
+  },
+  "claim_boundary": "Fresh 3FR files were rendered at full size by Phocus and remeasured without residual rejection. The user accepted the full-frame edge and blink review on 2026-08-31. This closes the selected GFX100RF 35 mm F4 review set, not universal optical equivalence."
+}

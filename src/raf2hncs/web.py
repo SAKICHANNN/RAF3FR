@@ -181,7 +181,7 @@ class WebApp:
             jobs = [asdict(item) for item in sorted(self._jobs.values(), key=lambda x: x.created_at, reverse=True)]
         return {
             "app": "raf2hncs",
-            "version": "0.9.5",
+            "version": "0.9.6",
             "donor": self.donor_info(),
             "defaults": {
                 "white_balance": "auto",
@@ -190,7 +190,7 @@ class WebApp:
                 "sensor_mapping": "wb-adaptive-bootstrap",
                 "preview": "source",
                 "donor_lens_correction": "neutralize",
-                "distortion_model": "native-match",
+                "distortion_model": "camera-jpeg",
                 "lens_correction": {
                     "distortion_strength": 1.0,
                     "vignetting_strength": 0.0,
@@ -503,7 +503,7 @@ def parse_options(query: dict[str, list[str]]) -> dict[str, object]:
     donor_lens_correction = query.get(
         "donor_lens_correction", ["neutralize"]
     )[0]
-    distortion_model = query.get("distortion_model", ["native-match"])[0]
+    distortion_model = query.get("distortion_model", ["camera-jpeg"])[0]
 
     def strength(name: str, default: float) -> float:
         try:
@@ -527,7 +527,7 @@ def parse_options(query: dict[str, list[str]]) -> dict[str, object]:
         raise ValueError("invalid ISO policy")
     if donor_lens_correction not in ("neutralize", "preserve"):
         raise ValueError("invalid donor lens-correction value")
-    if distortion_model not in ("native-match", "legacy-in-bounds"):
+    if distortion_model not in ("camera-jpeg", "native-match", "legacy-in-bounds"):
         raise ValueError("invalid distortion model")
     return {
         "white_balance": white_balance,

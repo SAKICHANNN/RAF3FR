@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-import os
 import hashlib
+import math
+import os
 import struct
 from pathlib import Path
 
@@ -44,7 +45,7 @@ _GFX100RF_DISTORTION = np.asarray(
     ],
     dtype=np.float64,
 )
-_GFX100RF_NATIVE_GREEN = np.asarray(
+_GFX100RF_VENDOR_GREEN = np.asarray(
     [
         1.029268747742375,
         -0.04267719544928282,
@@ -53,6 +54,16 @@ _GFX100RF_NATIVE_GREEN = np.asarray(
     ],
     dtype=np.float64,
 )
+_GFX100RF_CAMERA_JPEG_GREEN = np.asarray(
+    [
+        1.0342072867488865,
+        -0.09747928869977876,
+        -0.0009676148258258296,
+        0.007647450440475954,
+    ],
+    dtype=np.float64,
+)
+_GFX100RF_CAMERA_JPEG_TANGENTIAL = (-0.000006957220381847184, -0.000015691195800021954)
 _GFX100RF_NATIVE_CENTER = (0.500092050670, 0.499039419533)
 
 
@@ -147,17 +158,58 @@ def _maximum_in_bounds_uniform_scale(
     return float(maximum_scale)
 
 
+def _validate_rectilinear_warp(
+    coefficients: tuple[float, float, float, float, float, float],
+    *,
+    center: tuple[float, float],
+    image_width: int,
+    image_height: int,
+) -> None:
+    """Enforce the DNG radial, axis-monotonicity and 2-D invertibility gates."""
+    kr0, kr1, kr2, kr3, kt0, kt1 = coefficients
+    cx = center[0] * (image_width - 1)
+    cy = center[1] * (image_height - 1)
+    mx = max(cx, image_width - 1 - cx)
+    my = max(cy, image_height - 1 - cy)
+    normalizer = math.hypot(mx, my)
+    x = (np.linspace(0.0, image_width - 1, 81) - cx) / normalizer
+    y = (np.linspace(0.0, image_height - 1, 61) - cy) / normalizer
+    dx, dy = np.meshgrid(x, y)
+    radius2 = dx * dx + dy * dy
+    radius4 = radius2 * radius2
+    f = kr0 + kr1 * radius2 + kr2 * radius4 + kr3 * radius4 * radius2
+    slope = kr1 + 2.0 * kr2 * radius2 + 3.0 * kr3 * radius4
+    df_dx = 2.0 * dx * slope
+    df_dy = 2.0 * dy * slope
+    dfx_dx = f + dx * df_dx + 2.0 * kt0 * dy + 6.0 * kt1 * dx
+    dfx_dy = dx * df_dy + 2.0 * kt0 * dx + 2.0 * kt1 * dy
+    dfy_dx = dy * df_dx + 2.0 * kt1 * dy + 2.0 * kt0 * dx
+    dfy_dy = f + dy * df_dy + 2.0 * kt1 * dx + 6.0 * kt0 * dy
+    determinant = dfx_dx * dfy_dy - dfx_dy * dfy_dx
+    radius = np.linspace(0.0, 1.0, 4097)
+    radial_derivative = (
+        kr0 + 3.0 * kr1 * radius**2 + 5.0 * kr2 * radius**4 + 7.0 * kr3 * radius**6
+    )
+    if (
+        float(np.min(radial_derivative)) <= 0.0
+        or float(np.min(dfx_dx)) <= 0.0
+        or float(np.min(dfy_dy)) <= 0.0
+        or float(np.min(determinant)) <= 0.0
+    ):
+        raise ValueError("calibrated DNG warp violates invertibility or axis monotonicity")
+
+
 def fuji_warp_rectilinear_opcode(
     decoded: dict[str, object],
     *,
-    distortion_model: str = "native-match",
+    distortion_model: str = "camera-jpeg",
     distortion_strength: float = 1.0,
     chromatic_aberration_strength: float = 1.0,
     image_width: int = 11664,
     image_height: int = 8750,
 ) -> tuple[bytes, dict[str, object]]:
     """Encode a Fuji per-image distortion/CA profile as DNG WarpRectilinear."""
-    if distortion_model not in ("native-match", "legacy-in-bounds"):
+    if distortion_model not in ("camera-jpeg", "native-match", "legacy-in-bounds"):
         raise ValueError(f"unsupported distortion model: {distortion_model}")
     splines = _profile_splines(
         decoded,
@@ -174,7 +226,7 @@ def fuji_warp_rectilinear_opcode(
     base_coefficients = [fit[0] for fit in fits]
     center = (0.5, 0.5)
     if (
-        distortion_model == "native-match"
+        distortion_model in ("camera-jpeg", "native-match")
         and _is_gfx100rf_fixed_lens_profile(decoded)
     ):
         reference = _profile_splines(
@@ -191,13 +243,24 @@ def fuji_warp_rectilinear_opcode(
             )[0],
             dtype=np.float64,
         )
-        calibration_delta = _GFX100RF_NATIVE_GREEN - reference_green
+        target_green = (
+            _GFX100RF_CAMERA_JPEG_GREEN
+            if distortion_model == "camera-jpeg"
+            else _GFX100RF_VENDOR_GREEN
+        )
+        calibration_delta = target_green - reference_green
+        tangential = (
+            tuple(distortion_strength * value for value in _GFX100RF_CAMERA_JPEG_TANGENTIAL)
+            if distortion_model == "camera-jpeg"
+            else (0.0, 0.0)
+        )
         coefficients = [
             tuple(
                 float(value)
                 for value in np.asarray(plane, dtype=np.float64)
                 + distortion_strength * calibration_delta
             )
+            + tangential
             for plane in base_coefficients
         ]
         center = tuple(
@@ -205,8 +268,16 @@ def fuji_warp_rectilinear_opcode(
             for value in _GFX100RF_NATIVE_CENTER
         )
         framing = {
-            "policy": "gfx100rf_native_vendor_render_match_v1",
-            "calibration": "calibration/gfx100rf/NATIVE_DISTORTION_MATCH_0_9_4.json",
+            "policy": (
+                "gfx100rf_camera_jpeg_phocus_fit_experimental_v3"
+                if distortion_model == "camera-jpeg"
+                else "gfx100rf_native_vendor_render_match_v1"
+            ),
+            "calibration": (
+                "calibration/gfx100rf/PHOCUS_GEOMETRY_FIT_EXPERIMENT_0_9_6.json"
+                if distortion_model == "camera-jpeg"
+                else "calibration/gfx100rf/NATIVE_DISTORTION_MATCH_0_9_4.json"
+            ),
             "image_width": int(image_width),
             "image_height": int(image_height),
             "strength_interpolation": float(distortion_strength),
@@ -218,7 +289,7 @@ def fuji_warp_rectilinear_opcode(
             image_height=image_height,
         )
         coefficients = [
-            tuple(float(framing_scale * value) for value in plane)
+            tuple(float(framing_scale * value) for value in plane) + (0.0, 0.0)
             for plane in base_coefficients
         ]
         framing = {
@@ -228,14 +299,16 @@ def fuji_warp_rectilinear_opcode(
             "image_height": int(image_height),
             "guarantee": "centred radial boundary remains within the source rectangle",
         }
-    probe = np.linspace(0.0, 1.0, 4097)
-    for kr0, kr1, kr2, kr3 in coefficients:
-        derivative = kr0 + 3.0 * kr1 * probe**2 + 5.0 * kr2 * probe**4 + 7.0 * kr3 * probe**6
-        if float(np.min(derivative)) <= 0.0:
-            raise ValueError("calibrated DNG warp is not invertible over the image radius")
+    for values in coefficients:
+        _validate_rectilinear_warp(
+            values,
+            center=center,
+            image_width=image_width,
+            image_height=image_height,
+        )
     parameters = struct.pack(">I", 3)
-    for kr0, kr1, kr2, kr3 in coefficients:
-        parameters += struct.pack(">6d", kr0, kr1, kr2, kr3, 0.0, 0.0)
+    for values in coefficients:
+        parameters += struct.pack(">6d", *values)
     parameters += struct.pack(">2d", *center)
     opcode = struct.pack(">4I", WARP_RECTILINEAR, _DNG_1_3, 0, len(parameters)) + parameters
     report = {
@@ -307,7 +380,7 @@ def fuji_fix_vignette_radial_opcode(
 def fuji_lens_opcode_list(
     decoded: dict[str, object],
     *,
-    distortion_model: str = "native-match",
+    distortion_model: str = "camera-jpeg",
     distortion_strength: float = 1.0,
     chromatic_aberration_strength: float = 1.0,
     vignetting_strength: float = 0.0,

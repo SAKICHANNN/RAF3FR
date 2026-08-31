@@ -105,9 +105,9 @@ def parser() -> argparse.ArgumentParser:
     )
     convert_command.add_argument(
         "--distortion-model",
-        choices=("native-match", "legacy-in-bounds"),
-        default="native-match",
-        help="distortion geometry model (default: calibrated native match)",
+        choices=("camera-jpeg", "native-match", "legacy-in-bounds"),
+        default="camera-jpeg",
+        help="distortion geometry model (default: camera-JPEG match)",
     )
     convert_command.add_argument(
         "--distortion-strength",

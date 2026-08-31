@@ -5,7 +5,7 @@ enum ModelChecks {
     static func main() {
         let defaults = ConversionSettings()
         precondition(defaults.effectiveDistortion == 1)
-        precondition(defaults.effectiveDistortionModel == .nativeMatch)
+        precondition(defaults.effectiveDistortionModel == .cameraJpeg)
         precondition(defaults.effectiveChromaticAberration == 1)
         precondition(defaults.effectiveVignetting == 0)
         precondition(defaults.whiteBalance == .auto)
@@ -54,7 +54,13 @@ enum ModelChecks {
         for expected in ["0.0000", "1.2500", "0.7000", "wb-adaptive-bootstrap"] {
             precondition(arguments.contains(expected), "missing argument \(expected)")
         }
-        precondition(arguments.contains("native-match"))
+        precondition(arguments.contains("camera-jpeg"))
+        settings.distortionModel = .nativeMatch
+        precondition(settings.convertArguments(
+            source: URL(fileURLWithPath: "/tmp/input.RAF"),
+            donor: URL(fileURLWithPath: "/tmp/donor.3FR"),
+            output: URL(fileURLWithPath: "/tmp/output.3FR")
+        ).contains("native-match"))
         settings.distortionModel = .legacyInBounds
         precondition(settings.convertArguments(
             source: URL(fileURLWithPath: "/tmp/input.RAF"),
@@ -173,11 +179,12 @@ enum ModelChecks {
             intent: nil
         ).lensCorrectionMask == 6)
         precondition(defaultRenderingPlan.exposureCompensationEV == 1.72)
-        precondition(defaultRenderingPlan.highlightRecovery == 10)
+        precondition(defaultRenderingPlan.highlightRecovery == 15)
+        precondition(defaultRenderingPlan.shadowFill == nil)
         precondition(defaultRenderingPlan.highlightTone == 1)
         precondition(defaultRenderingPlan.shadowTone == -0.5)
         precondition(defaultRenderingPlan.grain == .init(amount: 40, granularity: 50, roughness: 15))
-        precondition(defaultRenderingPlan.saturation == 30)
+        precondition(defaultRenderingPlan.saturation == 15)
         precondition(defaultRenderingPlan.contrast == 0)
         precondition(defaultRenderingPlan.clarity == 10)
         precondition(defaultRenderingPlan.sharpnessAmount == 125)
@@ -228,6 +235,7 @@ enum ModelChecks {
         )
         precondition(linearPlan.exposureCompensationEV == nil)
         precondition(linearPlan.highlightRecovery == nil)
+        precondition(linearPlan.shadowFill == nil)
         precondition(abs((try! PhocusSidecarWriter.linearMultiplier(for: 0.72)) - 1.6471820345) < 1e-9)
         precondition(abs((try! PhocusSidecarWriter.linearMultiplier(for: 1.72)) - 3.2943640691) < 1e-9)
         do {
@@ -236,8 +244,8 @@ enum ModelChecks {
         } catch {}
         if let appPath = ProcessInfo.processInfo.environment["RAF3FR_APP_BUNDLE"],
            let appBundle = Bundle(path: appPath) {
-            precondition(ProductVersion.short(in: appBundle) == "V 0.9.5")
-            precondition(ProductVersion.detailed(in: appBundle) == "V 0.9.5  ·  BUILD 16")
+            precondition(ProductVersion.short(in: appBundle) == "V 0.9.6")
+            precondition(ProductVersion.detailed(in: appBundle) == "V 0.9.6  ·  BUILD 17")
             let probeDirectory = FileManager.default.temporaryDirectory
                 .appendingPathComponent("raf3fr-sidecar-\(UUID().uuidString)", isDirectory: true)
             try! FileManager.default.createDirectory(at: probeDirectory, withIntermediateDirectories: true)
@@ -252,7 +260,7 @@ enum ModelChecks {
                 intent: sourcePresentation.renderingIntent,
                 framing: sourcePresentation.framing
             )
-            precondition(renderingPlan.highlightRecovery == 10)
+            precondition(renderingPlan.highlightRecovery == 15)
             precondition(renderingPlan.grain == .init(amount: 40, granularity: 50, roughness: 15))
             let sidecar = try! PhocusSidecarWriter.writeIfAbsent(
                 for: probeOutput,
@@ -267,11 +275,12 @@ enum ModelChecks {
             let correction = imageSettings[0]["ImageCorrection"] as! [String: Any]
             precondition(abs((correction["EV"] as! Double) - 3.2943640691) < 1e-9)
             precondition(correction["ApplyEV"] as? Bool == true)
-            precondition(correction["HighlightRecovery"] as? Int == 10)
+            precondition(correction["HighlightRecovery"] as? Int == 15)
+            precondition(correction["ShadowFill"] as? Int == 0)
             precondition(correction["ApplyFilmGrain"] as? Bool == true)
             precondition(correction["FilmGrainAmount"] as? Int == 40)
             precondition(correction["FilmGrainSize"] as? Int == 50)
-            precondition(correction["Saturation"] as? Int == 30)
+            precondition(correction["Saturation"] as? Int == 15)
             precondition(correction["Contrast"] as? Int == 0)
             precondition(correction["Clarity"] as? Int == 10)
             precondition(correction["USMAmount"] as? Int == 125)
@@ -279,8 +288,8 @@ enum ModelChecks {
             precondition(correction["ApplyGrayScale"] as? Bool == false)
             let gradations = correction["Gradations"] as! [[String: Any]]
             let points = gradations[0]["Points"] as! [[String: Any]]
-            precondition(points[1]["Y"] as? Int == 68)
-            precondition(points[2]["Y"] as? Int == 200)
+            precondition(points[1]["Y"] as? Int == 69)
+            precondition(points[2]["Y"] as? Int == 202)
             precondition(correction["ApplyCNFilter"] as? Bool == false)
             precondition(correction["ApplyNoiseFilterBias"] as? Bool == false)
             precondition(correction["ApplyLensCorrection"] as? Bool == true)
@@ -319,7 +328,29 @@ enum ModelChecks {
             recommendedExposureEV: 2.72,
             intent: response.captureMetadata?.renderingIntent
         )
-        precondition(dr400Plan.highlightRecovery == 20)
+        precondition(dr400Plan.highlightRecovery == 30)
+        precondition(dr400Plan.shadowFill == nil)
+        let dr100Intent = try! responseDecoder.decode(
+            FujiRenderingIntent.self,
+            from: Data("{\"dynamic_range\":{\"percent\":100}}".utf8)
+        )
+        let dr100Plan = PhocusRenderingPlan.make(
+            settings: defaults,
+            recommendedExposureEV: 0.72,
+            intent: dr100Intent
+        )
+        precondition(dr100Plan.highlightRecovery == nil)
+        let priorityJSON = Data("""
+        {"dynamic_range":{"percent":400,"priority_mode":"fixed","priority_level":"strong"}}
+        """.utf8)
+        let priorityIntent = try! responseDecoder.decode(FujiRenderingIntent.self, from: priorityJSON)
+        let priorityPlan = PhocusRenderingPlan.make(
+            settings: defaults,
+            recommendedExposureEV: 2.72,
+            intent: priorityIntent
+        )
+        precondition(priorityPlan.highlightRecovery == 30)
+        precondition(priorityPlan.shadowFill == 20)
         if let donorPath = ProcessInfo.processInfo.environment["RAF3FR_BUNDLED_DONOR"] {
             try! BundledDonor.validate(URL(fileURLWithPath: donorPath))
         }

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raf2hncs"
-version = "0.8.0"
+version = "0.9.6"
 description = "Transplant a GFX100RF Bayer mosaic into an X2D 100C 3FR donor"
 requires-python = ">=3.9"
 dependencies = ["numpy>=2.0", "scipy>=1.13,<2"]

@@ -78,7 +78,7 @@ h1 { margin: 0; font-size: 28px; line-height: 1.1; letter-spacing: -.035em; font
 .segmented input:checked + span { color: var(--text); background: #292a26; box-shadow: inset 0 -2px var(--orange); }
 .segmented input:focus-visible + span { outline: 2px solid var(--orange-soft); outline-offset: -2px; }
 .lens-model-section { margin: 0 0 12px; }
-.lens-model-options { grid-template-columns: repeat(2, 1fr); }
+.lens-model-options { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 .lens-controls { border: 0; padding: 0; margin: 28px 0 30px; }
 .lens-controls legend { padding: 0; }

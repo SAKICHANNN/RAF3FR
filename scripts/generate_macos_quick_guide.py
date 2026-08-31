@@ -19,7 +19,7 @@ ORANGE = HexColor("#F26A3D")
 TEXT = HexColor("#F4F1EC")
 MUTED = HexColor("#AAA39B")
 FAINT = HexColor("#746E68")
-VERSION = "0.9.5"
+VERSION = "0.9.6"
 
 
 def register_fonts(project_root: Path) -> None:
@@ -143,7 +143,7 @@ def build(output: Path, project_root: Path, language: str) -> None:
     steps = [
         ("01", "Import RAF", "导入 RAF", "Drop one or more GFX100RF RAF files into the window.", "将一个或多个 GFX100RF RAF 拖入窗口。"),
         ("02", "Review capture", "确认拍摄信息", "Check the preview and open Full metadata for capture, rendering, framing, camera state and provenance.", "确认缩略图，并打开“完整元数据”查看拍摄、渲染、构图、相机状态与来源。"),
-        ("03", "Choose corrections", "选择矫正", "Keep Native match, choose Legacy no-blank-edge in Settings, or adjust lens strengths from -200% to +200%.", "保留“原生匹配”，在设置中选择“旧版无空边”，或在 -200% 到 +200% 范围内调整镜头矫正强度。"),
+        ("03", "Choose corrections", "选择矫正", "Keep Camera JPEG match, choose Vendor RAW or Legacy no-blank-edge in Settings, or adjust lens strengths from -200% to +200%.", "保留“机内 JPEG 匹配”，在设置中选择“厂商 RAW”或“旧版无空边”，也可在 -200% 到 +200% 范围内调整镜头矫正强度。"),
         ("04", "Convert to 3FR", "转换为 3FR", "Choose an output folder. Batch jobs respect the CPU, RAM and parallel-task limits in Settings.", "选择输出文件夹。批量任务遵守设置中的 CPU、RAM 与并行任务上限。"),
         ("05", "Continue in Phocus", "在 Phocus 中继续", "Open the result in Phocus. The 3FR and its sibling .phos file belong together.", "在 Phocus 中打开结果。3FR 与同名 .phos 文件应始终放在一起。"),
     ]
@@ -156,7 +156,7 @@ def build(output: Path, project_root: Path, language: str) -> None:
     y = section(c, language, "01", "White balance", "白平衡", y)
     y = body(c, language, "Auto uses the Fujifilm camera Auto WB measurement. As shot uses the RAF's selected shooting WB. Donor is diagnostic and preserves the X2D template neutral.", "Auto 使用富士相机测得的自动白平衡；拍摄值使用 RAF 中的拍摄白平衡；供体仅用于诊断并保留 X2D 模板中性点。", y, 9.4)
     y = section(c, language, "02", "Lens profile", "镜头配置", y)
-    y = card(c, language, y, "DISTORTION MODEL", "畸变模型", "Native match is the 0.9.4 calibrated default. Legacy no-blank-edge reproduces the exact 0.9.3 maximum-in-bounds geometry for preference and comparison.", "“原生匹配”是 0.9.4 起的校准默认值；“旧版无空边”精确复现 0.9.3 的最大无空边几何，供偏好与对比使用。", 76)
+    y = card(c, language, y, "DISTORTION MODEL", "畸变模型", "Camera JPEG match is the 0.9.6 default. Vendor RAW preserves the 0.9.5 native-render geometry; Legacy no-blank-edge preserves 0.9.3 framing.", "“机内 JPEG 匹配”是 0.9.6 默认值；“厂商 RAW”保留 0.9.5 原生渲染几何；“旧版无空边”保留 0.9.3 构图。", 76)
     y = card(c, language, y, "DISTORTION STRENGTH", "畸变强度", "+100% applies the selected model. 0% preserves the complete uncorrected framing; negative values reverse direction.", "+100% 应用所选模型；0% 保留完整未矫正视野；负值反向应用。", 66)
     y = card(c, language, y, "CHROMATIC ABERRATION", "色差", "The same signed scale applies independently to lateral chromatic aberration.", "横向色差使用相同的独立正负比例。", 70)
     y = card(c, language, y, "VIGNETTING", "暗角", "Default 0% preserves native vignetting. Positive values correct; negative values use pointwise falloff plus non-periodic noise compensation without frequency-split light halos.", "默认 0% 保留原生暗角；正值矫正；负值使用逐像素衰减与无周期噪声补偿，不再以频率拆分制造灯边暗圈。", 70)
@@ -166,7 +166,7 @@ def build(output: Path, project_root: Path, language: str) -> None:
 
     header(c, 4, choose(language, "Phocus rendering", "Phocus 渲染"), language)
     y = title(c, language, "Editable rendering intent", "可编辑的渲染意图", PAGE_H - 92)
-    y = card(c, language, y, "EXPOSURE & DR  ·  DEFAULT ON", "曝光与 DR  ·  默认开启", "Per-file RawExposureBias becomes editable EV. DR100 / 200 / 400 map to 0 / 10 / 20 Highlight Recovery without scaling the RAW mosaic.", "逐文件 RawExposureBias 转成可编辑 EV；DR100 / 200 / 400 映射到 0 / 10 / 20 高光恢复，不缩放 RAW 马赛克。", 92)
+    y = card(c, language, y, "EXPOSURE & DR  ·  DEFAULT ON", "曝光与 DR  ·  默认开启", "Per-file RawExposureBias becomes editable EV. DR100 / 200 / 400 map to 0 / 15 / 30 Highlight Recovery without scaling the RAW mosaic.", "逐文件 RawExposureBias 转成可编辑 EV；DR100 / 200 / 400 映射到 0 / 15 / 30 高光恢复，不缩放 RAW 马赛克。", 92)
     y = card(c, language, y, "TONE & GRAIN  ·  DEFAULT ON", "曲线与颗粒  ·  默认开启", "Fuji highlight/shadow steps become a master curve. Weak/Strong grain maps to Amount 20/40; Small/Large to Granularity 25/50. These remain bounded approximations.", "富士高光/阴影档位转成主曲线；弱/强颗粒映射到 20/40，小/大映射到 25/50。它们均为有边界的近似。", 102)
     y = card(c, language, y, "COLOR, CONTRAST & CLARITY", "色彩、反差与清晰度", "Camera steps map monotonically to zero-centered global Phocus adjustments. Film Simulation and Color Chrome identities remain recorded rather than being falsely reproduced.", "相机档位单调映射到以零为中心的 Phocus 全局调整。胶片模拟与彩色效果仅保留原值，不伪装成已复刻。", 98)
     card(c, language, y, "SHARPNESS & MONOCHROME", "锐度与黑白", "Conservative USM and neutral grayscale are editable. Forced NoiseFilterBias/CNFilter stays off; Fuji high-ISO NR and monochrome filter toning remain record-only.", "保守 USM 与中性黑白保持可编辑；强制 NoiseFilterBias/CNFilter 始终关闭。富士高 ISO 降噪与黑白滤镜色调仅记录。", 104)

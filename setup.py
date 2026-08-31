@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="raf2hncs",
-    version="0.7.0",
+    version="0.9.6",
     description="Transplant a GFX100RF Bayer mosaic into an X2D 100C 3FR donor",
     package_dir={"": "src"},
     packages=find_packages("src"),

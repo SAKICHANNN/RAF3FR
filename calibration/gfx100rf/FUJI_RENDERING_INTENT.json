@@ -1,6 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "created_at": "2026-08-29",
+  "updated_at": "2026-08-31",
   "scope": "GFX100RF MakerNote rendering intent to editable Phocus sidecar settings",
   "raw_payload_policy": "immutable linear RAW; rendering intent is written only to the sibling .3FR.phos file",
   "authoritative_sources": [
@@ -103,15 +104,18 @@
       "default_enabled": true
     },
     "dynamic_range": {
-      "mapping": {"100": 0, "200": 10, "400": 20},
-      "phocus_key": "HighlightRecovery",
-      "claim": "bounded approximation preserving the one-stop/two-stop DR ordering; Phocus does not publish a stop calibration for this slider",
+      "mapping": {
+        "manual_dr": {"100": 0, "200": 15, "400": 30},
+        "d_range_priority_shadow_fill": {"weak": 10, "strong": 20, "plus": 20}
+      },
+      "phocus_keys": ["HighlightRecovery", "ShadowFill"],
+      "claim": "bounded monotonic approximation, strengthened from 0/10/20 to 0/15/30 by user visual preference: the official GFX100RF manual defines ordinary DR as highlight-detail protection, while D Range Priority explicitly addresses both highlights and shadows; Phocus does not publish a stop calibration for either slider",
       "default_enabled": true
     },
     "tone_curve": {
       "decode": "camera_step = -MakerNoteRaw/16",
-      "mapping": "master curve anchors: (0,0), (64,64-8*shadow), (192,192+8*highlight), (255,255)",
-      "claim": "bounded approximation based on the controlled highlight pair; not a Fujifilm tone-engine reproduction",
+      "mapping": "master curve anchors: (0,0), (64,64-10*shadow), (192,192+10*highlight), (255,255)",
+      "claim": "bounded monotonic approximation, increased slightly from the controlled-pair baseline by user visual preference; not a Fujifilm tone-engine reproduction",
       "default_enabled": true
     },
     "grain": {
@@ -128,7 +132,7 @@
       "default_enabled": true
     },
     "color": {
-      "mapping": "Phocus Saturation = clamp(Fuji Color step * 10, -40, 40)",
+      "mapping": "Phocus Saturation = clamp(Fuji Color step * 5, -20, 20)",
       "claim": "semantic monotonic approximation; no claim of reproducing a film simulation or Color Chrome",
       "default_enabled": true
     },

@@ -1,0 +1,99 @@
+{
+  "release": {
+    "version": "0.9.6",
+    "macos_build": 17,
+    "android_version_code": 906,
+    "date": "2026-08-31"
+  },
+  "distortion_models": {
+    "default": "camera-jpeg",
+    "compatibility": ["native-match", "legacy-in-bounds"],
+    "camera_jpeg_policy": "gfx100rf_camera_jpeg_phocus_fit_v3",
+    "camera_jpeg_parameters": {
+      "radial": [
+        1.0342072867488865,
+        -0.09747928869977876,
+        -0.0009676148258258296,
+        0.007647450440475954
+      ],
+      "tangential": [-0.000006957220381847184, -0.000015691195800021954]
+    },
+    "native_policy": "gfx100rf_native_vendor_render_match_v1",
+    "legacy_policy": "maximum_in_bounds_rectilinear_frame",
+    "visual_acceptance": "User accepted the full-frame camera-JPEG, edge-overlay and blink review on 2026-08-31."
+  },
+  "rendering_intent": {
+    "dynamic_range_highlight_recovery": {
+      "DR100": 0,
+      "DR200": 15,
+      "DR400": 30
+    },
+    "d_range_priority_shadow_fill": {
+      "weak": 10,
+      "strong": 20
+    },
+    "boundary": "These are editable Phocus rendering approximations. They do not scale or clip the linear RAW payload."
+  },
+  "real_conversion": {
+    "source_model": "GFX 100RF",
+    "source_sha256": "7ffde7114fa3b81bee9f6c532a0aceb92376a8b7a085c30ba60439447b8edb24",
+    "source_unchanged": true,
+    "output_sha256": "a4b6ee475509da817b6e2cb6716df5f8c9542add2e121f690ad8bbaecb213956",
+    "output_bytes": 213315794,
+    "default_distortion_model": "camera-jpeg",
+    "default_white_balance": "Fuji Auto WB",
+    "default_hnnr_iso_policy": "HNNR-safe",
+    "distortion_enabled": true,
+    "chromatic_aberration_enabled": true,
+    "vignetting_enabled": false,
+    "source_manifest_match": true,
+    "verification_exit_code": 0
+  },
+  "automated_checks": {
+    "python": "114 passed",
+    "rust_core": "21 passed",
+    "rust_jni": "3 passed",
+    "rust_format": "passed",
+    "macos": "debug build, release build, source model checks and packaged model checks passed",
+    "macos_ui": "Packaged 0.9.6/build 17 launched from its absolute path; English default, Chinese switch, Camera JPEG default and all three geometry modes were observed through Accessibility.",
+    "android": "unit tests, release assembly and release lint passed",
+    "android_runtime": "not claimed: no physical Android-device launch was performed for this release"
+  },
+  "artifacts": {
+    "macos_archive": {
+      "name": "RAF3FR-0.9.6-macOS-arm64.zip",
+      "bytes": 43814505,
+      "sha256": "1bb18d556e79d76007a7f706a62e1c605b6a518a5f0152d6d1e7111d8d29f44b",
+      "architecture": "arm64",
+      "signing": "ad-hoc codesign; deep strict verification passed",
+      "notarized": false,
+      "archive_integrity": "passed"
+    },
+    "android_apk": {
+      "name": "RAF3FR-0.9.6-android-arm64.apk",
+      "bytes": 16192354,
+      "sha256": "a7f5524a89814afd1ff867f2f343531855fec763ff64913bbf9f831345e0e0c5",
+      "package": "com.raf3fr.app",
+      "minimum_api": 26,
+      "target_api": 36,
+      "certificate_sha256": "e191b275629127e7815137019bebfc338adabca675c217dce065e1869ef04e64",
+      "signature_schemes": ["v2", "v3"],
+      "zipalign_16k": "passed",
+      "native_load_alignment": "0x4000",
+      "bundled_template_sha256": "1e7373384843a803eb986b42bf75e044142f029805db86018fa2f68b47643fd6"
+    },
+    "english_manual": {
+      "name": "RAF3FR-0.9.6-Quick-Guide-EN.pdf",
+      "pages": 5,
+      "bytes": 17649,
+      "sha256": "e6382d9a09f56cddbd6cbc233630281510ceaf20935f882c8d725a02c2a41c4f"
+    },
+    "chinese_manual": {
+      "name": "RAF3FR-0.9.6-Quick-Guide-ZH.pdf",
+      "pages": 5,
+      "bytes": 168797,
+      "sha256": "f6144a6630d803efb11915ac461712f1e99243913bb1e243e371064b202cae98"
+    }
+  },
+  "claim_boundary": "User acceptance closes the selected GFX100RF 35 mm F4 geometry review, not universal optical or colorimetric equivalence. Container compatibility and a successful Phocus path do not prove spectral identity with a native X2D capture."
+}

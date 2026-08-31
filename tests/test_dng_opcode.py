@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import struct
 from pathlib import Path
 
@@ -101,7 +102,7 @@ def test_fuji_warp_framing_maximizes_view_without_sampling_outside() -> None:
     boundaries = (np.hypot(horizontal, edge_y), np.hypot(edge_x, vertical))
     maximum_boundary_scale = 0.0
     for coefficients in report["coefficients"]:
-        kr0, kr1, kr2, kr3 = coefficients
+        kr0, kr1, kr2, kr3 = coefficients[:4]
         for radius in boundaries:
             radius2 = radius * radius
             scale = kr0 + kr1 * radius2 + kr2 * radius2**2 + kr3 * radius2**3
@@ -110,17 +111,21 @@ def test_fuji_warp_framing_maximizes_view_without_sampling_outside() -> None:
     assert maximum_boundary_scale > 1.0 - 1e-8
 
 
-def test_gfx100rf_profile_uses_held_out_vendor_geometry_calibration() -> None:
+def test_gfx100rf_profile_uses_held_out_camera_jpeg_geometry_calibration() -> None:
+    evidence = json.loads(
+        (
+            Path(__file__).parents[1]
+            / "calibration/gfx100rf/PHOCUS_GEOMETRY_FIT_EXPERIMENT_0_9_6.json"
+        ).read_text()
+    )
     opcode, report = fuji_warp_rectilinear_opcode(_gfx100rf_profile())
-    assert report["framing"]["policy"] == "gfx100rf_native_vendor_render_match_v1"
+    assert (
+        report["framing"]["policy"]
+        == "gfx100rf_camera_jpeg_phocus_fit_experimental_v3"
+    )
     assert np.allclose(
         report["coefficients"][1],
-        [
-            1.029268747742375,
-            -0.04267719544928282,
-            -0.13848667506081908,
-            0.10394817611116454,
-        ],
+        evidence["candidate_green_coefficients"],
         rtol=0.0,
         atol=2e-12,
     )
@@ -128,6 +133,30 @@ def test_gfx100rf_profile_uses_held_out_vendor_geometry_calibration() -> None:
         report["center"], [0.500092050670, 0.499039419533], rtol=0.0, atol=1e-15
     )
     assert struct.unpack(">2d", opcode[-16:]) == tuple(report["center"])
+    assert np.allclose(
+        report["coefficients"][1][4:],
+        [-0.000006957220381847184, -0.000015691195800021954],
+        rtol=0.0,
+        atol=1e-18,
+    )
+
+    _, vendor = fuji_warp_rectilinear_opcode(
+        _gfx100rf_profile(), distortion_model="native-match"
+    )
+    assert vendor["framing"]["policy"] == "gfx100rf_native_vendor_render_match_v1"
+    assert np.allclose(
+        vendor["coefficients"][1],
+        [
+            1.029268747742375,
+            -0.04267719544928282,
+            -0.13848667506081908,
+            0.10394817611116454,
+            0.0,
+            0.0,
+        ],
+        rtol=0.0,
+        atol=2e-12,
+    )
 
     _, legacy = fuji_warp_rectilinear_opcode(
         _gfx100rf_profile(), distortion_model="legacy-in-bounds"
@@ -151,7 +180,8 @@ def test_gfx100rf_profile_uses_held_out_vendor_geometry_calibration() -> None:
             distortion_strength=float(strength),
             chromatic_aberration_strength=1.0,
         )
-        for kr0, kr1, kr2, kr3 in varied["coefficients"]:
+        for coefficients in varied["coefficients"]:
+            kr0, kr1, kr2, kr3 = coefficients[:4]
             derivative = (
                 kr0
                 + 3.0 * kr1 * radius**2
@@ -166,6 +196,7 @@ def test_combined_profile_defaults_to_warp_without_vignetting() -> None:
     assert payload is not None
     assert struct.unpack(">I", payload[:4])[0] == 1
     assert [item["opcode"] for item in report["opcodes"]] == ["WarpRectilinear"]
+    assert report["distortion_model"] == "camera-jpeg"
     assert report["strengths"] == {
         "distortion": 1.0,
         "lateral_chromatic_aberration": 1.0,

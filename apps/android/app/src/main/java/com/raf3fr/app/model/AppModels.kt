@@ -27,6 +27,7 @@ enum class DonorLensMode(val wire: String) {
 }
 
 enum class DistortionModel(val wire: String) {
+    CAMERA_JPEG("camera-jpeg"),
     NATIVE_MATCH("native-match"),
     LEGACY_IN_BOUNDS("legacy-in-bounds"),
 }
@@ -45,7 +46,7 @@ data class ConversionSettings(
     val sensorMapping: SensorMappingMode = SensorMappingMode.ADAPTIVE,
     val preview: PreviewMode = PreviewMode.SOURCE,
     val donorLens: DonorLensMode = DonorLensMode.NEUTRALIZE,
-    val distortionModel: DistortionModel = DistortionModel.NATIVE_MATCH,
+    val distortionModel: DistortionModel = DistortionModel.CAMERA_JPEG,
     val isoPolicy: IsoPolicy = IsoPolicy.HNNR_STABLE,
     val inverseCalibration: Boolean = false,
     val distortionStrength: Float = 1f,

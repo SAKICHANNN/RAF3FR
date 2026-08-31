@@ -1188,7 +1188,7 @@ def convert(
     sensor_mapping: str = "wb-adaptive-bootstrap",
     preview: str = "source",
     donor_lens_correction: str = "neutralize",
-    distortion_model: str = "native-match",
+    distortion_model: str = "camera-jpeg",
     distortion_strength: float = 1.0,
     chromatic_aberration_strength: float = 1.0,
     vignetting_strength: float = 0.0,

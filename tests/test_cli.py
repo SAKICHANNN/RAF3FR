@@ -1,4 +1,9 @@
+from raf2hncs import __version__
 from raf2hncs.cli import parser
+
+
+def test_package_version_matches_release() -> None:
+    assert __version__ == "0.9.6"
 
 
 def test_convert_defaults_to_hnnr_stable_iso() -> None:

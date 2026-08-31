@@ -25,7 +25,7 @@ def test_parse_options_preserves_safe_defaults() -> None:
         "iso_policy": "hnnr-stable",
         "sensor_mapping": "wb-adaptive-bootstrap",
         "donor_lens_correction": "neutralize",
-        "distortion_model": "native-match",
+        "distortion_model": "camera-jpeg",
         "distortion_strength": 1.0,
         "chromatic_aberration_strength": 1.0,
         "vignetting_strength": 0.0,
@@ -179,6 +179,7 @@ def test_http_state_and_post_guard(tmp_path: Path) -> None:
         with urlopen(base + "/api/state", timeout=2) as response:
             payload = json.load(response)
         assert payload["app"] == "raf2hncs"
+        assert payload["version"] == "0.9.6"
         assert payload["donor"]["configured"] is False
 
         request = Request(base + "/api/jobs", data=b"fake", method="POST")

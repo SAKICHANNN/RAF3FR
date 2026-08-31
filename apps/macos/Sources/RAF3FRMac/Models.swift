@@ -57,12 +57,14 @@ enum NegativeVignettePolicy: String, CaseIterable, Codable, Identifiable {
 }
 
 enum DistortionModel: String, CaseIterable, Codable, Identifiable {
+    case cameraJpeg = "camera-jpeg"
     case nativeMatch = "native-match"
     case legacyInBounds = "legacy-in-bounds"
 
     var id: String { rawValue }
     func title(_ language: AppLanguage) -> String {
         switch self {
+        case .cameraJpeg: Copy.text("cameraJpegMatch", language)
         case .nativeMatch: Copy.text("nativeMatch", language)
         case .legacyInBounds: Copy.text("legacyInBounds", language)
         }
@@ -105,7 +107,7 @@ struct HardwarePlan: Equatable {
 struct ConversionSettings: Codable, Equatable {
     var whiteBalance: WhiteBalance = .auto
     var distortionEnabled = true
-    var distortionModel: DistortionModel? = .nativeMatch
+    var distortionModel: DistortionModel? = .cameraJpeg
     var distortionStrength = 1.0
     var chromaticAberrationEnabled = true
     var chromaticAberrationStrength = 1.0
@@ -134,7 +136,7 @@ struct ConversionSettings: Codable, Equatable {
     var donorLensCorrection = "neutralize"
 
     var effectiveDistortion: Double { distortionEnabled ? distortionStrength : 0 }
-    var effectiveDistortionModel: DistortionModel { distortionModel ?? .nativeMatch }
+    var effectiveDistortionModel: DistortionModel { distortionModel ?? .cameraJpeg }
     var effectiveChromaticAberration: Double {
         chromaticAberrationEnabled ? chromaticAberrationStrength : 0
     }

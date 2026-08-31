@@ -171,7 +171,7 @@ mod tests {
         assert_eq!(options.distortion_strength, 1.0);
         assert_eq!(
             options.distortion_model,
-            raf3fr_core::DistortionModel::NativeMatch
+            raf3fr_core::DistortionModel::CameraJpeg
         );
         assert_eq!(options.iso_policy, raf3fr_core::IsoPolicy::HnnrStable);
         assert_eq!(options.chromatic_aberration_strength, 1.0);

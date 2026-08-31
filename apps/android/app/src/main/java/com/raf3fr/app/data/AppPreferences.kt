@@ -107,7 +107,7 @@ class AppPreferences(private val context: Context) {
         donorLens = enumValue(preferences[Keys.donorLens], DonorLensMode.NEUTRALIZE),
         distortionModel = enumValue(
             preferences[Keys.distortionModel],
-            DistortionModel.NATIVE_MATCH,
+            DistortionModel.CAMERA_JPEG,
         ),
         isoPolicy = enumValue(preferences[Keys.isoPolicy], IsoPolicy.HNNR_STABLE),
         inverseCalibration = preferences[Keys.inverseCalibration] ?: false,

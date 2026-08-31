@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "accepted_for_0_9_6",
+  "candidate": "calibration/gfx100rf/PHOCUS_GEOMETRY_FIT_EXPERIMENT_0_9_6.json",
+  "measurement_contract": {
+    "reference": "original in-camera JPEG file",
+    "candidate": "full-size JPEG exported from the generated 3FR by Phocus",
+    "alignment": "centre-only translation, rotation and uniform scale",
+    "sparse": "all mutual ratio-test matches retained",
+    "dense": "DIS flow confidence uses texture and forward-backward consistency only",
+    "evaluation_width_px": 2000
+  },
+  "scenes": [
+    {"stem":"DSCF1774","split":"training","reference_sha256":"8930a9eed8cb49f07ff15a8cb5875679d66b894e897898968d76eabab4d58a46","phocus_render_sha256":"23b693f743fe7d9a253f5384e21720823969d0a605a27373039b4fde0cbeb735","sparse_edge_p99_px":1.758084659393932,"dense_edge_p99_px":2.399333515167236,"line_curvature_p99_px":0.6594777724703585},
+    {"stem":"DSCF2277","split":"training","reference_sha256":"4869c6f36e0d8afc5b8cac5950f347ad8c35b6c988abb2a52dfea8645547587c","phocus_render_sha256":"a87e719f2b94b254f94d2b3f1c77f7f3b82596b2b1c953677b04a231ea199c6f","sparse_edge_p99_px":0.6698808450454135,"dense_edge_p99_px":1.7850081300735465,"line_curvature_p99_px":0.5092705933606938},
+    {"stem":"DSCF2279","split":"training","reference_sha256":"8154bb8bcc8860de8ed54e7bb38c1d154b2393889e97825e09ef809a1f1e9423","phocus_render_sha256":"05989fc17e3b68dcc8a8ae0826ef1a5b0237f93d56e997f064ca2ecbd45f796f","sparse_edge_p99_px":1.467429407504366,"dense_edge_p99_px":2.4844193744659395,"line_curvature_p99_px":0.29552195620436855},
+    {"stem":"DSCF2306","split":"training","reference_sha256":"cddfb0b7705e13cd49bc1ea4dc6e87392241e4d55de2a043800d754a2f9c6780","phocus_render_sha256":"626354d9fa37e659c34dd586134dda90168493659278f499edad99dcae4b5c37","sparse_edge_p99_px":2.074951347668328,"dense_edge_p99_px":1.412114608287809,"line_curvature_p99_px":0.2296211945284366},
+    {"stem":"DSCF1791","split":"holdout","reference_sha256":"8aa805fd9345fad0be173d239f2460852c80da9ace0f5ac60bc7d3f63dc72aa8","phocus_render_sha256":"df7164c9744a8ca501d1548b09fb4dd4145faf2b1c01bcd81a533f66106ab50f","sparse_edge_p99_px":1.121211346645593,"dense_edge_p99_px":2.562628486156465,"line_curvature_p99_px":0.27257727905310414},
+    {"stem":"DSCF2286","split":"holdout","reference_sha256":"9f44e7c7a8b04f7d168cc09b9628d9d3ed2d3fafeae8a7a8b0636f7fa3f7b1c8","phocus_render_sha256":"fb9cb21797c00dc5582419d4292ad814d3c09ed7fe0929ddc3000157641b652a","sparse_edge_p99_px":1.0621526507265497,"dense_edge_p99_px":4.982935018539425,"line_curvature_p99_px":0.5310949941026837},
+    {"stem":"DSCF2290","split":"holdout","reference_sha256":"477788dde51264cf4bc2819e665847df0b1607a3c4013c584fc65494c536cd2a","phocus_render_sha256":"390d2ab56917ce519180c312735ffba70ed0d83ef2f5dd6fd189b9e624c5118b","sparse_edge_p99_px":90.14226772926821,"dense_edge_p99_px":6.1094550704956045,"line_curvature_p99_px":1.0152423556142964,"diagnostic":"repeated platform lines create mutually matched but spatially false sparse outliers; retained, never used for fitting"},
+    {"stem":"DSCF2308","split":"holdout","reference_sha256":"d97f837c6423fa3832c3f12101643da5696c14723210002cd8c4470df1c40b37","phocus_render_sha256":"666538d248103cd330d9b651057f22b7ea87faf895b22d7f84ddd5d573503253","sparse_edge_p99_px":2.5338487747669847,"dense_edge_p99_px":1.3584531068801882,"line_curvature_p99_px":0.15111723701672392}
+  ],
+  "comparison_to_rejected_candidate": {
+    "holdout_sparse_edge_p99_px": {
+      "DSCF1791": [3.638, 1.121],
+      "DSCF2286": [5.840, 1.062],
+      "DSCF2308": [6.666, 2.534]
+    },
+    "interpretation": "The systematic edge residual is materially reduced in all three original holdouts. Dense-flow tails and the DSCF2290 repeated-line anomaly remain visible rather than filtered out."
+  },
+  "visual_acceptance": {
+    "status": "accepted",
+    "date": "2026-08-31",
+    "scope": "User accepted the 1:1 full-frame image, edge-overlay and blink review for the frozen scene set."
+  },
+  "release_gate": "Passed for 0.9.6. Dense tails and the repeated-line sparse anomaly remain disclosed; acceptance does not claim universal optical equivalence."
+}

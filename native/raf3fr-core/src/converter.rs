@@ -50,6 +50,7 @@ pub enum DonorLensMode {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum DistortionModel {
+    CameraJpeg,
     NativeMatch,
     LegacyInBounds,
 }
@@ -84,7 +85,7 @@ impl Default for ConversionOptions {
             sensor_mapping: SensorMappingMode::WbAdaptiveBootstrap,
             preview: PreviewMode::Source,
             donor_lens_correction: DonorLensMode::Neutralize,
-            distortion_model: DistortionModel::NativeMatch,
+            distortion_model: DistortionModel::CameraJpeg,
             iso_policy: IsoPolicy::HnnrStable,
             inverse_x2d_calibration: false,
             distortion_strength: 1.0,

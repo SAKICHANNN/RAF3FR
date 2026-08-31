@@ -6,8 +6,8 @@
     <meta name="color-scheme" content="dark">
     <meta name="theme-color" content="#111210">
     <title>RAF / 3FR</title>
-    <link rel="stylesheet" href="/app.css">
-    <script src="/app.js" defer></script>
+    <link rel="stylesheet" href="/app.css?v=0.9.6">
+    <script src="/app.js?v=0.9.6" defer></script>
   </head>
   <body>
     <div class="app-shell">
@@ -59,7 +59,8 @@
             <div class="control-section lens-model-section">
               <div class="control-label"><span data-i18n="distortionModel">畸变模型</span></div>
               <div class="segmented lens-model-options" role="radiogroup" aria-label="畸变模型" data-i18n-aria="distortionModel">
-                <label><input type="radio" name="distortion-model" value="native-match" checked><span data-i18n="nativeMatch">原生匹配</span></label>
+                <label><input type="radio" name="distortion-model" value="camera-jpeg" checked><span data-i18n="cameraJpeg">机内 JPEG 匹配</span></label>
+                <label><input type="radio" name="distortion-model" value="native-match"><span data-i18n="nativeMatch">厂商 RAW 匹配</span></label>
                 <label><input type="radio" name="distortion-model" value="legacy-in-bounds"><span data-i18n="legacyInBounds">旧版无空边</span></label>
               </div>
             </div>
